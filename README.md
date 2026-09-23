@@ -24,6 +24,23 @@ When configuring AI for large-scale enterprise software (e.g., 50+ modules, tens
 
 Instead of writing manual prompts for every module, CG crystallizes robust Human–Agent working mechanisms into an **Atom** and packages compatible atoms into a **Pack** for projects or peer Leaves to inject primarily during init/build. Existing `.mdc` assets are Cursor-format reference implementations, not the definition of the Atom model.
 
+## 三分钟：装了之后你的 harness 会多什么（中文）
+
+你已经会用 Claude Code / Codex / Cursor 把东西做出来。这个仓补的是**做出来的东西该长什么样、怎么判它做对没**——这一层不在 harness 里，在这里。
+
+- 第一份面向外部使用者的包：[`delivery-data-app`](stable/packs/delivery-data-app/README.md)（v0.1）——产物规范 + 信息架构规范 + 收工机器检查器 + 领域清单入口 + 设计稿六段模板。给「会用 harness、不懂产品设计」的人。
+- 装法（在你的项目根目录）：
+
+```bash
+git clone --filter=blob:none --sparse https://github.com/SYMlp/cursor-genesis.git .cursor-genesis
+cd .cursor-genesis && git sparse-checkout set stable/packs/delivery-data-app scripts && cd ..
+python .cursor-genesis/scripts/install-pack.py delivery-data-app . --source .cursor-genesis
+```
+
+- 装完做两件事才算生效：把 `.agents/rules/data-app-norms.AGENTS-snippet.md` 那几行贴进你项目的 `AGENTS.md`；Claude Code 用户把 `.agents/adapters/claude-code/settings.hooks.json` 里的 Stop hook 并进 `.claude/settings.json`（Codex 在 `/hooks` 里信任一次）。
+- 然后说「选领域」。清单告诉你我们在你的领域有什么、你要备哪些材料；没有你的领域就走空白领域流程，把它让你填的材料清单贴回 issue——那是下一章该写什么的唯一依据。
+- 这个仓不装任何判断结论、不联网、不替你推演；推演在你自己的 harness 里跑。
+
 ## Proven Assets: Enterprise Meta-Rules
 
 Extracted from a real-world enterprise system delivery (6 domains, 50+ modules, zero to acceptance in 2 weeks), this repository still physically contains meta-rules that govern how an Agent should behave in a massive codebase. In KG, the enterprise-delivery concern has already been logically split from CG; the physical assets remain here until a later, separately approved triage or move.
@@ -74,6 +91,7 @@ User-facing scenario combinations. Users don't pick atoms; they install packs.
 - `deep-research/`: A Plan → Execute → Synthesize research workflow.
 - `knowledge-manage/`: Knowledge system management pack.
 - `create-toolkit/`: Project scaffolding toolkit.
+- **`delivery-data-app/`**: **Delivery · Data App Pack** (v0.1) — product norms + information-architecture norms + a stdlib validator mounted at the Stop hook + a domain-menu skill + a six-section design-doc template, for people who can run a harness but have never designed a product. [→ View Pack](stable/packs/delivery-data-app/README.md)
 
 ## Current Cursor Reference Usage
 

@@ -1,0 +1,15 @@
+{
+  "_comment": "把 hooks.Stop 这一段并进你项目的 .claude/settings.json；已有 Stop 数组就把里面的对象追加进去。检查器只在收工时扫改过的 HTML，不过就拦一次。",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python .agents/validators/data-app-norms-check/scripts/check_data_app_norms.py --stop-hook"
+          }
+        ]
+      }
+    ]
+  }
+}

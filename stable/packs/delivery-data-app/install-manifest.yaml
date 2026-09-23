@@ -1,0 +1,38 @@
+# delivery-data-app Pack 安装清单
+# install-pack.py 读取此文件：全部部署到公共作者层 .agents/，宿主各自薄适配（见 README「到场」）
+
+pack: delivery-data-app
+version: 0.1.0
+description: 业务交付 · 数据应用——给会用 harness 但不懂产品设计的人：产物规范 + 信息架构规范 + 机器检查器 + 领域清单入口 + 设计稿六段模板
+record_root: .agents
+
+mappings:
+  # 规范（guidance；4 条由检查器机器查）
+  - source: rules/data-app-norms.md
+    target_root: .agents
+    target: rules/data-app-norms.md
+  - source: rules/AGENTS-snippet.md
+    target_root: .agents
+    target: rules/data-app-norms.AGENTS-snippet.md
+
+  # 领域清单入口（用户点名调用的 skill）
+  - source: skills/domain-menu
+    target_root: .agents
+    target: skills/domain-menu
+    type: directory
+
+  # 设计稿六段模板
+  - source: plan-templates/design-doc-six-sections.md
+    target_root: .agents
+    target: plan-templates/design-doc-six-sections.md
+
+  # 检查器（enforced；stdlib-only）
+  - source: validators/data-app-norms-check
+    target_root: .agents
+    target: validators/data-app-norms-check
+    type: directory
+
+  # Claude Code 薄适配：Stop hook 片段
+  - source: adapters/claude-code/settings.hooks.json
+    target_root: .agents
+    target: adapters/claude-code/settings.hooks.json

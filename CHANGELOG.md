@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `delivery-data-app` v0.1.0：第一份面向外部 harness 使用者的 pack——产物规范 7 条 + 信息架构规范 4 条（`rules/`）、stdlib 收工检查器 `validators/data-app-norms-check`（R1/R3/S2/R7 机器查，S3 warn）、`domain-menu` 领域清单入口 skill（含空白领域流程与材料清单）、设计稿六段模板、Claude Code Stop hook 片段；README 加中文「三分钟」段。判断内核不出门，只出操作面。
 - `create-toolkit` v1.1 的首个工具无关状态型 Workflow：持久化 scaffold/refine/validate/register/complete、Human/Agent Gate、机器 Validator 与有界重试。
 - `.agents/skills/create-skill-workflow` 公共作者层和 `/create-skill` Cursor 薄适配。
 - `create-toolkit` v1.2 的工具无关 `create-subagent-workflow`：持久化能力分析、Skill 依赖检查、Agent Contract、机器 Validator 和宿主适配 Gate。
