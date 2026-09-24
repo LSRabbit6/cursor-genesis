@@ -73,7 +73,7 @@ toys 仓根 = `<工作台仓（私有，本机）>`，下表路径相对它（�
 |:--|:--|:--|
 | `docs/framework.md` | `self-analysis/2026-09-23-复利机制-第二环-宏观稿.md`（B，设计稿；稳定后并进 `PERSONAL-SYSTEM-ARCHITECTURE.md` 新一节） | 在，已入库 |
 | `templates/A-sample.md` | B §6 的 A 模板；样本 `self-analysis/2026-09-23-复利样本-A1-闭环串检.md` 等三份（命名 `YYYY-MM-DD-复利样本-An-<事>.md`，另两份是人际线样本） | 三份在 |
-| `templates/LINE.md` | 设计稿 `self-analysis/2026-09-23-复利第二环-人际线-按排盘关系宫-设计稿.md`（宫图、四阶段、两条链）；实例住各人现有目录 `D:\Project\<关系分组>\…\LINE*.md`；宫图索引在 toys 会话槽 memory `reference_social-network-people` 顶部 | 七份实例在；实例在 toys 仓外，不全进版本控制 |
+| `templates/LINE.md` | 设计稿 `self-analysis/2026-09-23-复利第二环-人际线-按排盘关系宫-设计稿.md`（宫图、四阶段、两条链）；实例住各人现有目录 `<本机>\<关系分组>\…\LINE*.md`；宫图索引在 toys 会话槽 memory `reference_social-network-people` 顶部 | 七份实例在；实例在 toys 仓外，不全进版本控制 |
 | `templates/content-handoff.md` | `dispatch-kernel/templates/content-handoff.md`；契约 `dispatch-kernel/CONTRACT-claude-codex.md`；机读的一半 `dispatch-kernel/routing.yaml` 的 `presentation`；开单闸 `dispatch-kernel/handoff.py`（`--check-handoff` 只查不开单） | 在；**toys 那份被 `.gitignore` 第 56 行兜住、不在版本史**——本包这份在 cg 提交后是第一份进版本控制的副本 |
 | `templates/codex-receipt.md` | `dispatch-kernel/templates/codex-receipt.md` | 同上 |
 | `docs/in-use-criteria.md` | `self-analysis/2026-09-23-设计在用与否-三层盘点-观测件.md` §0；休眠一态的机器化 = `asset-registry/dormancy.py` | 在，已入库 |
