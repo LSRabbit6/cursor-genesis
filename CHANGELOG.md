@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `domain-menu` 0.2.1：连不上服务且沙箱不让写 `~/.config/cg-menu/pending` 时不再崩，原样打印要交的内容、指引记进本仓纸面收件箱；只读请求失败重试一次。
 - `delivery-data-app` 0.1.0 → 0.2.0：拿掉静态 `skills/domain-menu`（领域清单表与空白领域流程搬到菜单服务的查表数据），否则它一更新就会把客户端覆盖回静态版；README / 索引同步。
 - `scripts/install-pack.py`：加 `--record-source`（菜单服务客户端从临时目录装包时，把服务地址记进 `installed-packs.yaml`，不记临时路径）；加 `from __future__ import annotations`，3.9 也能跑。
 

@@ -30,7 +30,7 @@ import urllib.request
 import zipfile
 from pathlib import Path
 
-CLIENT_VERSION = "0.2.0"
+CLIENT_VERSION = "0.2.1"
 DEFAULT_URL = "https://menu.lsrabbit.space"
 CONFIG_DIR = Path.home() / ".config" / "cg-menu"
 PENDING_DIR = CONFIG_DIR / "pending"
@@ -132,7 +132,14 @@ def _post_or_park(body: dict):
     try:
         return _request("POST", "/v1/requests", body, auth=True)
     except Offline as e:
-        p = _park(body)
+        try:
+            p = _park(body)
+        except OSError as park_err:
+            # 沙箱不让写 home 目录时（Codex workspace-write 常见），别崩：原样吐出来，让 harness 记进本仓的纸面收件箱
+            print(f"服务连不上（{base_url()}：{e}），也存不进 {PENDING_DIR}（{park_err}）。\n"
+                  f"把下面这段原样记进本仓约定的收件箱（比如 docs/组件请求收件箱.md），手上的活照做：\n")
+            print(json.dumps(body, ensure_ascii=False, indent=1))
+            sys.exit(3)
         print(f"服务连不上（{base_url()}：{e}）。\n这次要交的内容存在 {p}，联网后跑 `menu.py resend` 补交。"
               f"\n手上的活照做，别等。")
         sys.exit(3)
