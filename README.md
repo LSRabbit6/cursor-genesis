@@ -92,6 +92,7 @@ User-facing scenario combinations. Users don't pick atoms; they install packs.
 - `knowledge-manage/`: Knowledge system management pack.
 - `create-toolkit/`: Project scaffolding toolkit.
 - **`delivery-data-app/`**: **Delivery · Data App Pack** (v0.1) — product norms + information-architecture norms + a stdlib validator mounted at the Stop hook + a domain-menu skill + a six-section design-doc template, for people who can run a harness but have never designed a product. [→ View Pack](stable/packs/delivery-data-app/README.md)
+- **`second-loop-compounding/`**: **Second-Loop Compounding Pack** (v0.1) — the loop outside execute ⇄ verify: once a task is done, a one-page retrospective template, a per-person relationship-line template, a Claude → Codex content-handoff + receipt template pair, a framework summary, a seven-state "is this design actually in use" rubric, and call notes for the probes that show whether the loop really turns. Templates live here; the running pieces stay in the workbench. [→ View Pack](stable/packs/second-loop-compounding/README.md)
 
 ## Current Cursor Reference Usage
 

@@ -247,6 +247,19 @@ resources:
           - adapters/cursor/render_rule
         install: install-manifest.yaml
 
+      second-loop-compounding:
+        path: stable/packs/second-loop-compounding
+        description: 复利第二环——一件事干完之后的复盘、提炼、归位与下一件开场到场；A 复盘模板、LINE 人际线模板、Claude→Codex 交接包与回执模板、框架摘要、在用与否七态判据、探针调用说明
+        includes:
+          - templates/A-sample
+          - templates/LINE
+          - templates/content-handoff
+          - templates/codex-receipt
+          - docs/framework
+          - docs/in-use-criteria
+          - docs/probes-howto
+        install: install-manifest.yaml
+
 # ============================================================
 # 推荐组合
 # ============================================================

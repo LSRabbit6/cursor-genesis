@@ -188,6 +188,47 @@ categories:
         file: skills/sse-stream-parsing/SKILL.md
         solves: 解决 SSE/NDJSON 流按行分割的跨缓冲区残行解析失败与协议数据泄漏问题
 
+  # 2026-09-24 复利第二环打包接收：toys 工作台当夜落地的「第二个环」运行件的模板原件（框架 + 模板 + 调用说明）；
+  # 判断内核留 kg、人的数据只住各人目录的线文件——此处登记的是可加载的操作面
+  second-loop-compounding:
+    description: 复利第二环——一件事干完之后怎么复盘、提炼、归位、在下一件开场时到场，以及「环转没转」的读数口（pack 形态，正本在 stable/packs/）
+    path: ../packs/second-loop-compounding/
+    items:
+      - id: second-loop-compounding
+        title: 复利第二环套装入口（怎么加载 + 与运行件对应表）
+        file: README.md
+        solves: 解决「干完的事下次怎么用上、凭什么不白干」在新会话或新项目里无处加载的问题；三步加载（读 README → A 模板复盘 → LINE 模板接人际线）+ 模板原件与 toys 运行件的对应表
+        keywords:
+          - 复利
+          - 第二环
+          - compounding
+          - second-loop
+          - 复盘
+      - id: second-loop-framework
+        title: 复利第二环框架摘要
+        file: docs/framework.md
+        solves: 解决把复利误并进任务验收、四类沉淀混成一锅的问题；第二个环五步、四线（认知 / 资产 / 元运维 / 人际）× 三定义（类型 / 提炼方式 / 用途）、两本账、顺序铁律、六块探针、三种活分开跑、交接契约要点、松耦合原则
+      - id: compounding-a-sample-template
+        title: 复利样本 A 模板（一页复盘）
+        file: templates/A-sample.md
+        solves: 解决一件事干完后复盘写厚写散、只写期待没有读数的问题；八问 + 负空间一页：四线提炼、取用账与线上账、探针读数、回填框架缺口、跨线流动
+      - id: person-line-template
+        title: 人际线 LINE.md 模板（每人一份）
+        file: templates/LINE.md
+        solves: 解决对一个人的理解散在会话与记忆长文里、跨会话接不上的问题；九节固定结构（原话 / 四层理解 / 阶段 / 学到分享共同经历 / 两条链带归属 / 三格探针 / 命盘参考层 / 下一次上场 / 负空间），宫当坐标不当预测
+      - id: claude-codex-content-handoff
+        title: Claude → Codex 内容交接包与回执模板
+        file: templates/content-handoff.md
+        solves: 解决 Claude 出内容、Codex 出表达时口头派单、内容口径被改、推翻不说、只读回执就验收的问题；交接包九个必有节 + 回执五节（templates/codex-receipt.md）
+      - id: design-in-use-criteria
+        title: 设计在用与否七态判据
+        file: docs/in-use-criteria.md
+        solves: 解决分不清一个设计、机制或探针是真在用还是只登记过、在跑没人看、休眠的问题；四类证据 + 七态 + 四对区分，休眠一态已机器化
+      - id: compounding-probes-howto
+        title: 复利探针与休眠脚本调用说明
+        file: docs/probes-howto.md
+        solves: 解决探针读数（记忆召回对账、路由对账、判断层取用、判据台账标龄）与休眠摘出在哪跑、读写哪、失败怎么叫人不清楚的问题；toys 运行件的调用、干跑与移植约定
+
 # 关键词（供上层跨节点检索）
 keywords:
   - cursor
@@ -213,3 +254,7 @@ keywords:
   - create-command
   - create-subagent
   - 资产创建
+  - 复利
+  - 第二环
+  - 复盘
+  - 交接契约

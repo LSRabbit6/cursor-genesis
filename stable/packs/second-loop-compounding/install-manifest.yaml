@@ -1,0 +1,38 @@
+# second-loop-compounding Pack 安装清单
+# install-pack.py 读取此文件：全部部署到公共作者层 .agents/，模板进 templates/、说明进 docs/，逐文件映射
+# （不用目录映射：目录映射会先删目标目录，README 与说明同目录时顺序一错就被删）。
+# 装了不等于到场：还要在项目入口放一行路由壳，见 README「怎么加载 · 到场」。
+
+pack: second-loop-compounding
+version: 0.1.0
+description: 复利第二环——一件事干完之后的一页复盘模板、每人一份线文件模板、Claude 到 Codex 的内容交接包与回执模板，加框架摘要、在用与否七态判据、探针调用说明
+record_root: .agents
+
+mappings:
+  # 模板（复制即用）
+  - source: templates/A-sample.md
+    target_root: .agents
+    target: templates/second-loop-compounding/A-sample.md
+  - source: templates/LINE.md
+    target_root: .agents
+    target: templates/second-loop-compounding/LINE.md
+  - source: templates/content-handoff.md
+    target_root: .agents
+    target: templates/second-loop-compounding/content-handoff.md
+  - source: templates/codex-receipt.md
+    target_root: .agents
+    target: templates/second-loop-compounding/codex-receipt.md
+
+  # 说明（读了才生效）
+  - source: README.md
+    target_root: .agents
+    target: docs/second-loop-compounding/README.md
+  - source: docs/framework.md
+    target_root: .agents
+    target: docs/second-loop-compounding/framework.md
+  - source: docs/in-use-criteria.md
+    target_root: .agents
+    target: docs/second-loop-compounding/in-use-criteria.md
+  - source: docs/probes-howto.md
+    target_root: .agents
+    target: docs/second-loop-compounding/probes-howto.md
