@@ -188,6 +188,55 @@ categories:
         file: skills/sse-stream-parsing/SKILL.md
         solves: 解决 SSE/NDJSON 流按行分割的跨缓冲区残行解析失败与协议数据泄漏问题
 
+  # 2026-09-24 补登：delivery-data-app 09-23 入库时只写了 CHANGELOG / 根 README，没进本索引与资源目录（kg 侧更新子模块时发现）
+  delivery-data-app:
+    description: 业务交付 · 数据应用——给会用 harness 但不懂产品设计的人：产物规范 7 条 + 信息架构规范 4 条 + 机器检查器 + 领域清单入口 + 设计稿六段模板（发布态，查表即用）
+    path: ../packs/delivery-data-app/
+    items:
+      - id: delivery-data-app
+        title: 业务交付 · 数据应用套装入口（装法 / 到场 / 用法 / 回流）
+        file: README.md
+        solves: 解决「harness 能把东西做出来，但站产品设计角度有很大优化空间」——把规范、检查器、领域清单、设计稿模板一次装进 .agents/
+        keywords:
+          - 数据应用
+          - 产品规范
+          - 信息架构
+          - delivery
+          - data-app
+      - id: data-app-norms
+        title: 产物规范 7 条 + 信息架构规范 4 条
+        file: rules/data-app-norms.md
+        solves: 收工前该查什么——charset / viewport / 外部依赖 / 长列表无检索等 4 条机器查，其余人判
+        keywords:
+          - 规范
+          - norms
+          - charset
+          - viewport
+      - id: data-app-norms-check
+        title: 检查器（stdlib-only；Stop hook 或手动跑）
+        file: validators/data-app-norms-check/CONTRACT.md
+        solves: 改过的 HTML 收工时自动扫，不过就拦一次并说清哪条没过
+        keywords:
+          - validator
+          - 检查器
+          - Stop hook
+      - id: domain-menu
+        title: 领域清单入口 skill（选领域 → 要什么材料）
+        file: skills/domain-menu/SKILL.md
+        solves: 「选领域」时列出已有领域与所需材料；选「其他」走空白领域流程并把材料清单回流
+        keywords:
+          - 领域
+          - domain-menu
+          - 材料清单
+      - id: design-doc-six-sections
+        title: 设计稿六段模板（验收 / 不变量必填）
+        file: plan-templates/design-doc-six-sections.md
+        solves: 让 harness 动手前先写六段，验收条带能跑的命令
+        keywords:
+          - 设计稿
+          - 六段
+          - 验收
+
   # 2026-09-24 复利第二环打包接收：toys 工作台当夜落地的「第二个环」运行件的模板原件（框架 + 模板 + 调用说明）；
   # 判断内核留 kg、人的数据只住各人目录的线文件——此处登记的是可加载的操作面
   second-loop-compounding:

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- 索引补登：`delivery-data-app` 进 `stable/knowledge/index.yaml` 与 `resources-catalog.yaml`（09-23 入库时只写了 CHANGELOG 与根 README；09-24 kg 侧更新子模块时发现）。
+
 ### Added
 
 - `second-loop-compounding` v0.1.0：复利第二环打成可加载套装——A 复盘模板（八问 + 负空间）、LINE 人际线模板（九节固定；宫当坐标不当预测；两条链带「归属」行）、Claude → Codex 内容交接包（九节）与回执（五节）模板、框架摘要（五步 / 四线 × 三定义 / 两本账 / 六块探针 / 三种活分开跑 / 松耦合）、设计在用与否七态判据、探针与休眠脚本调用说明；`install-manifest.yaml` 逐文件部署到 `.agents/templates/` 与 `.agents/docs/` 下的 `second-loop-compounding/`。模板原件住 cg、运行件留 toys（README 有对应表）；不带脚本，不带任何人的内容。
