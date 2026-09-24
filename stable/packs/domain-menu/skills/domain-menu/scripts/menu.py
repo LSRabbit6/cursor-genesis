@@ -93,6 +93,18 @@ def _request(method: str, path: str, body: dict | None = None, auth=False, raw=F
             sys.exit("没有令牌：设环境变量 CG_MENU_TOKEN，或把令牌写进 ~/.config/cg-menu/token（一行）")
         headers["Authorization"] = f"Bearer {t}"
     req = urllib.request.Request(base_url() + path, data=data, headers=headers, method=method)
+    # 只读请求多试一次：新域名刚生效、代理首连超时都见过；POST 不重试，失败就存下来等 resend
+    attempts = 2 if method == "GET" else 1
+    for i in range(attempts):
+        try:
+            return _open(req, raw)
+        except Offline:
+            if i == attempts - 1:
+                raise
+            time.sleep(3)
+
+
+def _open(req, raw: bool):
     try:
         with urllib.request.urlopen(req, timeout=30) as r:
             payload = r.read()
@@ -162,7 +174,7 @@ def _print_result(r: dict):
             else:
                 print(f"- 包 `{p['name']}` {p['version']}：没装 → `menu.py install {p['name']}`")
         for s in r.get("settings", []):
-            print(f"\n**设定**：{s['what']}\n\n```\n{s['text'].rstrip()}\n```")
+            print(f"\n**设定**：{s['what']}\n\n````\n{s['text'].rstrip()}\n````")
         return
     if r.get("note"):
         print(f"- {r['note']}")
