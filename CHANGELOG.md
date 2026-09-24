@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `second-loop-compounding` v0.1.0：复利第二环打成可加载套装——A 复盘模板（八问 + 负空间）、LINE 人际线模板（九节固定；宫当坐标不当预测；两条链带「归属」行）、Claude → Codex 内容交接包（九节）与回执（五节）模板、框架摘要（五步 / 四线 × 三定义 / 两本账 / 六块探针 / 三种活分开跑 / 松耦合）、设计在用与否七态判据、探针与休眠脚本调用说明；`install-manifest.yaml` 逐文件部署到 `.agents/templates/` 与 `.agents/docs/` 下的 `second-loop-compounding/`。模板原件住 cg、运行件留 toys（README 有对应表）；不带脚本，不带任何人的内容。
 - `delivery-data-app` v0.1.0：第一份面向外部 harness 使用者的 pack——产物规范 7 条 + 信息架构规范 4 条（`rules/`）、stdlib 收工检查器 `validators/data-app-norms-check`（R1/R3/S2/R7 机器查，S3 warn）、`domain-menu` 领域清单入口 skill（含空白领域流程与材料清单）、设计稿六段模板、Claude Code Stop hook 片段；README 加中文「三分钟」段。判断内核不出门，只出操作面。
+- **`packs/deep-research/README.md` 新增「⚠ 副本地图」**（2026-08-07/08 场）：列明四处副本各自的宿主归属与生效路径，
+  以及"改契约时哪几份必改"。防的是 2026-08-07 实际发生过的事故——
+  只改了 Cursor 侧两份就宣布"已从源头修好"，而真正在跑的 Claude Code 版纹丝不动。
+  判据沉淀为：**改任何契约前先确认谁在运行时读它，不要按目录名推断**。
 - `create-toolkit` v1.1 的首个工具无关状态型 Workflow：持久化 scaffold/refine/validate/register/complete、Human/Agent Gate、机器 Validator 与有界重试。
 - `.agents/skills/create-skill-workflow` 公共作者层和 `/create-skill` Cursor 薄适配。
 - `create-toolkit` v1.2 的工具无关 `create-subagent-workflow`：持久化能力分析、Skill 依赖检查、Agent Contract、机器 Validator 和宿主适配 Gate。
@@ -32,6 +36,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `base-rule-generator` 保留为迁移前历史样本，不恢复默认安装；旧 meta-rule 模板、Cursor `.mdc` 工厂和未经验证的多 glob 语法不进入公共核心。
 - `create-project` 定性为越界历史参考，不在 CG 重建同名 Workflow；完整 workspace bootstrap 由用户级工作区编排能力承接，CG 继续提供可复用的 Pack、Rule 与注入机制。
 - `session-summary` 保留为早期描述性聊天纪要样本，不恢复默认安装；其通用分诊机制进入 `harvest-session` 核心 Skill，用户级 `session-harvest` 保留个人 KG 与容器适配。
+- **deep-research pack · synthesizer 溯源契约收紧**（2026-08-07/08 场）：Traceability 升为硬要求
+  （*Key Findings* / *Analysis* 每条结论必须携带 inline `[Title](URL)`），
+  **移除"可用 `(see notes/task-03.md)` 代替 URL"这个后门**——正是它导致 `notes/` 层攒下的
+  2,234 个 URL 一个都没进入 report（引用 note 路径合法且更省事，于是永远被选中）；
+  新增强制产出 `source-ledger.jsonl`、追不到源写 `[未溯源]` 显形。
+  同步改动：`packs/deep-research/skills/base-research-synthesizer/SKILL.md`、
+  `kg/.cursor/skill-library/research/base-research-synthesizer/SKILL.md`、
+  `~/.claude/agents/base-research-synthesizer.md`（后者为 Claude Code 生效版，非本 pack 产物）。
 
 ## [1.0.0] - 2026-02-25
 
