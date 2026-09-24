@@ -14,6 +14,8 @@ manifest 未声明 target_root 时保持兼容，默认部署到 .cursor/。
     python install-pack.py deep-research . --source d:/Project/cursor-genesis
 """
 
+from __future__ import annotations
+
 import argparse
 import json
 import os
@@ -158,7 +160,7 @@ def _remove_legacy_record_entry(
     return removed_entry
 
 
-def install_pack(pack_name: str, target_path: Path, source_path: Path):
+def install_pack(pack_name: str, target_path: Path, source_path: Path, record_source: str | None = None):
     pack_dir = source_path / 'stable' / 'packs' / pack_name
     manifest_file = pack_dir / 'install-manifest.yaml'
 
@@ -254,7 +256,7 @@ def install_pack(pack_name: str, target_path: Path, source_path: Path):
     current_entry = {
         'version': pack_version,
         'installed_at': datetime.now().strftime('%Y-%m-%d %H:%M'),
-        'source': str(source_path),
+        'source': record_source or str(source_path),
         'files': installed_files,
     }
     if retained_unmanaged:
@@ -420,6 +422,8 @@ Examples:
     parser.add_argument('--list', action='store_true', help='List available packs')
     parser.add_argument('--uninstall', action='store_true', help='Uninstall the specified pack')
     parser.add_argument('--workspace', help='Register target project in the specified .code-workspace file')
+    parser.add_argument('--record-source', help='Source recorded in installed-packs.yaml (default: --source path); '
+                        'the menu-service client passes its service URL here instead of a temp dir')
 
     args = parser.parse_args()
 
@@ -444,7 +448,7 @@ Examples:
     if args.uninstall:
         uninstall_pack(args.pack, target_path)
     else:
-        install_pack(args.pack, target_path, source_path)
+        install_pack(args.pack, target_path, source_path, args.record_source)
 
         if args.workspace:
             register_in_workspace(target_path, Path(args.workspace).resolve())

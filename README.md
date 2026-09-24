@@ -28,7 +28,8 @@ Instead of writing manual prompts for every module, CG crystallizes robust Human
 
 你已经会用 Claude Code / Codex / Cursor 把东西做出来。这个仓补的是**做出来的东西该长什么样、怎么判它做对没**——这一层不在 harness 里，在这里。
 
-- 第一份面向外部使用者的包：[`delivery-data-app`](stable/packs/delivery-data-app/README.md)（v0.1）——产物规范 + 信息架构规范 + 收工机器检查器 + 领域清单入口 + 设计稿六段模板。给「会用 harness、不懂产品设计」的人。
+- 第一份面向外部使用者的包：[`delivery-data-app`](stable/packs/delivery-data-app/README.md)（v0.2）——产物规范 + 信息架构规范 + 收工机器检查器 + 设计稿六段模板。给「会用 harness、不懂产品设计」的人。
+- 要方案的入口：[`domain-menu`](stable/packs/domain-menu/README.md)（v0.2）——菜单服务的客户端。你的 harness 拿一份自查清单、在你自己的仓里答完、把类型交回来；有包就装，没有就登记、拿回编号和通用骨架。
 - 装法（在你的项目根目录）：
 
 ```bash
@@ -91,7 +92,8 @@ User-facing scenario combinations. Users don't pick atoms; they install packs.
 - `deep-research/`: A Plan → Execute → Synthesize research workflow.
 - `knowledge-manage/`: Knowledge system management pack.
 - `create-toolkit/`: Project scaffolding toolkit.
-- **`delivery-data-app/`**: **Delivery · Data App Pack** (v0.1) — product norms + information-architecture norms + a stdlib validator mounted at the Stop hook + a domain-menu skill + a six-section design-doc template, for people who can run a harness but have never designed a product. [→ View Pack](stable/packs/delivery-data-app/README.md)
+- **`delivery-data-app/`**: **Delivery · Data App Pack** (v0.2) — product norms + information-architecture norms + a stdlib validator mounted at the Stop hook + a six-section design-doc template, for people who can run a harness but have never designed a product. [→ View Pack](stable/packs/delivery-data-app/README.md)
+- **`domain-menu/`**: **Domain Menu client** (v0.2) — ask the menu service for a self-check list, answer it inside your own repo, send back the type; get the matching pack and settings, or a ticket plus a domain-neutral skeleton when we have nothing yet. Stdlib-only. [→ View Pack](stable/packs/domain-menu/README.md)
 - **`second-loop-compounding/`**: **Second-Loop Compounding Pack** (v0.1) — the loop outside execute ⇄ verify: once a task is done, a one-page retrospective template, a per-person relationship-line template, a Claude → Codex content-handoff + receipt template pair, a framework summary, a seven-state "is this design actually in use" rubric, and call notes for the probes that show whether the loop really turns. Templates live here; the running pieces stay in the workbench. [→ View Pack](stable/packs/second-loop-compounding/README.md)
 
 ## Current Cursor Reference Usage

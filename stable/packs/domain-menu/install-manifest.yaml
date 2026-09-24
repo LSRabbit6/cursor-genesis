@@ -1,0 +1,13 @@
+# domain-menu Pack 安装清单
+# install-pack.py 读取此文件：客户端 skill（含 scripts/menu.py）部署到公共作者层 .agents/
+
+pack: domain-menu
+version: 0.2.0
+description: 要方案的入口——菜单服务的客户端：拿自查清单、交自查结果、按类型装回来的包、查登记进度、报不合身；只用标准库
+record_root: .agents
+
+mappings:
+  - source: skills/domain-menu
+    target_root: .agents
+    target: skills/domain-menu
+    type: directory
