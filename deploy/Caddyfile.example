@@ -1,0 +1,4 @@
+# Replace cg.example.com with your domain, pointing to this server.
+cg.example.com {
+    reverse_proxy 127.0.0.1:4317
+}
