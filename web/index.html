@@ -18,7 +18,10 @@
       <nav>
         <a href="#workbench">工作台</a
         ><a href="/architecture.html">完整架构图</a
-        ><a href="#connection">连接项目</a>
+        ><a href="#connection">连接项目</a
+        ><button id="logout" type="button" class="text-button" hidden>
+          退出 CG
+        </button>
       </nav>
     </header>
     <main>
@@ -62,6 +65,15 @@
         aria-live="polite"
         hidden
       ></div>
+      <p id="login-required" class="notice" hidden>
+        会话已结束，填写的内容仍在当前页面。<a
+          href="/login.html"
+          target="_blank"
+          rel="noopener"
+          >在新标签页登录 CG</a
+        >
+        后，回到这里重试刚才的操作。
+      </p>
       <section id="workbench" aria-labelledby="work-title">
         <div class="section-head">
           <div>
@@ -214,20 +226,29 @@
         aria-labelledby="connect-title"
       >
         <div>
-          <p class="eyebrow">本地项目接入</p>
-          <h2 id="connect-title">把执行证据带回来</h2>
-          <p>下载客户端，在自己的项目运行。令牌只属于指定项目，可随时撤销。</p>
+          <p class="eyebrow">多 harness 接入</p>
+          <h2 id="connect-title">让不同 harness 接力协作</h2>
+          <p>
+            同一项目可以连接多个
+            harness。为每个接入创建单独令牌，方便识别和撤销。
+          </p>
           <a class="button secondary" href="/menu.py" download
             >下载 Python 客户端</a
           >
           <p id="hosting-note" class="muted">
-            本地服务支持项目令牌接入。私有网页受平台登录保护，普通命令行请求还会受到外层登录限制；不要把网页登录凭据放进项目。
+            浏览器使用 CG 管理密钥登录；harness
+            使用项目令牌。接入只需要服务地址和令牌，不需要任何模型平台账号。
           </p>
         </div>
         <div>
           <form id="token-form">
             <label
               >授权项目<input name="project" required maxlength="120" /></label
+            ><label
+              >接入名称<input
+                name="label"
+                maxlength="120"
+                placeholder="例如：Cursor、Codex 或自己的脚本" /></label
             ><button type="submit">创建项目令牌</button>
           </form>
           <div id="token-result" hidden>

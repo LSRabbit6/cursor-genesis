@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>登录 CG 协作工作台</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/login.js" type="module"></script>
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="/">CG <span>协作工作台</span></a>
+    </header>
+    <main class="login-page">
+      <section class="panel" aria-labelledby="login-title">
+        <p class="eyebrow">独立管理入口</p>
+        <h1 id="login-title">登录你的 CG</h1>
+        <p>使用部署时生成的管理密钥，查看和处理项目记录。</p>
+        <form id="login-form">
+          <label
+            >管理密钥<input
+              name="key"
+              type="password"
+              required
+              maxlength="256"
+              autocomplete="current-password"
+          /></label>
+          <button type="submit">登录工作台</button>
+        </form>
+        <p
+          id="login-status"
+          class="notice"
+          role="status"
+          aria-live="polite"
+          hidden
+        ></p>
+        <p class="muted">
+          没有密钥或遗失了密钥？请联系这个 CG
+          服务的维护者，在服务器生成新的访问配置。原有项目记录不会因此删除。
+        </p>
+        <div class="divider"></div>
+        <h2>连接 harness</h2>
+        <p>
+          harness
+          使用维护者签发的项目令牌，通过统一接口提交和查询。管理密钥只供维护者使用。
+        </p>
+      </section>
+    </main>
+  </body>
+</html>
