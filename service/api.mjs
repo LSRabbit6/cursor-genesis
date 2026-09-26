@@ -32,7 +32,7 @@ const parseTicket = (t) => ({
   body: JSON.parse(t.body),
   packs: JSON.parse(t.packs),
 });
-async function identity(req, db) {
+async function identity(req, db, principal) {
   const authorization = req.headers.get("authorization");
   if (authorization) {
     if (!/^Bearer [A-Za-z0-9_-]{30,}$/.test(authorization))
@@ -45,9 +45,14 @@ async function identity(req, db) {
     if (!t) fail(401, "项目令牌无效或已撤销。");
     return { owner: t.owner, project: t.project, role: "client", actor: t.id };
   }
-  const user = req.headers.get("oai-authenticated-user-id");
-  if (!user) fail(401, "请先登录，再查看自己的协作记录。");
-  return { owner: user, role: "maintainer", actor: "browser" };
+  // Only a trusted transport may supply a principal, never a request header.
+  if (!principal?.owner || principal.role !== "maintainer")
+    fail(401, "请先登录 CG，再查看协作记录。");
+  return {
+    owner: principal.owner,
+    role: "maintainer",
+    actor: principal.actor || "browser",
+  };
 }
 function projectFor(actor, value) {
   const p = string(value, "项目名", 120);
@@ -354,13 +359,13 @@ export async function api(req, env, catalog) {
       await one(env.DB, "SELECT 1 AS ok");
       return json({ ok: true });
     }
-    const a = await identity(req, env.DB),
+    const a = await identity(req, env.DB, env.CG_PRINCIPAL),
       db = env.DB;
     if (path === "/v1/me" && method === "GET")
       return json({
         role: a.role,
         project: a.project ?? null,
-        mode: env.CG_LOCAL ? "local" : "hosted",
+        mode: env.CG_LOCAL ? "local" : "standalone",
       });
     if (path === "/v1/requests" && method === "POST")
       return json(await submit(db, a, await bodyOf(req), catalog), 201);
@@ -457,12 +462,16 @@ export async function api(req, env, catalog) {
         return json({
           items: await all(
             db,
-            "SELECT id,project,created,revoked FROM tokens WHERE owner=? ORDER BY created DESC",
+            "SELECT id,project,label,created,revoked FROM tokens WHERE owner=? ORDER BY created DESC",
             a.owner,
           ),
         });
       const b = await bodyOf(req),
         project = projectFor(a, b.project),
+        label =
+          b.label === undefined || b.label === ""
+            ? "未命名客户端"
+            : string(b.label, "接入名称", 120),
         tid = id("K");
       const raw =
         "cg_" +
@@ -470,11 +479,12 @@ export async function api(req, env, catalog) {
         crypto.randomUUID().replaceAll("-", "");
       await statement(
         db,
-        "INSERT INTO tokens(id,hash,owner,project,created,revoked) VALUES(?,?,?,?,?,0)",
+        "INSERT INTO tokens(id,hash,owner,project,label,created,revoked) VALUES(?,?,?,?,?,?,0)",
         tid,
         await hash(raw),
         a.owner,
         project,
+        label,
         stamp(),
       ).run();
       return json(
@@ -482,6 +492,7 @@ export async function api(req, env, catalog) {
           id: tid,
           project,
           token: raw,
+          label,
           note: "只显示这一次。令牌只可提交和读取这个项目，不能处理维护状态。",
         },
         201,

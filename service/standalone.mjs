@@ -1,2 +1,2 @@
 import { start } from "./start.mjs";
-await start(false);
+await start(true);
