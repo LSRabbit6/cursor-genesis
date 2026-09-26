@@ -22,3 +22,11 @@ Thumbs.db
 # Python
 __pycache__/
 *.pyc
+
+# Collaboration workbench: generated output and local state
+node_modules/
+dist/
+.cg-menu/
+.env
+.env.local
+.openai/*.local.*

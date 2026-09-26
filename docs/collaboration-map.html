@@ -15,6 +15,7 @@
 </style>
 </head>
 <body>
+<p style="max-width:1120px;margin:16px auto;padding:0 24px">本仓已增加真实操作入口：<a href="collaboration-workbench.md">运行协作工作台</a>。本页保留完整离线架构说明。</p>
 <a class="skip" href="#overview">跳到整体架构</a>
 <main>
 <header>
@@ -62,14 +63,14 @@
 </section>
 <section class="section" id="online" aria-labelledby="online-title">
 <span class="section-label">04 / 下游观察到的扩展路径</span><h2 id="online-title">在线菜单：同一分工，换一种交接入口</h2>
-<div class="note"><strong>状态：公开仓未含实现。</strong> 下游环境用过在线 domain-menu v0.2；本次核对的公开仓仍是包内 v0.1 静态技能。下面说明已观察的协作方式，不能据此认为克隆本仓就能启动菜单服务。</div>
+<div class="note"><strong>历史观察：旧部署源码未在此核对。</strong> 下游环境用过在线 domain-menu v0.2；本仓现已增加独立的协作工作台。下面保留旧部署的观察说明；两者不共享票据、令牌或私有数据。</div>
 <div class="steps" aria-label="在线菜单五步"><span>拿清单</span><b aria-hidden="true">→</b><span>本仓自查</span><b aria-hidden="true">→</b><span>交回</span><b aria-hidden="true">→</b><span>按回执做</span><b aria-hidden="true">→</b><span>过几天查编号</span></div>
 <div class="pair"><article><h3>服务端视角</h3><p>该观察版本按类型查表：有包返回材料和设定，缺口登记并给出编号及已有骨架。维护侧再判断是否补成通用组件。</p></article><article><h3>客户端视角</h3><p>AI 在本仓回答清单与选择类型，提交选定内容和已装版本；按回执接入工具，随后按编号查询。</p></article></div>
 <details class="stage" style="margin-top:20px"><summary>查看每次请求、回执与离线处理</summary><div class="stage-body"><dl class="protocol"><dt>清单与版本</dt><dd>客户端发读取请求；服务返回问题、类型表、模板和包目录。</dd><dt>提交答案</dt><dd>发送类型、答案、选定材料、项目名及已装包版本；返回总回执和各类型结果。</dd><dt>安装</dt><dd>按包名取材料；客户端校验、安装、记录版本并接入宿主。</dd><dt>反馈</dt><dd>发送类别、位置、现象和版本；返回登记编号，不表示已修复。</dd><dt>查进度</dt><dd>按编号取状态、说明和关联包；有包后再评估安装。</dd><dt>连通失败</dt><dd>已观察客户端会暂存提交 / 反馈，恢复连接后补交；已装材料可继续本地用。任务明确要求起步失败停止时，先遵守该任务约定。</dd><dt>传输范围</dt><dd>填写到答案中的内容会发出；客户端不自动上传整个仓库。凭据不进入答案与公开材料。</dd></dl></div></details>
 </section>
 <section class="section" id="status" aria-labelledby="status-title">
 <span class="section-label">05 / 证据与边界</span><h2 id="status-title">已有、观察到、还待核实</h2>
-<div class="state-grid"><article class="state"><span class="tag">本仓可核对</span><h3>分发与本地运行</h3><p>原子组件、场景包、安装器与测试、静态领域技能、检查器和回流规范。</p></article><article class="state"><span class="tag">下游观察</span><h3>在线菜单协作</h3><p>清单、自查提交、回执、缺口编号、反馈、后续查询；公开仓缺少对应实现。</p></article><article class="state"><span class="tag">未在本次证明</span><h3>在线服务内部与自动运行</h3><p>服务端内部存储与调度、反馈自动处理、所有宿主自动触发、所有项目自动升级。</p></article></div>
+<div class="state-grid"><article class="state"><span class="tag">本仓可核对</span><h3>分发与本地运行</h3><p>原子组件、场景包、安装器与测试、静态领域技能、检查器和回流规范。</p></article><article class="state"><span class="tag">下游观察</span><h3>在线菜单协作</h3><p>清单、自查提交、回执、缺口编号、反馈、后续查询；旧部署与本仓新增工作台独立；实际功能见工作台运行说明。</p></article><article class="state"><span class="tag">未在本次证明</span><h3>在线服务内部与自动运行</h3><p>服务端内部存储与调度、反馈自动处理、所有宿主自动触发、所有项目自动升级。</p></article></div>
 <div class="sources"><a href="architecture.md">完整架构说明</a><a href="../AGENTS.md">职责边界</a><a href="../stable/packs/delivery-data-app/README.md">数据应用包</a><a href="../stable/packs/delivery-data-app/validators/data-app-norms-check/CONTRACT.md">检查器契约</a><a href="downstream-spec.md">回流规范</a><a href="history/architecture-2026-02-25.md">历史设计</a></div>
 </section>
 <footer>本页是协作机制说明，不是在线状态看板。内容与 <a href="architecture.md">architecture.md</a> 配套维护；不包含真实客户资料、票据、凭据或机器路径。页面无需联网，所有展开与导航由浏览器本地完成。</footer>

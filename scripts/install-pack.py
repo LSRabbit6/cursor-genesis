@@ -20,7 +20,7 @@ import os
 import shutil
 import sys
 from datetime import datetime
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 
 try:
     import yaml
@@ -108,9 +108,10 @@ def find_cursor_genesis_root(script_path: Path) -> Path:
 
 def _validated_relative_path(value: str, field: str) -> Path:
     path = Path(value)
+    windows_path = PureWindowsPath(value)
     if not value.strip() or path == Path("."):
         raise ValueError(f"{field} must not be empty or '.': {value}")
-    if path.is_absolute() or path.anchor or path.drive or ".." in path.parts:
+    if path.is_absolute() or path.anchor or path.drive or windows_path.anchor or windows_path.drive or "\\" in value or ".." in path.parts:
         raise ValueError(f"{field} must be an unanchored relative path without '..': {value}")
     return path
 
@@ -122,7 +123,13 @@ def _mapping_destination(target_path: Path, mapping: dict) -> tuple[str, Path]:
             f"Unsupported target_root '{target_root}'. Allowed: {', '.join(sorted(ALLOWED_TARGET_ROOTS))}"
         )
     relative_target = _validated_relative_path(mapping["target"], "mapping.target")
-    return target_root, target_path / target_root / relative_target
+    destination = target_path / target_root / relative_target
+    for part in [destination, *destination.parents]:
+        if part == target_path:
+            break
+        if part.is_symlink():
+            raise ValueError(f"Install destination must not contain a symlink: {part}")
+    return target_root, destination
 
 
 def _record_path(target_path: Path, record_root: str) -> Path:
@@ -187,6 +194,18 @@ def install_pack(pack_name: str, target_path: Path, source_path: Path):
     installed_files = []
     errors = []
 
+    # Validate the entire manifest before writing any part of a downloaded pack.
+    for mapping in manifest.get('mappings', []):
+        relative_source = _validated_relative_path(mapping['source'], 'mapping.source')
+        src = pack_dir / relative_source
+        if not src.exists() or not src.resolve().is_relative_to(pack_dir.resolve()):
+            raise ValueError(f"Missing or escaping source: {src}")
+        if src.is_dir() and any(p.is_symlink() for p in src.rglob('*')):
+            raise ValueError(f"Source directory contains a symlink: {src}")
+        _mapping_destination(target_path, mapping)
+    if record_file.is_symlink() or record_file.parent.is_symlink():
+        raise ValueError('Install record must not be a symlink')
+
     for mapping in manifest.get('mappings', []):
         try:
             relative_source = _validated_relative_path(mapping["source"], "mapping.source")
@@ -218,6 +237,7 @@ def install_pack(pack_name: str, target_path: Path, source_path: Path):
         print(f"\n[WARN] {len(errors)} error(s):")
         for e in errors:
             print(f"  - {e}")
+        raise ValueError('Installation incomplete; no successful version recorded')
 
     record = {}
     if record_file.exists():

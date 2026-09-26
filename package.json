@@ -1,0 +1,21 @@
+{
+  "name": "cg-collaboration-workbench",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "dev": "node service/local.mjs",
+    "build": "node scripts/build-workbench.mjs",
+    "test": "node --test service/tests/*.test.mjs",
+    "db:generate": "drizzle-kit generate"
+  },
+  "devDependencies": {
+    "drizzle-kit": "0.31.10",
+    "drizzle-orm": "0.45.2",
+    "jsdom": "26.1.0",
+    "prettier": "3.6.2"
+  }
+}
