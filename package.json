@@ -10,7 +10,9 @@
     "dev": "node service/local.mjs",
     "build": "node scripts/build-workbench.mjs",
     "test": "node --test service/tests/*.test.mjs",
-    "db:generate": "drizzle-kit generate"
+    "db:generate": "drizzle-kit generate",
+    "start": "node service/standalone.mjs",
+    "access:init": "node scripts/init-access.mjs"
   },
   "devDependencies": {
     "drizzle-kit": "0.31.10",

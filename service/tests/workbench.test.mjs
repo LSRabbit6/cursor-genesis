@@ -37,13 +37,9 @@ function fixture() {
     async call(path, body, options = {}) {
       const headers = {
         "content-type": "application/json",
-        ...(options.user === null
-          ? {}
-          : { "oai-authenticated-user-id": options.user || "alice" }),
         ...options.headers,
       };
       if (options.token) {
-        delete headers["oai-authenticated-user-id"];
         headers.authorization = "Bearer " + options.token;
       }
       const r = await api(
@@ -52,7 +48,13 @@ function fixture() {
           headers,
           ...(body ? { body: JSON.stringify(body) } : {}),
         }),
-        { DB: db },
+        {
+          DB: db,
+          CG_PRINCIPAL:
+            options.user === null || options.token
+              ? undefined
+              : { owner: options.user || "alice", role: "maintainer" },
+        },
         catalog,
       );
       return { status: r.status, ...(await r.json()) };

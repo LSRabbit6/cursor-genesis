@@ -43,11 +43,11 @@ python .cursor-genesis/scripts/install-pack.py delivery-data-app . --source .cur
 
 ## 先看整体，再看两端（中文）
 
-[双视角交互图](docs/collaboration-map.html) · [完整架构说明](docs/architecture.md) · [运行协作工作台](docs/collaboration-workbench.md)
+[双视角交互图](docs/collaboration-map.html) · [完整架构说明](docs/architecture.md) · [运行协作工作台](docs/collaboration-workbench.md) · [独立部署](docs/self-hosting.md) · [多 harness 接入](docs/harness-api.md)
 
 一张总图，下面按六个环节对齐 **CG 供给 / 维护侧** 与 **使用者的 AI / 本地项目**：谁提供什么、怎样接入、怎样证明做对、问题如何回流。交互图下载后可直接在浏览器中离线打开；GitHub 上可读架构文档中的 Mermaid 图与对照表。
 
-现在还提供可运行的协作工作台：整体架构图下面对齐两端职责，支持自查提交、回执、反馈、维护处理、包下载与执行证据。运行方式见上面的工作台文档。此实现与下游旧菜单部署相互独立；安装文件、宿主加载、自动触发和检查通过分别记录。
+现在还提供可运行的协作工作台：整体架构图下面对齐两端职责，支持自查提交、回执、反馈、维护处理、包下载与执行证据。身份由 CG 自己管理，harness 通过 HTTP / Python CLI 使用各自项目令牌；不要求 ChatGPT 或任何模型平台账号。运行方式见上面的工作台文档。此实现与下游旧菜单部署相互独立；安装文件、宿主加载、自动触发和检查通过分别记录。
 
 ## Proven Assets: Enterprise Meta-Rules
 

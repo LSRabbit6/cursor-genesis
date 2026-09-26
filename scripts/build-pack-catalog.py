@@ -4,6 +4,8 @@ import hashlib
 import importlib.util
 import io
 import json
+import os
+import re
 from pathlib import Path
 import subprocess
 import zipfile
@@ -38,7 +40,9 @@ def build(output):
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(blob)
         packs.append(dict(name=name, version=str(manifest['version']), description=manifest['description'], zip=f'/downloads/{name}.zip', sha256=hashlib.sha256(blob).hexdigest(), size=len(blob)))
-    commit = subprocess.check_output(['git','rev-parse','HEAD'], cwd=ROOT, text=True).strip()
+    commit = os.environ.get('CG_SOURCE_COMMIT') or subprocess.check_output(['git','rev-parse','HEAD'], cwd=ROOT, text=True).strip()
+    if not re.fullmatch(r'[0-9a-f]{40}|[0-9a-f]{64}', commit):
+        raise ValueError('CG_SOURCE_COMMIT must be a complete Git commit SHA')
     return dict(cg_ref='source-build', cg_commit=commit, packs=packs)
 
 if __name__ == '__main__':

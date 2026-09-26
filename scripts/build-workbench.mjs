@@ -28,17 +28,15 @@ architecture = architecture.replace(/href="([^"#][^"]*)"/g, (match, href) => {
 await writeFile("dist/client/architecture.html", architecture);
 await cp("docs/architecture.md", "dist/client/architecture.md");
 await cp("scripts/menu.py", "dist/client/menu.py");
-await cp("service", "dist/server/service", {
-  recursive: true,
-  filter: (p) =>
-    !p.includes("/tests") &&
-    !p.endsWith("local.mjs") &&
-    !p.endsWith("sqlite.mjs"),
-});
+await mkdir("dist/server/service", { recursive: true });
+for (const name of ["api.mjs", "db.mjs", "catalog.mjs"])
+  await cp("service/" + name, "dist/server/service/" + name);
 const files = [
   "index.html",
   "style.css",
   "app.js",
+  "login.html",
+  "login.js",
   "architecture.html",
   "architecture.md",
   "menu.py",
@@ -71,7 +69,10 @@ await writeFile(
   `export default ${JSON.stringify(catalog)};\n`,
 );
 await cp("service/worker.mjs", "dist/server/index.js");
-await mkdir("dist/.openai", { recursive: true });
-await cp(".openai/hosting.json", "dist/.openai/hosting.json");
-await cp("drizzle", "dist/.openai/drizzle", { recursive: true });
+// Optional historical hosting target; standalone builds have no platform dependency.
+if (process.env.CG_BUILD_TARGET === "sites") {
+  await mkdir("dist/.openai", { recursive: true });
+  await cp(".openai/hosting.json", "dist/.openai/hosting.json");
+  await cp("drizzle", "dist/.openai/drizzle", { recursive: true });
+}
 console.log("Built CG workbench with validated packs and schema migrations.");

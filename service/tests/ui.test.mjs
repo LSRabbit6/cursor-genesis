@@ -51,17 +51,17 @@ test("forms, filters, detail, maintenance, evidence, XSS text handling and WebMC
           ...options,
           headers: {
             ...options.headers,
-            "oai-authenticated-user-id": "ui-owner",
           },
         }),
-        { DB: db },
+        { CG_PRINCIPAL: { owner: "ui-user", role: "maintainer" }, DB: db },
         catalog,
       );
     };
     w.eval(readFileSync(new URL("../../web/app.js", import.meta.url), "utf8"));
     await settled(
       () =>
-        d.querySelector("#connection-state").textContent === "在线服务已连接" &&
+        d.querySelector("#connection-state").textContent ===
+          "独立 CG 服务已连接" &&
         d.querySelectorAll("#questions textarea").length === 6,
     );
     assert.match(d.querySelector("#ticket-list").textContent, /没有匹配/);
