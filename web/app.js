@@ -42,7 +42,10 @@ async function call(path, body) {
   } catch {
     throw Error("连接未完成，请先登录或稍后重试。");
   }
-  if (!r.ok) throw Error(d.error || "请求失败");
+  if (!r.ok) {
+    if (r.status === 401) $("#login-required").hidden = false;
+    throw Error(d.error || "请求失败");
+  }
   return d;
 }
 function notice(text, error = false) {
@@ -60,8 +63,10 @@ async function init() {
       call("/packs"),
       call("/me"),
     ]);
+    $("#login-required").hidden = true;
+    $("#logout").hidden = state.me.mode === "local";
     $("#connection-state").textContent =
-      state.me.mode === "local" ? "本地服务已连接" : "在线服务已连接";
+      state.me.mode === "local" ? "本地服务已连接" : "独立 CG 服务已连接";
     $("#type-options").innerHTML = state.checklist.types
       .map(
         (t) =>
@@ -305,7 +310,7 @@ async function loadTokens() {
     ? d.items
         .map(
           (t) =>
-            `<div class="token-row"><span>${safe(t.project)}<br><span class="muted">${when(t.created)} · ${t.revoked ? "已撤销" : "可使用"}</span></span>${t.revoked ? "" : `<button type="button" class="text-button" data-revoke="${safe(t.id)}">撤销</button>`}</div>`,
+            `<div class="token-row"><span>${safe(t.project)} · ${safe(t.label || "未命名客户端")}<br><span class="muted">${safe(t.id)} · ${when(t.created)} · ${t.revoked ? "已撤销" : "可使用"}</span></span>${t.revoked ? "" : `<button type="button" class="text-button" data-revoke="${safe(t.id)}">撤销</button>`}</div>`,
         )
         .join("")
     : '<p class="muted">还没有项目令牌。需要本地客户端接入时，为指定项目创建一个。</p>';
@@ -414,3 +419,13 @@ if (document.modelContext?.registerTool) {
     } catch {}
   }
 }
+
+$("#logout").onclick = async () => {
+  try {
+    const r = await fetch("/auth/logout", { method: "POST" });
+    if (!r.ok) throw Error("退出未完成，请重试。");
+    window.location.assign("/login.html");
+  } catch (e) {
+    notice(e.message, true);
+  }
+};

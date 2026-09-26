@@ -679,3 +679,15 @@ footer a {
     flex-wrap: wrap;
   }
 }
+
+.login-page {
+  max-width: 560px;
+  margin: 5vh auto;
+}
+.login-page h1 {
+  font-size: clamp(1.8rem, 5vw, 2.4rem);
+  margin-bottom: 16px;
+}
+.login-page form {
+  margin-top: 24px;
+}
