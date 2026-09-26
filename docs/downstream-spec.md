@@ -4,6 +4,8 @@
 > **更新日期**: 2026-02-26
 > **适用对象**: 使用 cursor-genesis 的下游项目（如 anfu_test）
 
+> **先看协作全貌**：[整体架构与双视角](architecture.md) · [可离线打开的交互图](collaboration-map.html)。下面保留具体集成与回流约定；请按实际包的 README 核对版本、安装与宿主接入方式。
+
 ## 1. 集成方式 (Integration Methods)
 
 ### 1.1 选择性克隆（推荐）
