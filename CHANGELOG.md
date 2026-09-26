@@ -7,7 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- 可运行的双视角协作工作台：持久化菜单服务、真实操作页面和 Python 客户端，串起自查、回执、缺口、反馈、处理、取包与执行证据。
+- 身份与项目隔离、幂等提交、并发状态检查、令牌撤销、离线补交及本地 / 平台运行入口；不迁入真实客户数据，不替项目执行业务判断。
+
 ### Fixed
+
+- 安装器在写入前预检全部映射，补齐 Mac 对 Windows 锚定路径的拒绝，失败不记录为成功安装。
 
 - 索引补登：`delivery-data-app` 进 `stable/knowledge/index.yaml` 与 `resources-catalog.yaml`（09-23 入库时只写了 CHANGELOG 与根 README；09-24 kg 侧更新子模块时发现）。
 
