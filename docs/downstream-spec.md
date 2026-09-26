@@ -156,6 +156,8 @@ cat .cursor-genesis/stable/packs/v1-talk/manifest.yaml
 
 ## 3. 回流规范 (Backflow Specification)
 
+下游向 CG 提交材料，以 [pending 目录说明](../.knowledge/downstream/pending/README.md) 和 [提交模板](../.knowledge/downstream/pending/TEMPLATE.md) 为入口。`scripts/backflow.sh` 是 CG 向 knowledge-graph 的上游上报工具，不能用来处理这里的下游收件。工作台反馈目前记录编号与现象，尚未自动生成回流 PR 或发布包。
+
 当你在下游项目中发现改进点或创建了新的有价值内容时，可以回流到 cursor-genesis。
 
 ### 3.1 回流内容类型
@@ -176,7 +178,7 @@ cat .cursor-genesis/stable/packs/v1-talk/manifest.yaml
 
 ```
 .knowledge/downstream/pending/<project-hash>/<contributor-name>/<commit-id>/
-├── SUBMISSION.md          # 使用 .knowledge/downstream/TEMPLATE.md 填写
+├── SUBMISSION.md          # 使用 .knowledge/downstream/pending/TEMPLATE.md 填写
 ├── content/               # 回流的内容
 │   ├── rules/            # 如果是规则文件
 │   ├── capabilities/     # 如果是能力定义
@@ -219,7 +221,8 @@ cat .cursor-genesis/stable/packs/v1-talk/manifest.yaml
 
 4. **提交并创建 PR**
    ```bash
-   git add .
+   # pending/ 默认忽略，只强制加入这次明确选择的回流目录
+   git add -f .knowledge/downstream/pending/anfu-test-a3f2/zhangsan/20260226-001
    git commit -m "backflow: 改进的战略研判团队规则"
    git push origin backflow/my-improvement
 
