@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- 双视角协作架构文档与离线交互图：总图后按六个环节对齐 CG 供给侧和项目客户端，列明交接内容、安装 / 加载 / 触发 / 验收证据及回流去向。在线菜单单列为下游观察，未宣称公开仓已有服务实现；原 2026-02-25 架构保留为历史快照。
+
 - `second-loop-compounding` v0.1.0：复利第二环打成可加载套装——A 复盘模板（八问 + 负空间）、LINE 人际线模板（九节固定；宫当坐标不当预测；两条链带「归属」行）、Claude → Codex 内容交接包（九节）与回执（五节）模板、框架摘要（五步 / 四线 × 三定义 / 两本账 / 六块探针 / 三种活分开跑 / 松耦合）、设计在用与否七态判据、探针与休眠脚本调用说明；`install-manifest.yaml` 逐文件部署到 `.agents/templates/` 与 `.agents/docs/` 下的 `second-loop-compounding/`。模板原件住 cg、运行件留 toys（README 有对应表）；不带脚本，不带任何人的内容。
 - `delivery-data-app` v0.1.0：第一份面向外部 harness 使用者的 pack——产物规范 7 条 + 信息架构规范 4 条（`rules/`）、stdlib 收工检查器 `validators/data-app-norms-check`（R1/R3/S2/R7 机器查，S3 warn）、`domain-menu` 领域清单入口 skill（含空白领域流程与材料清单）、设计稿六段模板、Claude Code Stop hook 片段；README 加中文「三分钟」段。判断内核不出门，只出操作面。
 - **`packs/deep-research/README.md` 新增「⚠ 副本地图」**（2026-08-07/08 场）：列明四处副本各自的宿主归属与生效路径，

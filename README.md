@@ -37,9 +37,17 @@ cd .cursor-genesis && git sparse-checkout set stable/packs/delivery-data-app scr
 python .cursor-genesis/scripts/install-pack.py delivery-data-app . --source .cursor-genesis
 ```
 
-- 装完做两件事才算生效：把 `.agents/rules/data-app-norms.AGENTS-snippet.md` 那几行贴进你项目的 `AGENTS.md`；Claude Code 用户把 `.agents/adapters/claude-code/settings.hooks.json` 里的 Stop hook 并进 `.claude/settings.json`（Codex 在 `/hooks` 里信任一次）。
+- 安装后先接入项目约定和宿主入口：把 `.agents/rules/data-app-norms.AGENTS-snippet.md` 那几行贴进你项目的 `AGENTS.md`；Claude Code 用户把 `.agents/adapters/claude-code/settings.hooks.json` 里的 Stop hook 并进 `.claude/settings.json`。自动触发还须核实宿主实际加载与执行；其他宿主先按包说明手动运行检查器，不能由这份 Claude Code 配置推断已接通。
 - 然后说「选领域」。清单告诉你我们在你的领域有什么、你要备哪些材料；没有你的领域就走空白领域流程，把它让你填的材料清单贴回 issue——那是下一章该写什么的唯一依据。
-- 这个仓不装任何判断结论、不联网、不替你推演；推演在你自己的 harness 里跑。
+- 此公开包提供规范与操作面；包内静态技能不联网，具体项目的推演在你自己的 harness 里跑。
+
+## 先看整体，再看两端（中文）
+
+[双视角交互图](docs/collaboration-map.html) · [完整架构说明](docs/architecture.md)
+
+一张总图，下面按六个环节对齐 **CG 供给 / 维护侧** 与 **使用者的 AI / 本地项目**：谁提供什么、怎样接入、怎样证明做对、问题如何回流。交互图下载后可直接在浏览器中离线打开；GitHub 上可读架构文档中的 Mermaid 图与对照表。
+
+说明以当前公开仓为准；下游用过的在线菜单单列为观察路径，不把它写成本仓已包含的服务。安装文件、宿主加载、自动触发和检查通过也分别记录。
 
 ## Proven Assets: Enterprise Meta-Rules
 
