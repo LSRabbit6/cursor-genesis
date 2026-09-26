@@ -68,6 +68,7 @@ export const tokens = sqliteTable(
     hash: text("hash").notNull(),
     owner: text("owner").notNull(),
     project: text("project").notNull(),
+    label: text("label").notNull().default("未命名客户端"),
     created: text("created").notNull(),
     revoked: integer("revoked").notNull().default(0),
   },
