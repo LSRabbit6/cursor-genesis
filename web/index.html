@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>CG 协作工作台</title>
+    <meta
+      name="description"
+      content="先看整体，再从服务端和客户端对照需求、回执与执行证据。"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/app.js" type="module"></script>
+  </head>
+  <body>
+    <a href="#workbench" class="skip">跳到工作台</a>
+    <header>
+      <a class="brand" href="/">CG <span>协作工作台</span></a>
+      <nav>
+        <a href="#workbench">工作台</a
+        ><a href="/architecture.html">完整架构图</a
+        ><a href="#connection">连接项目</a>
+      </nav>
+    </header>
+    <main>
+      <section class="overview" aria-labelledby="overview-title">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">从目标到回执</p>
+            <h1 id="overview-title">把两端的事情，对到一起。</h1>
+          </div>
+          <p id="connection-state" role="status">正在连接…</p>
+        </div>
+        <div
+          class="architecture"
+          aria-label="整体架构：人定目标，CG 提供材料，本地项目实施，证据与反馈回到维护侧"
+        >
+          <div class="human">
+            <strong>你 · 目标与业务决定</strong
+            ><span>定目标、给边界、看结果</span>
+          </div>
+          <div class="flow">
+            <div>
+              <b>服务端 · CG 供给侧</b><span>清单与包　/　受理与处理</span>
+            </div>
+            <p>材料与回执 →<br />← 需求与证据</p>
+            <div>
+              <b>客户端 · 你的项目</b><span>本仓自查　/　实施与验收</span>
+            </div>
+          </div>
+        </div>
+        <div class="journey">
+          <a href="#request-form">01 选类型</a
+          ><a href="#request-form">02 交自查</a><a href="#records">03 看回执</a
+          ><a href="#detail">04 留证据</a><a href="#feedback-form">05 回问题</a
+          ><a href="#records">06 查进度</a>
+        </div>
+      </section>
+      <div
+        id="notice"
+        class="notice"
+        role="status"
+        aria-live="polite"
+        hidden
+      ></div>
+      <section id="workbench" aria-labelledby="work-title">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">同一份记录 · 两个视角</p>
+            <h2 id="work-title">协作工作台</h2>
+          </div>
+          <button id="refresh" class="secondary" type="button">刷新记录</button>
+        </div>
+        <div class="perspectives">
+          <section class="panel client" aria-labelledby="client-title">
+            <div class="panel-heading">
+              <span class="role-label">客户端视角</span>
+              <h2 id="client-title">把现场说清楚</h2>
+              <p>答案从项目与使用者原话中找，未知写“给不出”。</p>
+            </div>
+            <form id="request-form">
+              <label
+                >项目名称<input
+                  name="project"
+                  required
+                  maxlength="120"
+                  placeholder="例如：门店经营工具"
+                  autocomplete="off"
+              /></label>
+              <fieldset>
+                <legend>这次的类型（可多选）</legend>
+                <div id="type-options" class="choices">
+                  <p>正在读取清单；连接失败时请刷新重试。</p>
+                </div>
+              </fieldset>
+              <div id="questions"></div>
+              <p class="muted">
+                提交的是你填在这里的内容，页面不会读取或上传整个仓库。
+              </p>
+              <button type="submit">提交自查，领取回执</button>
+            </form>
+            <details class="feedback">
+              <summary>规范不合身、检查器问题或缺少组件</summary>
+              <form id="feedback-form">
+                <label
+                  >项目名称<input name="project" required maxlength="120"
+                /></label>
+                <label
+                  >问题类别<select name="category">
+                    <option value="misfit">规范不合身</option>
+                    <option value="validator">检查器问题</option>
+                    <option value="want">想要新组件</option>
+                  </select></label
+                >
+                <label
+                  >发生位置<input
+                    name="where"
+                    placeholder="页面、文件或操作环节"
+                    maxlength="500"
+                /></label>
+                <label
+                  >看到的现象<textarea
+                    name="text"
+                    required
+                    maxlength="16000"
+                    rows="3"
+                  ></textarea>
+                </label>
+                <button type="submit" class="secondary">登记反馈</button>
+              </form>
+            </details>
+          </section>
+          <section class="panel provider" aria-labelledby="provider-title">
+            <div class="panel-heading">
+              <span class="role-label">服务端视角</span>
+              <h2 id="provider-title">接住需求，给出材料</h2>
+              <p>有发布包就返回材料；没有的留下编号和处理记录。</p>
+            </div>
+            <div id="supply" aria-live="polite">
+              <p class="empty">正在读取当前发布目录。</p>
+            </div>
+            <div class="divider"></div>
+            <h3>处理与交付</h3>
+            <p>在下方选中一条记录，查看原始自查、处理状态和项目执行证据。</p>
+            <div class="state-legend">
+              <span>待处理</span><span>已接受</span><span>有包可用</span
+              ><span>已处理</span>
+            </div>
+            <p class="muted">
+              “已安装”与“已加载、已触发、检查通过”分别记录。服务不会替项目执行检查，也不会自动升级项目。
+            </p>
+          </section>
+        </div>
+      </section>
+      <section id="records" class="records" aria-labelledby="records-title">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">真实记录</p>
+            <h2 id="records-title">
+              需求与反馈 <span id="record-count" class="count"></span>
+            </h2>
+          </div>
+          <p id="updated-at" class="muted"></p>
+        </div>
+        <form id="filters" class="filters">
+          <label
+            >搜索<input
+              name="q"
+              type="search"
+              placeholder="编号、内容或项目" /></label
+          ><label>项目<input name="project" placeholder="全部项目" /></label
+          ><label
+            >状态<select name="status">
+              <option value="">全部状态</option>
+              <option value="open">待处理</option>
+              <option value="accepted">已接受</option>
+              <option value="ready">有包可用</option>
+              <option value="resolved">已处理</option>
+              <option value="declined">暂不做</option>
+              <option value="closed">已撤回</option>
+            </select></label
+          ><button type="submit" class="secondary">查找</button
+          ><button id="clear-filters" type="button" class="text-button">
+            清空筛选
+          </button>
+        </form>
+        <div id="ticket-list" aria-live="polite">
+          <p class="empty">
+            正在读取记录。连接完成后这里会显示你的需求和反馈。
+          </p>
+        </div>
+        <div class="pagination">
+          <button type="button" id="previous" class="secondary">上一页</button
+          ><span id="page-info"></span
+          ><button type="button" id="next" class="secondary">下一页</button>
+        </div>
+      </section>
+      <section
+        id="detail"
+        class="panel detail"
+        aria-labelledby="detail-title"
+        hidden
+      >
+        <div class="section-head">
+          <h2 id="detail-title">记录详情</h2>
+          <button id="close-detail" type="button" class="text-button">
+            收起详情
+          </button>
+        </div>
+        <div id="detail-content"></div>
+      </section>
+      <section
+        id="connection"
+        class="panel connection"
+        aria-labelledby="connect-title"
+      >
+        <div>
+          <p class="eyebrow">本地项目接入</p>
+          <h2 id="connect-title">把执行证据带回来</h2>
+          <p>下载客户端，在自己的项目运行。令牌只属于指定项目，可随时撤销。</p>
+          <a class="button secondary" href="/menu.py" download
+            >下载 Python 客户端</a
+          >
+          <p id="hosting-note" class="muted">
+            本地服务支持项目令牌接入。私有网页受平台登录保护，普通命令行请求还会受到外层登录限制；不要把网页登录凭据放进项目。
+          </p>
+        </div>
+        <div>
+          <form id="token-form">
+            <label
+              >授权项目<input name="project" required maxlength="120" /></label
+            ><button type="submit">创建项目令牌</button>
+          </form>
+          <div id="token-result" hidden>
+            <p>仅显示这一次，请保存到项目外的环境设置中。</p>
+            <code id="token-value"></code
+            ><button id="copy-token" type="button" class="secondary">
+              复制令牌</button
+            ><button id="hide-token" type="button" class="text-button">
+              已保存，隐藏
+            </button>
+          </div>
+          <div id="token-list"></div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      CG 提供协作材料，项目负责实施，业务判断由人决定。<a
+        href="/architecture.html"
+        >查看完整架构与职责</a
+      >
+    </footer>
+  </body>
+</html>
