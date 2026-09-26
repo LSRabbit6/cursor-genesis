@@ -37,7 +37,7 @@ docker run --rm --name cg-workbench \
   cg-workbench
 ```
 
-容器使用非 root 用户 `node`（UID 1000）。确保访问配置只对该服务用户可读；不要把文件权限改成全员可读。`CG_SOURCE_COMMIT` 要与构建目录对应，用于包目录溯源。容器不复制 Git 元数据、Sites 配置或本机数据库。示例需在目标 Docker 主机验证，本轮未执行 Docker 构建。
+容器使用非 root 用户 `node`（UID 1000）。确保访问配置只对该服务用户可读；不要把文件权限改成全员可读。`CG_SOURCE_COMMIT` 要与构建目录对应，用于包目录溯源。容器不复制 Git 元数据、Sites 配置或本机数据库。本轮在 Docker Desktop 的 Linux ARM64 容器中完成构建、非 root 启动、登录、项目令牌、提交与重启持久化验证。目标主机的域名、反向代理和 TLS 仍需部署时验证。
 
 ## 接入多种 harness
 

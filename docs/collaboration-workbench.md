@@ -81,4 +81,4 @@ python stable/packs/delivery-data-app/validators/data-app-norms-check/scripts/ch
 
 设计稿见 [六段设计](design/2026-09-26-cg协作工作台.md)。既有离线图表继续保留在 [collaboration-map.html](collaboration-map.html)。
 
-独立登录、会话撤销、跨项目拒绝、同项目多 harness 接力和不信任平台头的验证见 `service/tests/standalone.test.mjs`。Docker 示例尚未在容器主机运行验证；不宣称已经迁移线上实例。
+独立登录、会话撤销、跨项目拒绝、同项目多 harness 接力和不信任平台头的验证见 `service/tests/standalone.test.mjs`。Docker 镜像已在本机 Linux ARM64 容器中验证构建、非 root 启动、登录、提交与重启恢复；未迁移线上实例。
