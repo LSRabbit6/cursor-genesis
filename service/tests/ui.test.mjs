@@ -114,6 +114,51 @@ test("forms, filters, detail, maintenance, evidence, XSS text handling and WebMC
         d.querySelector("#detail-content").textContent.includes("作为原文"),
     );
     assert.equal(d.querySelector("#detail-content img"), null);
+    const tokenForm = d.querySelector("#token-form");
+    tokenForm.elements.project.value = "UI project";
+    tokenForm.elements.label.value = "Read-only monitor";
+    tokenForm.dispatchEvent(new w.Event("submit", { cancelable: true }));
+    await settled(() => d.querySelector("[data-policy]"));
+    assert.ok(d.querySelector("#token-value").textContent.startsWith("cg_"));
+    const policy = d.querySelector("[data-policy]");
+    assert.equal(
+      policy.querySelectorAll("input[name=scopes]:checked").length,
+      1,
+    );
+    policy.querySelector('[value="submit"]').checked = true;
+    policy.dispatchEvent(
+      new w.Event("submit", { bubbles: true, cancelable: true }),
+    );
+    await settled(
+      () =>
+        d.querySelector("#token-list").textContent.includes("提交需求与反馈") &&
+        d.querySelector("[data-policy]") !== policy,
+    );
+    const backflow = d.querySelector("#backflow-form");
+    assert.ok(backflow, "feedback exposes the reviewed export flow");
+    for (const field of backflow.querySelectorAll("textarea"))
+      field.value = "public summary " + field.name;
+    backflow.elements.reviewed.checked = true;
+    failSave = true;
+    backflow.dispatchEvent(new w.Event("submit", { cancelable: true }));
+    await settled(() =>
+      d.querySelector("#notice").textContent.includes("临时断线"),
+    );
+    assert.equal(backflow.elements.problem.value, "public summary problem");
+    failSave = false;
+    w.URL.createObjectURL = () => "blob:test";
+    w.URL.revokeObjectURL = () => {};
+    w.HTMLAnchorElement.prototype.click = () => {};
+    backflow.dispatchEvent(new w.Event("submit", { cancelable: true }));
+    await settled(() => d.querySelector("#backflow-downloads button"));
+    const linkForm = d.querySelector("#backflow-link-form");
+    linkForm.elements.url.value = "https://github.com/example/cg/pull/12";
+    linkForm.dispatchEvent(new w.Event("submit", { cancelable: true }));
+    await settled(() => d.querySelector("#backflow-downloads a"));
+    assert.equal(
+      d.querySelector("#backflow-downloads a").getAttribute("rel"),
+      "noopener noreferrer",
+    );
     assert.equal(registered.size, 2);
     const list = registered.get("list_cg_records");
     assert.equal(list.annotations.readOnlyHint, true);

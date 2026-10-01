@@ -691,3 +691,34 @@ footer a {
 .login-page form {
   margin-top: 24px;
 }
+
+.backflow-panel {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+.token-row > div {
+  flex: 1;
+  min-width: 0;
+}
+.token-row details {
+  margin-bottom: 12px;
+}
+.token-row,
+.backflow-panel {
+  overflow-wrap: anywhere;
+}
+.review-choice {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.review-choice input {
+  width: auto;
+  flex: 0 0 auto;
+  margin-top: 8px;
+}
+input[type="datetime-local"] {
+  min-width: 0;
+  max-width: 100%;
+}

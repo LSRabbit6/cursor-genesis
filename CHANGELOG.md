@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- 2026-10-01：维护闭环实现：令牌按操作授权、到期和最近访问、旧库兼容迁移；反馈经维护者整理为可公开摘要后导出与导入、关联 PR；统一验证入口与 GitHub Actions、发布包摘要锁、SQLite 在线备份及不覆盖恢复、Compose 部署配置。真实宿主专用适配和公网部署仍需环境验证。
+
 - CG 独立身份与多 harness 接入：管理密钥登录、可撤销会话、按接入命名的项目令牌、独立服务与部署说明；业务 API 不再信任 ChatGPT 身份头。默认构建不依赖 Sites，旧线上实例未迁移。
 
 - 可运行的双视角协作工作台：持久化菜单服务、真实操作页面和 Python 客户端，串起自查、回执、缺口、反馈、处理、取包与执行证据。

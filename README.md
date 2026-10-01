@@ -49,7 +49,7 @@ python .cursor-genesis/scripts/install-pack.py delivery-data-app . --source .cur
 
 现在还提供可运行的协作工作台：整体架构图下面对齐两端职责，支持自查提交、回执、反馈、维护处理、包下载与执行证据。身份由 CG 自己管理，harness 通过 HTTP / Python CLI 使用各自项目令牌；不要求 ChatGPT 或任何模型平台账号。运行方式见上面的工作台文档。此实现与下游旧菜单部署相互独立；安装文件、宿主加载、自动触发和检查通过分别记录。
 
-[项目令牌怎样分配](docs/harness-api.md#项目令牌是什么怎样分配) · [维护与丰富方案](docs/maintenance-and-growth.md)：查看当前能力、维护缺口、后续任务和每项的完成标准。
+[项目令牌怎样分配](docs/harness-api.md#项目令牌是什么怎样分配) · [维护与丰富方案](docs/maintenance-and-growth.md) · [维护操作与验证](docs/maintenance-operations.md)：查看当前能力、维护缺口、后续任务和每项的完成标准。
 
 ## Proven Assets: Enterprise Meta-Rules
 

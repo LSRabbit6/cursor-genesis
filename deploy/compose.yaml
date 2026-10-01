@@ -1,0 +1,33 @@
+services:
+  cg:
+    build:
+      context: ..
+      args:
+        CG_SOURCE_COMMIT: ${CG_SOURCE_COMMIT:?Set the exact source commit}
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:4317:4317"
+    environment:
+      CG_ORIGIN: ${CG_ORIGIN:?Set the HTTPS origin}
+      CG_ACCESS_FILE: /run/cg/access.json
+    volumes:
+      - cg-data:/data
+      - type: bind
+        source: ${CG_ACCESS_FILE_HOST:?Set the absolute access.json path}
+        target: /run/cg/access.json
+        read_only: true
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:4317/v1/health',{headers:{host:new URL(process.env.CG_ORIGIN).host}}).then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    security_opt:
+      - no-new-privileges:true
+volumes:
+  cg-data:
