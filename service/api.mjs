@@ -18,6 +18,8 @@ import {
   statusNames,
   evidenceNames,
 } from "./catalog.mjs";
+import { allow, scopesOf, expiryOf } from "./permissions.mjs";
+import { backflow } from "./backflow.mjs";
 const json = (value, status = 200) =>
   new Response(JSON.stringify(value), {
     status,
@@ -42,8 +44,22 @@ async function identity(req, db, principal) {
       "SELECT * FROM tokens WHERE hash=? AND revoked=0",
       await hash(authorization.slice(7)),
     );
-    if (!t) fail(401, "项目令牌无效或已撤销。");
-    return { owner: t.owner, project: t.project, role: "client", actor: t.id };
+    if (!t || (t.expires_at && Date.parse(t.expires_at) <= Date.now()))
+      fail(401, "项目令牌无效、已到期或已撤销。");
+    await statement(
+      db,
+      "UPDATE tokens SET last_used=? WHERE id=?",
+      stamp(),
+      t.id,
+    ).run();
+    return {
+      owner: t.owner,
+      project: t.project,
+      role: "client",
+      actor: t.id,
+      scopes: JSON.parse(t.scopes),
+      expires_at: t.expires_at,
+    };
   }
   // Only a trusted transport may supply a principal, never a request header.
   if (!principal?.owner || principal.role !== "maintainer")
@@ -121,6 +137,7 @@ function packInfo(catalog, name, installed) {
   };
 }
 async function submit(db, actor, b, catalog) {
+  allow(actor, "submit");
   const project = projectFor(actor, b.project);
   const key = string(b.client_request_id, "提交标识", 100);
   const kind = b.kind ?? "solution";
@@ -281,10 +298,21 @@ async function submit(db, actor, b, catalog) {
   return receipt;
 }
 async function update(db, a, t, b, catalog) {
+  const resultTicket = (value) =>
+    a.role === "maintainer" || a.scopes.includes("read")
+      ? value
+      : {
+          id: value.id,
+          status: value.status,
+          revision: value.revision,
+          updated: value.updated,
+        };
   const action = b.action;
   const next = b.status;
   if (action === "withdraw") {
-    if (t.status === "closed") return { ticket: t, replayed: true };
+    allow(a, "withdraw");
+    if (t.status === "closed")
+      return { ticket: resultTicket(t), replayed: true };
   } else {
     maintain(a);
     if (action !== "transition") fail(400, "未知操作。");
@@ -294,7 +322,7 @@ async function update(db, a, t, b, catalog) {
   if (!Number.isInteger(b.revision) || b.revision !== t.revision)
     fail(409, "记录已变化，请刷新后再处理。");
   const note = string(b.note, "处理说明", 4000);
-  const packs = b.packs ?? t.packs;
+  const packs = action === "withdraw" ? t.packs : (b.packs ?? t.packs);
   if (
     !Array.isArray(packs) ||
     packs.some((n) => typeof n !== "string") ||
@@ -334,7 +362,7 @@ async function update(db, a, t, b, catalog) {
   ]);
   if (!result[1].meta.changes) fail(409, "另一处已修改记录，请刷新。");
   return {
-    ticket: await ticket(db, a, t.id),
+    ticket: resultTicket(await ticket(db, a, t.id)),
     event_id: eventId,
     note: "已保存处理结果，可在历史中查看并重新调整。",
   };
@@ -365,11 +393,14 @@ export async function api(req, env, catalog) {
       return json({
         role: a.role,
         project: a.project ?? null,
+        scopes: a.scopes ?? null,
+        expires_at: a.expires_at ?? null,
         mode: env.CG_LOCAL ? "local" : "standalone",
       });
     if (path === "/v1/requests" && method === "POST")
       return json(await submit(db, a, await bodyOf(req), catalog), 201);
     if (path === "/v1/tickets" && method === "GET") {
+      allow(a, "read");
       const conditions = ["owner=?"],
         args = [a.owner];
       const project = a.project || u.searchParams.get("project");
@@ -409,9 +440,21 @@ export async function api(req, env, catalog) {
       ]);
       return json({ items, total: total.total, offset, limit: 50 });
     }
-    const tm = path.match(/^\/v1\/tickets\/(T-[a-f0-9-]+)(?:\/(evidence))?$/);
+    const tm = path.match(
+      /^\/v1\/tickets\/(T-[a-f0-9-]+)(?:\/(evidence|backflow))?$/,
+    );
     if (tm) {
+      if (method === "GET") allow(a, "read");
       const t = await ticket(db, a, tm[1]);
+      if (tm[2] === "backflow")
+        return json(
+          await backflow(
+            db,
+            a,
+            t,
+            method === "POST" ? await bodyOf(req) : null,
+          ),
+        );
       if (method === "GET" && !tm[2])
         return json({
           ...t,
@@ -427,6 +470,7 @@ export async function api(req, env, catalog) {
       if (method === "POST") {
         const b = await bodyOf(req);
         if (tm[2]) {
+          allow(a, "evidence");
           if (!Object.hasOwn(evidenceNames, b.stage))
             fail(400, "请选择有效的执行环节。");
           const detail = string(b.detail, "执行证据", 8000),
@@ -460,11 +504,13 @@ export async function api(req, env, catalog) {
       maintain(a);
       if (method === "GET")
         return json({
-          items: await all(
-            db,
-            "SELECT id,project,label,created,revoked FROM tokens WHERE owner=? ORDER BY created DESC",
-            a.owner,
-          ),
+          items: (
+            await all(
+              db,
+              "SELECT id,project,label,created,revoked,scopes,expires_at,last_used FROM tokens WHERE owner=? ORDER BY created DESC,id",
+              a.owner,
+            )
+          ).map((t) => ({ ...t, scopes: JSON.parse(t.scopes) })),
         });
       const b = await bodyOf(req),
         project = projectFor(a, b.project),
@@ -472,20 +518,24 @@ export async function api(req, env, catalog) {
           b.label === undefined || b.label === ""
             ? "未命名客户端"
             : string(b.label, "接入名称", 120),
-        tid = id("K");
+        tid = id("K"),
+        scopes = scopesOf(b.scopes),
+        expires = expiryOf(b.expires_at);
       const raw =
         "cg_" +
         crypto.randomUUID().replaceAll("-", "") +
         crypto.randomUUID().replaceAll("-", "");
       await statement(
         db,
-        "INSERT INTO tokens(id,hash,owner,project,label,created,revoked) VALUES(?,?,?,?,?,?,0)",
+        "INSERT INTO tokens(id,hash,owner,project,label,created,revoked,scopes,expires_at) VALUES(?,?,?,?,?,?,0,?,?)",
         tid,
         await hash(raw),
         a.owner,
         project,
         label,
         stamp(),
+        JSON.stringify(scopes),
+        expires,
       ).run();
       return json(
         {
@@ -493,22 +543,45 @@ export async function api(req, env, catalog) {
           project,
           token: raw,
           label,
-          note: "只显示这一次。令牌只可提交和读取这个项目，不能处理维护状态。",
+          scopes,
+          expires_at: expires,
+          note: "只显示这一次。令牌按所选操作范围访问这个项目，不能处理维护状态。",
         },
         201,
       );
     }
-    const km = path.match(/^\/v1\/tokens\/(K-[a-f0-9-]+)\/revoke$/);
+    const km = path.match(/^\/v1\/tokens\/(K-[a-f0-9-]+)\/(revoke|policy)$/);
     if (km && method === "POST") {
       maintain(a);
-      await bodyOf(req);
+      const b = await bodyOf(req);
       const k = await one(
         db,
-        "SELECT id FROM tokens WHERE id=? AND owner=?",
+        "SELECT * FROM tokens WHERE id=? AND owner=?",
         km[1],
         a.owner,
       );
       if (!k) fail(404, "令牌不存在。");
+      if (km[2] === "policy") {
+        if (!Object.hasOwn(b, "scopes") || !Object.hasOwn(b, "expires_at"))
+          fail(400, "请同时提交操作范围和到期时间；不过期请用 null。");
+        if (k.revoked) fail(409, "已撤销的令牌不能恢复，请重新签发。");
+        const scopes = scopesOf(b.scopes);
+        const expires = expiryOf(b.expires_at);
+        await statement(
+          db,
+          "UPDATE tokens SET scopes=?,expires_at=? WHERE id=? AND owner=?",
+          JSON.stringify(scopes),
+          expires,
+          k.id,
+          a.owner,
+        ).run();
+        return json({
+          id: k.id,
+          scopes,
+          expires_at: expires,
+          note: "操作范围与到期时间已更新，立即生效。",
+        });
+      }
       await statement(
         db,
         "UPDATE tokens SET revoked=1 WHERE id=? AND owner=?",

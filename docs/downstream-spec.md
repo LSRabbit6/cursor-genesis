@@ -368,3 +368,7 @@ git checkout v1.1.0  # 切换到新版本
 
 **最后更新**: 2026-02-26
 **维护者**: cursor-genesis 团队
+
+## 工作台反馈导入
+
+从工作台反馈详情填写并审阅六项可公开摘要，下载 JSON 后，在本仓执行 `python scripts/import-backflow.py 路径.json`。材料进入 `.knowledge/downstream/pending/workbench/T-编号/`，包含 `SUBMISSION.md`、来源元数据及 content/tests 目录。此命名空间以工作台编号保持可追溯性，与传统项目/贡献者/提交目录并存。重复导入拒绝覆盖，修订应先人工核对。审核通过后只将选定目录强制加入 Git，提交 PR 并回工作台关联地址；同步人工审核结论到原有回流登记，不自动把候选变为已发布。详见 [维护操作](maintenance-operations.md)。

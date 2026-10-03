@@ -29,7 +29,13 @@ await writeFile("dist/client/architecture.html", architecture);
 await cp("docs/architecture.md", "dist/client/architecture.md");
 await cp("scripts/menu.py", "dist/client/menu.py");
 await mkdir("dist/server/service", { recursive: true });
-for (const name of ["api.mjs", "db.mjs", "catalog.mjs"])
+for (const name of [
+  "api.mjs",
+  "db.mjs",
+  "catalog.mjs",
+  "permissions.mjs",
+  "backflow.mjs",
+])
   await cp("service/" + name, "dist/server/service/" + name);
 const files = [
   "index.html",

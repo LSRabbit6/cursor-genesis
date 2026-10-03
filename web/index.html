@@ -248,8 +248,51 @@
               >接入名称<input
                 name="label"
                 maxlength="120"
-                placeholder="例如：Cursor、Codex 或自己的脚本" /></label
-            ><button type="submit">创建项目令牌</button>
+                placeholder="例如：Cursor、Codex 或自己的脚本"
+            /></label>
+            <fieldset>
+              <legend>允许的操作</legend>
+              <div class="choices">
+                <label
+                  ><input
+                    type="checkbox"
+                    name="scopes"
+                    value="read"
+                    checked
+                  />查看记录</label
+                >
+                <label
+                  ><input
+                    type="checkbox"
+                    name="scopes"
+                    value="submit"
+                  />提交需求与反馈</label
+                >
+                <label
+                  ><input
+                    type="checkbox"
+                    name="scopes"
+                    value="evidence"
+                  />追加执行证据</label
+                >
+                <label
+                  ><input
+                    type="checkbox"
+                    name="scopes"
+                    value="withdraw"
+                  />撤回项目内需求</label
+                >
+              </div>
+            </fieldset>
+            <label
+              >到期时间（本地时间，留空不过期）<input
+                type="datetime-local"
+                name="expires_at"
+            /></label>
+            <p class="muted">
+              默认只读。按实际需要勾选写入操作；同项目记录共享，撤回权限覆盖该项目的所有需求。
+            </p>
+            <button type="submit">创建项目令牌</button>
           </form>
           <div id="token-result" hidden>
             <p>仅显示这一次，请保存到项目外的环境设置中。</p>

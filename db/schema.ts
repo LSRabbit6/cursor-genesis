@@ -71,6 +71,11 @@ export const tokens = sqliteTable(
     label: text("label").notNull().default("未命名客户端"),
     created: text("created").notNull(),
     revoked: integer("revoked").notNull().default(0),
+    scopes: text("scopes")
+      .notNull()
+      .default('["read","submit","evidence","withdraw"]'),
+    expiresAt: text("expires_at"),
+    lastUsed: text("last_used"),
   },
   (t) => [
     uniqueIndex("tokens_hash").on(t.hash),

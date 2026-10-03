@@ -15,6 +15,13 @@
       "when": 1790396615748,
       "tag": "0001_tan_dracula",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1790865123903,
+      "tag": "0002_keen_kitty_pryde",
+      "breakpoints": true
     }
   ]
 }

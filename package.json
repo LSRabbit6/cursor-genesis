@@ -12,7 +12,8 @@
     "test": "node --test service/tests/*.test.mjs",
     "db:generate": "drizzle-kit generate",
     "start": "node service/standalone.mjs",
-    "access:init": "node scripts/init-access.mjs"
+    "access:init": "node scripts/init-access.mjs",
+    "verify": "node scripts/verify.mjs"
   },
   "devDependencies": {
     "drizzle-kit": "0.31.10",

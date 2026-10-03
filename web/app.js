@@ -14,6 +14,26 @@ const statuses = {
   declined: "暂不做",
   closed: "已撤回",
 };
+const scopeNames = {
+  read: "查看记录",
+  submit: "提交需求与反馈",
+  evidence: "追加执行证据",
+  withdraw: "撤回项目内需求",
+};
+function localTime(value) {
+  if (!value) return "";
+  const date = new Date(value);
+  return new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+    .toISOString()
+    .slice(0, 16);
+}
+function tokenPolicy(form) {
+  const data = new FormData(form),
+    scopes = data.getAll("scopes"),
+    date = data.get("expires_at");
+  if (!scopes.length) throw Error("至少选择一种操作；停用接入请使用撤销。");
+  return { scopes, expires_at: date ? new Date(date).toISOString() : null };
+}
 const stages = {
   installed: "已安装",
   connected: "已接入",
@@ -251,7 +271,8 @@ async function openTicket(ticketId, scroll = true) {
       .map(([v, n]) => `<option value="${v}">${n}</option>`)
       .join(
         "",
-      )}</select></label><label>结果与依据<textarea name="detail" required rows="3" maxlength="8000" placeholder="运行了什么、结果如何、证据在哪。失败也如实记录。"></textarea></label><button type="submit" class="secondary">保存执行记录</button></form>${t.status !== "closed" ? '<button type="button" id="withdraw" class="text-button">撤回这条需求</button>' : ""}</div></div><div class="divider"></div><h3>完整交接记录</h3><ol class="timeline">${t.events.map((e) => `<li><time>${when(e.created)}</time><p><strong>${e.kind === "created" ? "客户端提交 · 服务端回执" : e.kind === "evidence" ? "客户端记录 · " + safe(stages[e.payload.stage]) : "服务端处理 · " + safe(statuses[e.payload.status])}</strong></p><p>${safe(e.payload.note || e.payload.detail || "")}</p>${e.kind === "evidence" ? '<span class="muted">提交者记录，未由服务代跑或独立核实</span>' : ""}</li>`).join("")}</ol>`;
+      )}</select></label><label>结果与依据<textarea name="detail" required rows="3" maxlength="8000" placeholder="运行了什么、结果如何、证据在哪。失败也如实记录。"></textarea></label><button type="submit" class="secondary">保存执行记录</button></form>${t.status !== "closed" ? '<button type="button" id="withdraw" class="text-button">撤回这条需求</button>' : ""}</div></div><div class="divider"></div><h3>完整交接记录</h3><ol class="timeline">${t.events.map((e) => `<li><time>${when(e.created)}</time><p><strong>${e.kind === "backflow" ? "回流摘要已整理" : e.kind === "backflow_link" ? "已关联回流 PR" : e.kind === "created" ? "客户端提交 · 服务端回执" : e.kind === "evidence" ? "客户端记录 · " + safe(stages[e.payload.stage]) : "服务端处理 · " + safe(statuses[e.payload.status])}</strong></p><p>${safe(e.payload.note || e.payload.detail || "")}</p>${e.kind === "evidence" ? '<span class="muted">提交者记录，未由服务代跑或独立核实</span>' : ""}</li>`).join("")}</ol>`;
+  renderBackflow(t);
   const transition = $("#transition-form");
   if (transition)
     transition.onsubmit = (e) => {
@@ -310,7 +331,20 @@ async function loadTokens() {
     ? d.items
         .map(
           (t) =>
-            `<div class="token-row"><span>${safe(t.project)} · ${safe(t.label || "未命名客户端")}<br><span class="muted">${safe(t.id)} · ${when(t.created)} · ${t.revoked ? "已撤销" : "可使用"}</span></span>${t.revoked ? "" : `<button type="button" class="text-button" data-revoke="${safe(t.id)}">撤销</button>`}</div>`,
+            `<div class="token-row"><div><strong>${safe(t.project)} · ${safe(t.label || "未命名客户端")}</strong><p class="muted">${safe(t.id)} · ${t.revoked ? "已撤销" : t.expires_at && Date.parse(t.expires_at) <= Date.now() ? "已到期" : "可使用"}<br>到期：${t.expires_at ? when(t.expires_at) : "不过期"} · 最近访问：${t.last_used ? when(t.last_used) : "尚未使用"}</p><p>${t.scopes.map((s) => safe(scopeNames[s])).join(" · ")}</p>${
+              t.revoked
+                ? ""
+                : `<details><summary>调整权限与到期时间</summary><form data-policy="${safe(t.id)}"><fieldset><legend>允许的操作</legend><div class="choices">${Object.entries(
+                    scopeNames,
+                  )
+                    .map(
+                      ([v, n]) =>
+                        `<label><input type="checkbox" name="scopes" value="${v}" ${t.scopes.includes(v) ? "checked" : ""}>${n}</label>`,
+                    )
+                    .join(
+                      "",
+                    )}</div></fieldset><label>到期时间（本地时间，留空不过期）<input name="expires_at" type="datetime-local" value="${localTime(t.expires_at)}"></label><button type="submit" class="secondary">保存权限</button></form></details>`
+            }</div>${t.revoked ? "" : `<button type="button" class="text-button" data-revoke="${safe(t.id)}">撤销</button>`}</div>`,
         )
         .join("")
     : '<p class="muted">还没有项目令牌。需要本地客户端接入时，为指定项目创建一个。</p>';
@@ -319,10 +353,26 @@ $("#token-form").onsubmit = (e) => {
   e.preventDefault();
   const form = e.currentTarget;
   busy(form, async () => {
-    const r = await call("/tokens", Object.fromEntries(new FormData(form)));
+    const r = await call("/tokens", {
+      ...Object.fromEntries(new FormData(form)),
+      ...tokenPolicy(form),
+    });
     $("#token-value").textContent = r.token;
     $("#token-result").hidden = false;
     notice("令牌已创建，仅能访问 " + r.project + "。保存后可以隐藏。");
+    await loadTokens();
+  });
+};
+$("#token-list").onsubmit = (e) => {
+  const form = e.target.closest("[data-policy]");
+  if (!form) return;
+  e.preventDefault();
+  busy(form, async () => {
+    const result = await call(
+      "/tokens/" + form.dataset.policy + "/policy",
+      tokenPolicy(form),
+    );
+    notice(result.note);
     await loadTokens();
   });
 };
@@ -429,3 +479,92 @@ $("#logout").onclick = async () => {
     notice(e.message, true);
   }
 };
+
+function downloadPacket(packet, filename) {
+  const url = URL.createObjectURL(
+    new Blob([JSON.stringify(packet, null, 2)], { type: "application/json" }),
+  );
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+function renderBackflow(t) {
+  if (state.me.role !== "maintainer" || t.kind !== "feedback") return;
+  const fields = {
+    problem: "解决什么",
+    source: "来源与复现（只填可公开信息）",
+    boundary: "适用边界",
+    proposal: "改进与使用方法",
+    verification: "如何验证",
+    limitations: "已知失败与限制",
+  };
+  const section = document.createElement("section");
+  section.className = "backflow-panel";
+  section.innerHTML = `<h3>将反馈整理成回流材料</h3><p>原始项目、自查和执行记录不会自动带入。填写可以公开的摘要，导出后交到仓库审核。</p><form id="backflow-form"><div class="detail-grid">${Object.entries(
+    fields,
+  )
+    .map(
+      ([key, label]) =>
+        `<label>${label}<textarea name="${key}" required rows="3" maxlength="6000"></textarea></label>`,
+    )
+    .join(
+      "",
+    )}</div><label class="review-choice"><input type="checkbox" name="reviewed" required>我已检查以上六项，没有密钥或不应公开的业务数据，可以进入回流审核。</label><button type="submit">生成并下载回流材料</button></form><div id="backflow-downloads"></div><form id="backflow-link-form"><label>关联回流 PR<input name="url" type="url" required placeholder="https://github.com/组织/仓库/pull/编号"></label><button type="submit" class="secondary">保存关联</button></form><p class="muted">关联 PR 不代表已合并或发布；核对实际结果后再调整处理状态。</p>`;
+  $("#detail-content").append(section);
+  const downloads = section.querySelector("#backflow-downloads");
+  const exported = t.events.filter((e) => e.kind === "backflow");
+  if (!exported.length)
+    downloads.textContent =
+      "尚未生成回流材料。先完成上方摘要，再下载并导入候选目录。";
+  for (const event of exported) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "text-button";
+    button.textContent = "下载已保存摘要 · " + when(event.created);
+    button.onclick = () => {
+      const { note, ...packet } = event.payload;
+      downloadPacket(packet, `cg-backflow-${t.id}.json`);
+    };
+    downloads.append(button);
+  }
+  for (const event of t.events.filter((e) => e.kind === "backflow_link")) {
+    const p = document.createElement("p"),
+      a = document.createElement("a");
+    a.href = event.payload.url;
+    a.textContent = event.payload.url;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    p.append(a);
+    downloads.append(p);
+  }
+  const form = section.querySelector("#backflow-form");
+  form.onsubmit = (e) => {
+    e.preventDefault();
+    busy(form, async () => {
+      const data = Object.fromEntries(new FormData(form));
+      const result = await call(`/tickets/${t.id}/backflow`, {
+        ...data,
+        action: "export",
+        reviewed: data.reviewed === "on",
+      });
+      notice(result.note);
+      // Keep a durable download action if the browser blocks automatic download.
+      await openTicket(t.id, false);
+      downloadPacket(result.packet, result.filename);
+    });
+  };
+  const linkForm = section.querySelector("#backflow-link-form");
+  linkForm.onsubmit = (e) => {
+    e.preventDefault();
+    busy(linkForm, async () => {
+      const result = await call(`/tickets/${t.id}/backflow`, {
+        action: "link",
+        ...Object.fromEntries(new FormData(linkForm)),
+      });
+      notice(result.note);
+      await openTicket(t.id, false);
+    });
+  };
+}
