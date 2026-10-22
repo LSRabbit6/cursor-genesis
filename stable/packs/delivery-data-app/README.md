@@ -23,7 +23,7 @@ WHY（2026-09-23，cg 第一份面向外部 harness 用户的 pack）：
 
 ```bash
 # 在你的项目根目录
-git clone --filter=blob:none --sparse https://github.com/SYMlp/cursor-genesis.git .cursor-genesis
+git clone --filter=blob:none --sparse https://github.com/LSRabbit6/cursor-genesis.git .cursor-genesis
 cd .cursor-genesis && git sparse-checkout set stable/packs/delivery-data-app scripts && cd ..
 python .cursor-genesis/scripts/install-pack.py delivery-data-app . --source .cursor-genesis
 ```

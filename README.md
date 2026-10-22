@@ -3,6 +3,8 @@
 > **How a system that is already explained elsewhere gets bound into each agent harness (Claude Code, Codex).**
 > 
 > *"Stop writing code. Start engineering how your AI writes code."*
+>
+> 灵枢兔 LSRabbit · 作者 石宜萌（[@SYMlp](https://github.com/SYMlp)）
 
 > **定位**（正本在 kg registry，本段照抄）：讲明白的体系怎么结合到各家 harness（Claude Code、Codex）上去——「这块才是 cg 的应该的定位」。cg 不是体系本身。
 >
@@ -43,7 +45,7 @@ Instead of writing manual prompts for every module, CG crystallizes robust Human
 - 装法（在你的项目根目录）：
 
 ```bash
-git clone --filter=blob:none --sparse https://github.com/SYMlp/cursor-genesis.git .cursor-genesis
+git clone --filter=blob:none --sparse https://github.com/LSRabbit6/cursor-genesis.git .cursor-genesis
 cd .cursor-genesis && git sparse-checkout set stable/packs/delivery-data-app scripts && cd ..
 python .cursor-genesis/scripts/install-pack.py delivery-data-app . --source .cursor-genesis
 ```
@@ -142,4 +144,4 @@ See [`stable/packs/enterprise/README.md`](stable/packs/enterprise/README.md) for
 CG aims to turn hard-to-understand Agent capabilities into Human–Agent operating mechanisms that are easy to understand, trigger, compose, validate, correct, and distribute—without letting any one tool's file format define the domain.
 
 ---
-*Built for the future of AI-native engineering.*
+*Built for the future of AI-native engineering.* — 灵枢兔 LSRabbit，作者 石宜萌（[@SYMlp](https://github.com/SYMlp)）

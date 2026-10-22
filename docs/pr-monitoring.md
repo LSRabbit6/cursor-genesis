@@ -128,7 +128,7 @@ code pending/pr-summary-$(date +%Y-%m-%d).md
 # 回流 PR 待处理清单
 
 **生成时间**: 2026-02-26 00:00:15
-**检查仓库**: SYMlp/cursor-genesis
+**检查仓库**: LSRabbit6/cursor-genesis
 
 ---
 
@@ -331,7 +331,7 @@ tail -f logs/pr-monitor.log
 gh auth status
 
 # 检查网络连接
-gh repo view SYMlp/cursor-genesis
+gh repo view LSRabbit6/cursor-genesis
 
 # 手动运行脚本查看错误
 cd d:/Project/cursor-genesis

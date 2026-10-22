@@ -19,6 +19,10 @@
 | 自装层 | 给对方 AI 的部署说明；对方 AI 照着装；现场验收 | 清单的 `setup` 栏 |
 | 清单 | 收哪些包、各是哪版、条件标签、宿主、包的版本号 | `bundle.yaml` |
 
+## 交付与回流通道
+
+仓里的服务线（`service/`、`web/`，2026-09-26 起）是各包共用的交付与回流通道：取包、回执、反馈、维护处理、执行证据。它不单列成一个包，也不改上面四层。说明见 [docs/harness-api.md](../docs/harness-api.md)、[docs/collaboration-workbench.md](../docs/collaboration-workbench.md)。
+
 ## 进包的门
 
 - 能脱离项目复用，且有第二个使用方（2026-10-09 的门槛，不变）。

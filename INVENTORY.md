@@ -8,8 +8,9 @@
 
 | 包 | 版本 | 文件 | 最后提交 | 进哪个包 | 动作 |
 |---|---|---|---|---|---|
-| delivery-data-app | 0.1.0 | 10 | 2026-09-24 | 交付包（组件层） | 标注 |
-| second-loop-compounding | 0.1.0 | 9 | 2026-09-24 | 交付包候选，还没有真收件人 | 标注 |
+| delivery-data-app | 0.2.0 | — | 2026-09-24 | 交付包（组件层） | 标注 |
+| domain-menu | 0.2.1 | — | 2026-09-24 | 交付包（组件层）。菜单服务的客户端，0.2.0 从 delivery-data-app 拆出 | 标注 |
+| second-loop-compounding | 0.1.1 | 9 | 2026-10-22 | 交付包候选，还没有真收件人 | 标注 |
 | harness-engineering | — | 8 | 2026-09-24 | 货架。其中 cross-host-thin-adapters 当宿主适配层的参考，工作台包的两份样板逐条对过它 | 标注 |
 | create-toolkit | 1.6.0 | 71 | 2026-08-16 | 自用包候选 | 标注 |
 | deep-research | 1.0.0 | 12 | 2026-08-17 | 自用包候选 | 标注 |
@@ -66,7 +67,19 @@
 | docs/architecture.md、pr-monitoring.md | 未入包 | 没细查，待分诊 |
 | .knowledge/ | 节点元信息，不是资产 | 留 |
 
+## 四½、服务线（2026-09-26～10-03 远端合入）
+
+盘点第一版时本地没有这条线，合并远端后补。维护者 10-22「可以」：读作各包共用的**交付与回流通道**，不单列成包。
+
+| 区块 | 去向 | 动作 |
+|---|---|---|
+| service/、web/、db/、drizzle/、deploy/、Dockerfile、package.json 等 | 交付与回流通道：取包、回执、反馈、维护处理 | 留 |
+| docs/harness-api.md、collaboration-workbench.md、collaboration-map.html、self-hosting.md、maintenance-*.md、docs/design/ | 通道的说明和设计稿 | 留 |
+| release-lock.json、scripts/check-release.py、build-pack-catalog.py、verify.mjs、.github/workflows/ | 发布锁和 CI：在线包（delivery-data-app、second-loop-compounding）改内容必须升版本 | 留 |
+
 ## 五、搬删清单（档 1，等拍）
+
+> 10-22 推迟：三个头合成一个之后再做。kg `index/domains.yaml`、`index/relations.yaml` 直接指着 `stable/knowledge/knowledge-system/` 和 `stable/atoms/patterns/`，这两块本来就留。
 
 1. knowledge-manage、cursor-templates、v1-talk 三个货架包归档。
 2. enterprise 货架包，连同 rules/enterprise、skills/java-backend-test-ops、plan-templates/、learnings 里企业那批，物理搬到 enterprise-delivery 那边。
@@ -75,6 +88,8 @@
 5. install.sh、.cursor/rules/ 归档。
 
 ## 六、这次没查到的
+
+- `scripts/tests/test_release` 在 Windows 检出上失败：release-lock.json 按 LF 算，Windows 检出是 CRLF。CI（ubuntu）不受影响。修法候选：给 `stable/packs/` 加 `.gitattributes` 强制 LF。
 
 - delivery-data-app 有没有真交到触发它的那位朋友手里。
 - 科研工作者的工作台打了三版，哪一版装上了。capabilities 那批只在 starter 版里；装的不是 starter 版，就等于没发出去。

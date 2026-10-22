@@ -4,7 +4,7 @@
 # 装了不等于到场：还要在项目入口放一行路由壳，见 README「怎么加载 · 到场」。
 
 pack: second-loop-compounding
-version: 0.1.0
+version: 0.1.1
 description: 复利第二环——一件事干完之后的一页复盘模板、每人一份线文件模板、Claude 到 Codex 的内容交接包与回执模板，加框架摘要、在用与否七态判据、探针调用说明
 record_root: .agents
 

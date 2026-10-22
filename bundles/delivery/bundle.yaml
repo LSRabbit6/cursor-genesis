@@ -7,9 +7,10 @@ gate: pending                    # 收件人待核
 recipients: []                   # 待核：delivery-data-app 有没有真交到触发它的那位朋友手里，没查到
 
 packs:
-  - delivery-data-app@0.1.0
+  - delivery-data-app@0.2.0
+  - domain-menu@0.2.1           # 要方案的入口，菜单服务的客户端（0.2.0 从 delivery-data-app 拆出）
 candidates:
-  - ref: second-loop-compounding@0.1.0
+  - ref: second-loop-compounding@0.1.1
     note: 还没有真收件人
 
 adapters:                        # 宿主适配层在货架包里

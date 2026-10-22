@@ -19,7 +19,7 @@ WHY（2026-09-24，从 delivery-data-app 里拆出来单立）：
 
 ```bash
 # 从 GitHub（在你的项目根目录）
-git clone --filter=blob:none --sparse https://github.com/SYMlp/cursor-genesis.git .cursor-genesis
+git clone --filter=blob:none --sparse https://github.com/LSRabbit6/cursor-genesis.git .cursor-genesis
 cd .cursor-genesis && git sparse-checkout set stable/packs/domain-menu scripts && cd ..
 python .cursor-genesis/scripts/install-pack.py domain-menu . --source .cursor-genesis
 
@@ -51,7 +51,7 @@ python .agents/skills/domain-menu/scripts/menu.py feedback --category misfit --w
 | POST | `/v1/requests` | 要 | `kind: solution`（类型 + 答案 + 已装版本）或 `kind: feedback`（misfit / validator / want） |
 | GET | `/v1/tickets/<编号>` | 要 | 登记进度：open / accepted / ready / declined |
 
-不要令牌的四条，内容与本仓 GitHub 上公开的一样。令牌只用来认「谁在登记」，防收件箱被刷。没有令牌的，开 [issue](https://github.com/SYMlp/cursor-genesis/issues)。
+不要令牌的四条，内容与本仓 GitHub 上公开的一样。令牌只用来认「谁在登记」，防收件箱被刷。没有令牌的，开 [issue](https://github.com/LSRabbit6/cursor-genesis/issues)。
 
 ## 负空间
 
