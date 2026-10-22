@@ -249,14 +249,20 @@ resources:
 
       delivery-data-app:
         path: stable/packs/delivery-data-app
-        description: 业务交付 · 数据应用——给会用 harness 但不懂产品设计的人：产物规范 + 信息架构规范 + 机器检查器 + 领域清单入口 + 设计稿六段模板（发布态；09-24 补登）
+        description: 业务交付 · 数据应用——给会用 harness 但不懂产品设计的人：产物规范 + 信息架构规范 + 机器检查器 + 设计稿六段模板（发布态；0.2.0 起领域清单入口拆成 domain-menu）
         includes:
           - rules/data-app-norms
           - rules/AGENTS-snippet
-          - skills/domain-menu
           - plan-templates/design-doc-six-sections
           - validators/data-app-norms-check
           - adapters/claude-code/settings.hooks
+        install: install-manifest.yaml
+
+      domain-menu:
+        path: stable/packs/domain-menu
+        description: 要方案的入口——菜单服务的客户端：自查清单 → 交回类型 → 装回来的包 / 拿登记编号；stdlib-only
+        includes:
+          - skills/domain-menu
         install: install-manifest.yaml
 
       second-loop-compounding:

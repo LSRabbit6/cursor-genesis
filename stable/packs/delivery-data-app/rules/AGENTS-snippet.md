@@ -8,5 +8,5 @@
 任何面向人的产物先读 `.agents/rules/data-app-norms.md`：呈现七条 + 结构四条。
 动手前按 `.agents/plan-templates/design-doc-six-sections.md` 写设计稿，「验收」「不变量」必填。
 收工前跑 `python .agents/validators/data-app-norms-check/scripts/check_data_app_norms.py --changed`，不过不收工。
-选领域、要材料清单：说「选领域」，读 `.agents/skills/domain-menu/SKILL.md`。
+选领域、要方案、用着不合身：说「选领域」，读 `.agents/skills/domain-menu/SKILL.md`（domain-menu 包，菜单服务的客户端；没装就跳过这行）。
 ```

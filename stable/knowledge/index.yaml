@@ -190,13 +190,13 @@ categories:
 
   # 2026-09-24 补登：delivery-data-app 09-23 入库时只写了 CHANGELOG / 根 README，没进本索引与资源目录（kg 侧更新子模块时发现）
   delivery-data-app:
-    description: 业务交付 · 数据应用——给会用 harness 但不懂产品设计的人：产物规范 7 条 + 信息架构规范 4 条 + 机器检查器 + 领域清单入口 + 设计稿六段模板（发布态，查表即用）
+    description: 业务交付 · 数据应用——给会用 harness 但不懂产品设计的人：产物规范 7 条 + 信息架构规范 4 条 + 机器检查器 + 设计稿六段模板（发布态，查表即用；0.2.0 起领域清单入口拆成 domain-menu 包）
     path: ../packs/delivery-data-app/
     items:
       - id: delivery-data-app
         title: 业务交付 · 数据应用套装入口（装法 / 到场 / 用法 / 回流）
         file: README.md
-        solves: 解决「harness 能把东西做出来，但站产品设计角度有很大优化空间」——把规范、检查器、领域清单、设计稿模板一次装进 .agents/
+        solves: 解决「harness 能把东西做出来，但站产品设计角度有很大优化空间」——把规范、检查器、设计稿模板一次装进 .agents/
         keywords:
           - 数据应用
           - 产品规范
@@ -220,14 +220,6 @@ categories:
           - validator
           - 检查器
           - Stop hook
-      - id: domain-menu
-        title: 领域清单入口 skill（选领域 → 要什么材料）
-        file: skills/domain-menu/SKILL.md
-        solves: 「选领域」时列出已有领域与所需材料；选「其他」走空白领域流程并把材料清单回流
-        keywords:
-          - 领域
-          - domain-menu
-          - 材料清单
       - id: design-doc-six-sections
         title: 设计稿六段模板（验收 / 不变量必填）
         file: plan-templates/design-doc-six-sections.md
@@ -236,6 +228,26 @@ categories:
           - 设计稿
           - 六段
           - 验收
+
+  # 2026-09-24 从 delivery-data-app 拆出单立：菜单服务的客户端（用户点名「起服务、域名暴露，对方 skill 要方案时调一下」）
+  domain-menu:
+    description: 要方案的入口——菜单服务的客户端：拿自查清单、在本仓自查后交回类型、按返回装包贴设定、查登记进度、报不合身（stdlib-only）
+    path: ../packs/domain-menu/
+    items:
+      - id: domain-menu
+        title: 要方案入口（装法 / 协议表 / 一次典型的活）
+        file: README.md
+        solves: 解决「对方的 harness 不知道我们有什么、有了也拿不到、没有也报不回来」——自查清单在对方家答，服务只查表回包或登记
+        keywords:
+          - 领域
+          - domain-menu
+          - 菜单服务
+          - 自查清单
+          - 材料清单
+      - id: domain-menu-skill
+        title: domain-menu skill（五步要方案 + 反馈 + 断网补交）
+        file: skills/domain-menu/SKILL.md
+        solves: 「选领域 / 要方案」时照五步走：checklist → 自查 → submit → install 或拿编号 → status
 
   # 2026-09-24 复利第二环打包接收：toys 工作台当夜落地的「第二个环」运行件的模板原件（框架 + 模板 + 调用说明）；
   # 判断内核留 kg、人的数据只住各人目录的线文件——此处登记的是可加载的操作面

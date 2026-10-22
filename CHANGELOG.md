@@ -9,12 +9,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- 2026-10-22：cg 单位改成结合包（按使用方分，宿主是包里一层）。`bundles/` 下工作台、交付、自用三份 `bundle.yaml`；工作台包带给对方 AI 的自装模板 `SETUP-FOR-AI.md` 和 Claude Code / Codex 两份薄适配样板；`INVENTORY.md` 标出现有内容各进哪个包；`scripts/check-bundles.py` 核清单、可调 kg pin-check 比钉。
+
 - 2026-10-01：维护闭环实现：令牌按操作授权、到期和最近访问、旧库兼容迁移；反馈经维护者整理为可公开摘要后导出与导入、关联 PR；统一验证入口与 GitHub Actions、发布包摘要锁、SQLite 在线备份及不覆盖恢复、Compose 部署配置。真实宿主专用适配和公网部署仍需环境验证。
 
 - CG 独立身份与多 harness 接入：管理密钥登录、可撤销会话、按接入命名的项目令牌、独立服务与部署说明；业务 API 不再信任 ChatGPT 身份头。默认构建不依赖 Sites，旧线上实例未迁移。
 
 - 可运行的双视角协作工作台：持久化菜单服务、真实操作页面和 Python 客户端，串起自查、回执、缺口、反馈、处理、取包与执行证据。
 - 身份与项目隔离、幂等提交、并发状态检查、令牌撤销、离线补交及本地 / 平台运行入口；不迁入真实客户数据，不替项目执行业务判断。
+
+- `domain-menu` v0.2.0：要方案的入口，从 `delivery-data-app` 拆出单立，成为菜单服务的客户端——`scripts/menu.py`（stdlib-only）五个动作：`checklist` 拿自查清单与类型表、`submit` 交回自查结果（自动带已装包版本）、`install` 按回执从服务下包并校验 sha256 后用包内安装器装、`status` 查登记编号、`feedback` 报规范不合身 / 检查器误报 / 想要新组件；连不上时存 `~/.config/cg-menu/pending/`，`resend` 补交。推演在对方家，服务只查表：有包回包和设定，没有就登记、回编号和领域无关骨架。
+
+### Changed
+
+- `domain-menu` 0.2.1：连不上服务且沙箱不让写 `~/.config/cg-menu/pending` 时不再崩，原样打印要交的内容、指引记进本仓纸面收件箱；只读请求失败重试一次。
+- `delivery-data-app` 0.1.0 → 0.2.0：拿掉静态 `skills/domain-menu`（领域清单表与空白领域流程搬到菜单服务的查表数据），否则它一更新就会把客户端覆盖回静态版；README / 索引同步。
+- `scripts/install-pack.py`：加 `--record-source`（菜单服务客户端从临时目录装包时，把服务地址记进 `installed-packs.yaml`，不记临时路径）；加 `from __future__ import annotations`，3.9 也能跑。
 
 ### Fixed
 

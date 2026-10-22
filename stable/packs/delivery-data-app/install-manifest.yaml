@@ -2,8 +2,8 @@
 # install-pack.py 读取此文件：全部部署到公共作者层 .agents/，宿主各自薄适配（见 README「到场」）
 
 pack: delivery-data-app
-version: 0.1.0
-description: 业务交付 · 数据应用——给会用 harness 但不懂产品设计的人：产物规范 + 信息架构规范 + 机器检查器 + 领域清单入口 + 设计稿六段模板
+version: 0.2.0
+description: 业务交付 · 数据应用——给会用 harness 但不懂产品设计的人：产物规范 + 信息架构规范 + 机器检查器 + 设计稿六段模板（领域清单入口 0.2.0 起拆成 domain-menu 包）
 record_root: .agents
 
 mappings:
@@ -14,12 +14,6 @@ mappings:
   - source: rules/AGENTS-snippet.md
     target_root: .agents
     target: rules/data-app-norms.AGENTS-snippet.md
-
-  # 领域清单入口（用户点名调用的 skill）
-  - source: skills/domain-menu
-    target_root: .agents
-    target: skills/domain-menu
-    type: directory
 
   # 设计稿六段模板
   - source: plan-templates/design-doc-six-sections.md
