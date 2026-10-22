@@ -47,9 +47,19 @@ cd .cursor-genesis && git sparse-checkout set stable/packs/delivery-data-app scr
 python .cursor-genesis/scripts/install-pack.py delivery-data-app . --source .cursor-genesis
 ```
 
-- 装完做两件事才算生效：把 `.agents/rules/data-app-norms.AGENTS-snippet.md` 那几行贴进你项目的 `AGENTS.md`；Claude Code 用户把 `.agents/adapters/claude-code/settings.hooks.json` 里的 Stop hook 并进 `.claude/settings.json`（Codex 在 `/hooks` 里信任一次）。
+- 安装后先接入项目约定和宿主入口：把 `.agents/rules/data-app-norms.AGENTS-snippet.md` 那几行贴进你项目的 `AGENTS.md`；Claude Code 用户把 `.agents/adapters/claude-code/settings.hooks.json` 里的 Stop hook 并进 `.claude/settings.json`。自动触发还须核实宿主实际加载与执行；其他宿主先按包说明手动运行检查器，不能由这份 Claude Code 配置推断已接通。
 - 然后说「选领域」。清单告诉你我们在你的领域有什么、你要备哪些材料；没有你的领域就走空白领域流程，把它让你填的材料清单贴回 issue——那是下一章该写什么的唯一依据。
-- 这个仓不装任何判断结论、不联网、不替你推演；推演在你自己的 harness 里跑。
+- 此公开包提供规范与操作面；包内静态技能不联网，具体项目的推演在你自己的 harness 里跑。
+
+## 先看整体，再看两端（中文）
+
+[双视角交互图](docs/collaboration-map.html) · [完整架构说明](docs/architecture.md) · [运行协作工作台](docs/collaboration-workbench.md) · [独立部署](docs/self-hosting.md) · [多 harness 接入](docs/harness-api.md)
+
+一张总图，下面按六个环节对齐 **CG 供给 / 维护侧** 与 **使用者的 AI / 本地项目**：谁提供什么、怎样接入、怎样证明做对、问题如何回流。交互图下载后可直接在浏览器中离线打开；GitHub 上可读架构文档中的 Mermaid 图与对照表。
+
+现在还提供可运行的协作工作台：整体架构图下面对齐两端职责，支持自查提交、回执、反馈、维护处理、包下载与执行证据。身份由 CG 自己管理，harness 通过 HTTP / Python CLI 使用各自项目令牌；不要求 ChatGPT 或任何模型平台账号。运行方式见上面的工作台文档。此实现与下游旧菜单部署相互独立；安装文件、宿主加载、自动触发和检查通过分别记录。
+
+[项目令牌怎样分配](docs/harness-api.md#项目令牌是什么怎样分配) · [维护与丰富方案](docs/maintenance-and-growth.md) · [维护操作与验证](docs/maintenance-operations.md)：查看当前能力、维护缺口、后续任务和每项的完成标准。
 
 ## Proven Assets: Enterprise Meta-Rules
 

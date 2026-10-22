@@ -1,0 +1,3 @@
+# Pack installation regression tests read and write complete YAML records.
+# This is a verification dependency, not a workbench runtime dependency.
+PyYAML==6.0.3

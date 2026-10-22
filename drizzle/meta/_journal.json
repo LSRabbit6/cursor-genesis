@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1790390400594,
+      "tag": "0000_furry_marvel_zombies",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1790396615748,
+      "tag": "0001_tan_dracula",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1790865123903,
+      "tag": "0002_keen_kitty_pryde",
+      "breakpoints": true
+    }
+  ]
+}

@@ -4,6 +4,8 @@
 > **更新日期**: 2026-02-26
 > **适用对象**: 使用 cursor-genesis 的下游项目（如 anfu_test）
 
+> **先看协作全貌**：[整体架构与双视角](architecture.md) · [可离线打开的交互图](collaboration-map.html)。下面保留具体集成与回流约定；请按实际包的 README 核对版本、安装与宿主接入方式。
+
 ## 1. 集成方式 (Integration Methods)
 
 ### 1.1 选择性克隆（推荐）
@@ -154,6 +156,8 @@ cat .cursor-genesis/stable/packs/v1-talk/manifest.yaml
 
 ## 3. 回流规范 (Backflow Specification)
 
+下游向 CG 提交材料，以 [pending 目录说明](../.knowledge/downstream/pending/README.md) 和 [提交模板](../.knowledge/downstream/pending/TEMPLATE.md) 为入口。`scripts/backflow.sh` 是 CG 向 knowledge-graph 的上游上报工具，不能用来处理这里的下游收件。工作台反馈目前记录编号与现象，尚未自动生成回流 PR 或发布包。
+
 当你在下游项目中发现改进点或创建了新的有价值内容时，可以回流到 cursor-genesis。
 
 ### 3.1 回流内容类型
@@ -174,7 +178,7 @@ cat .cursor-genesis/stable/packs/v1-talk/manifest.yaml
 
 ```
 .knowledge/downstream/pending/<project-hash>/<contributor-name>/<commit-id>/
-├── SUBMISSION.md          # 使用 .knowledge/downstream/TEMPLATE.md 填写
+├── SUBMISSION.md          # 使用 .knowledge/downstream/pending/TEMPLATE.md 填写
 ├── content/               # 回流的内容
 │   ├── rules/            # 如果是规则文件
 │   ├── capabilities/     # 如果是能力定义
@@ -217,7 +221,8 @@ cat .cursor-genesis/stable/packs/v1-talk/manifest.yaml
 
 4. **提交并创建 PR**
    ```bash
-   git add .
+   # pending/ 默认忽略，只强制加入这次明确选择的回流目录
+   git add -f .knowledge/downstream/pending/anfu-test-a3f2/zhangsan/20260226-001
    git commit -m "backflow: 改进的战略研判团队规则"
    git push origin backflow/my-improvement
 
@@ -363,3 +368,7 @@ git checkout v1.1.0  # 切换到新版本
 
 **最后更新**: 2026-02-26
 **维护者**: cursor-genesis 团队
+
+## 工作台反馈导入
+
+从工作台反馈详情填写并审阅六项可公开摘要，下载 JSON 后，在本仓执行 `python scripts/import-backflow.py 路径.json`。材料进入 `.knowledge/downstream/pending/workbench/T-编号/`，包含 `SUBMISSION.md`、来源元数据及 content/tests 目录。此命名空间以工作台编号保持可追溯性，与传统项目/贡献者/提交目录并存。重复导入拒绝覆盖，修订应先人工核对。审核通过后只将选定目录强制加入 Git，提交 PR 并回工作台关联地址；同步人工审核结论到原有回流登记，不自动把候选变为已发布。详见 [维护操作](maintenance-operations.md)。

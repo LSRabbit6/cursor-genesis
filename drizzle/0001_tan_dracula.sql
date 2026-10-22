@@ -1,0 +1,1 @@
+ALTER TABLE `tokens` ADD `label` text DEFAULT '未命名客户端' NOT NULL;

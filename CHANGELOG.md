@@ -7,11 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- 2026-10-01：维护闭环实现：令牌按操作授权、到期和最近访问、旧库兼容迁移；反馈经维护者整理为可公开摘要后导出与导入、关联 PR；统一验证入口与 GitHub Actions、发布包摘要锁、SQLite 在线备份及不覆盖恢复、Compose 部署配置。真实宿主专用适配和公网部署仍需环境验证。
+
+- CG 独立身份与多 harness 接入：管理密钥登录、可撤销会话、按接入命名的项目令牌、独立服务与部署说明；业务 API 不再信任 ChatGPT 身份头。默认构建不依赖 Sites，旧线上实例未迁移。
+
+- 可运行的双视角协作工作台：持久化菜单服务、真实操作页面和 Python 客户端，串起自查、回执、缺口、反馈、处理、取包与执行证据。
+- 身份与项目隔离、幂等提交、并发状态检查、令牌撤销、离线补交及本地 / 平台运行入口；不迁入真实客户数据，不替项目执行业务判断。
+
 ### Fixed
+
+- 安装器在写入前预检全部映射，补齐 Mac 对 Windows 锚定路径的拒绝，失败不记录为成功安装。
 
 - 索引补登：`delivery-data-app` 进 `stable/knowledge/index.yaml` 与 `resources-catalog.yaml`（09-23 入库时只写了 CHANGELOG 与根 README；09-24 kg 侧更新子模块时发现）。
 
 ### Added
+
+- 双视角协作架构文档与离线交互图：总图后按六个环节对齐 CG 供给侧和项目客户端，列明交接内容、安装 / 加载 / 触发 / 验收证据及回流去向。在线菜单单列为下游观察，未宣称公开仓已有服务实现；原 2026-02-25 架构保留为历史快照。
 
 - `second-loop-compounding` v0.1.0：复利第二环打成可加载套装——A 复盘模板（八问 + 负空间）、LINE 人际线模板（九节固定；宫当坐标不当预测；两条链带「归属」行）、Claude → Codex 内容交接包（九节）与回执（五节）模板、框架摘要（五步 / 四线 × 三定义 / 两本账 / 六块探针 / 三种活分开跑 / 松耦合）、设计在用与否七态判据、探针与休眠脚本调用说明；`install-manifest.yaml` 逐文件部署到 `.agents/templates/` 与 `.agents/docs/` 下的 `second-loop-compounding/`。模板原件住 cg、运行件留 toys（README 有对应表）；不带脚本，不带任何人的内容。
 - `delivery-data-app` v0.1.0：第一份面向外部 harness 使用者的 pack——产物规范 7 条 + 信息架构规范 4 条（`rules/`）、stdlib 收工检查器 `validators/data-app-norms-check`（R1/R3/S2/R7 机器查，S3 warn）、`domain-menu` 领域清单入口 skill（含空白领域流程与材料清单）、设计稿六段模板、Claude Code Stop hook 片段；README 加中文「三分钟」段。判断内核不出门，只出操作面。

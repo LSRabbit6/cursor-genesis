@@ -1,0 +1,11 @@
+.git
+.openai
+.cg-menu
+.env*
+node_modules
+dist
+workspace
+pending
+**/__pycache__
+**/*.pyc
+*.log
