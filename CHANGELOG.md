@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- 2026-10-22：`delivery-data-app` 0.2.0 → 0.2.1、`second-loop-compounding` 0.1.1 → 0.1.2，内容不变：f1f16cf 的发布锁在 Windows 上算错（排序不分大小写、zip 的 create_system 写成 0，4c8effa 修了打包脚本），发布锁规矩要求同一版本号哈希不变，所以各升一个补丁号；错的那版 CI 没过、没部署。
 - 2026-10-22：`second-loop-compounding` 0.1.0 → 0.1.1，只因随包的 `scripts/install-pack.py` 变了（发布锁规矩：内容变就升版本）。仓地址统一为 `LSRabbit6/cursor-genesis`（仓的正身在 LSRabbit6 组织；SYMlp 地址是转移后的跳转）；README 加作者「灵枢兔 LSRabbit · 作者 石宜萌」。
 - `domain-menu` 0.2.1：连不上服务且沙箱不让写 `~/.config/cg-menu/pending` 时不再崩，原样打印要交的内容、指引记进本仓纸面收件箱；只读请求失败重试一次。
 - `delivery-data-app` 0.1.0 → 0.2.0：拿掉静态 `skills/domain-menu`（领域清单表与空白领域流程搬到菜单服务的查表数据），否则它一更新就会把客户端覆盖回静态版；README / 索引同步。
