@@ -18,7 +18,7 @@ identity: 讲明白的体系怎么结合到各家 harness（Claude Code、Codex�
 boundary: 「cg和kg的区别这块也出来了。 kg里面一方面是cg中更上一层的总结。还有就是这个情绪方面的」——cg 装机器能执行的（组件、套装、结合法）；kg 装认知：cg 之上的那层总结（判断、方法），加跟人绑定的材料。
 unit: 结合包——按使用方分，宿主是包里的一层；一个包四层：组件层、宿主适配层、自装层、清单（bundles/README.md）
 domain_axis: 人—Agent 开发协作机制 Leaf   # 2026-08-17 两轴里的域名轴，读作正本句的展开
-version: 1.6.0
+version: 1.7.0
 domain: ai-collaboration-method
 description: |
   （下面是 07-25 的域名轴展开，定位以 identity 为准。）
@@ -219,6 +219,11 @@ lifecycle:
 
 # 版本记录
 changelog:
+  - version: 1.7.0
+    date: 2026-10-22
+    changes:
+      - 归档：v1-talk、knowledge-manage、cursor-templates 三包和它们专用的 Cursor 规则、install.sh、.cursor/rules 移到 archive/2026-10-22/（只搬不删）
+      - 三头合一：远端服务线 + 本机 _meta 三笔 + 结合包重排；仓地址统一 LSRabbit6，README 加作者「灵枢兔 LSRabbit · 作者 石宜萌」
   - version: 1.6.0
     date: 2026-10-22
     changes:

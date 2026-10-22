@@ -74,9 +74,8 @@ stable/                   # Published assets (sparse checkout target)
 │   ├── validators/     # Machine-verifiable contracts + runnable validators (stdlib-only)
 │   └── code-templates/ # DDD/Java/Vue scaffolding
 ├── packs/               # Package layer - scenario-based combinations
-│   ├── v1-talk/        # Talk-only package (6 team patterns)
 │   ├── deep-research/  # Deep research (Plan→Execute→Synthesize)
-│   └── knowledge-manage/ # Knowledge management package
+│   └── ... (v1-talk, knowledge-manage, cursor-templates → archive/2026-10-22/)
 └── knowledge/           # Knowledge layer (indexed by upper layer)
     ├── index.yaml      # Knowledge index with `solves` field
     └── ...categories/
@@ -113,17 +112,9 @@ See `knowledge-graph/meta/derivation/skill-template-vs-published-taxonomy-2026-0
 - `03_engineering/`: Implementation (coding, engineering)
 - `04_quality/`: Quality assurance (auditing, acceptance criteria)
 
-### v1-talk Package
+### Archived: v1-talk and knowledge-manage
 
-Talk-only mode with 6 team patterns:
-- Virtual Streamlit Team - Python/Streamlit development
-- Strategic Research Team - Go/No-Go feasibility assessment
-- Topic Research Team - Academic/technical deep research
-- Domain Driven Design - DDD modeling
-- AI Migration Team - Legacy system takeover
-- Knowledge System Team - Knowledge management
-
-Dynamic routing via `rules/teams/*.mdc` using Signal → Pattern → Role decision matrix.
+The talk-only v1-talk pack (6 team patterns routed by Cursor `rules/teams/*.mdc`), knowledge-manage and cursor-templates were moved to `archive/2026-10-22/` on 2026-10-22 (Cursor is frozen). The team pattern texts themselves stay in `stable/atoms/patterns/`. See `archive/README.md`.
 
 ## Common Operations
 
@@ -132,7 +123,7 @@ Dynamic routing via `rules/teams/*.mdc` using Signal → Pattern → Role decisi
 ```bash
 git clone --filter=blob:none --sparse https://github.com/LSRabbit6/cursor-genesis.git .cursor-genesis
 cd .cursor-genesis
-git sparse-checkout set stable/packs/v1-talk stable/atoms/rules stable/atoms/capabilities
+git sparse-checkout set stable/packs/enterprise stable/atoms/rules/enterprise stable/atoms/capabilities
 ```
 
 This is a currently available reference path for the existing Cursor-format assets, not a long-term platform compatibility promise. Future tool-specific formats belong in adapters, frozen areas, or historical references after asset-by-asset triage.

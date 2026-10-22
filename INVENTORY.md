@@ -14,10 +14,10 @@
 | harness-engineering | — | 8 | 2026-09-24 | 货架。其中 cross-host-thin-adapters 当宿主适配层的参考，工作台包的两份样板逐条对过它 | 标注 |
 | create-toolkit | 1.6.0 | 71 | 2026-08-16 | 自用包候选 | 标注 |
 | deep-research | 1.0.0 | 12 | 2026-08-17 | 自用包候选 | 标注 |
-| knowledge-manage | — | 70 | 2026-08-16 | 未入包。休眠，归档候选 | 搬删，档 1 |
+| knowledge-manage | — | 70 | 2026-08-16 | 未入包。休眠 | **已归档**（2026-10-22，`archive/2026-10-22/`） |
 | enterprise | 1.2.0 | 7 | 2026-07-21 | 未入包。逻辑上已拆给 kg 的 enterprise-delivery 节点，物理搬走候选 | 搬删，档 1 |
-| cursor-templates | — | 2 | 2026-07-21 | 未入包。Cursor 已冻结，归档候选 | 搬删，档 1 |
-| v1-talk | — | 2 | 2026-07-21 | 未入包。Cursor 已冻结，归档候选 | 搬删，档 1 |
+| cursor-templates | — | 2 | 2026-07-21 | 未入包。Cursor 已冻结 | **已归档**（2026-10-22，`archive/2026-10-22/`） |
+| v1-talk | — | 2 | 2026-07-21 | 未入包。Cursor 已冻结 | **已归档**（2026-10-22，`archive/2026-10-22/`） |
 
 ## 二、原子（stable/atoms/，97 个文件）
 
@@ -27,17 +27,17 @@
 |---|---|---|---|---|---|
 | capabilities/（四层） | 21 | 2026-02-25 | 科研工作者的工作台（真收件人）；v1-talk、knowledge-manage | 工作台包候选 | 标注 |
 | patterns/topic-research-team.md、strategic-research-team.md | 2 | 2026-02-25 | 同上 | 工作台包候选 | 标注 |
-| patterns/ 其余 4 个 | 4 | 2026-02-25 | v1-talk、knowledge-manage（都是归档候选） | 未入包，归档候选 | 搬删，档 1 |
+| patterns/ 其余 4 个 | 4 | 2026-02-25 | v1-talk、knowledge-manage（已归档）；kg `index/relations.yaml` 指着整个 patterns/ | 未入包 | 留（kg 指着，10-22 不搬） |
 | skills/harvest-session | 2 | 2026-08-16 | create-toolkit 的说明里指向它；维护者自己的收尾技能是它的个人适配 | 自用包候选 | 标注 |
 | skills/java-backend-test-ops | 1 | 2026-06-22 | enterprise | 跟 enterprise 走 | 搬删，档 1 |
-| skills/ 其余（cg-install、kg-search、kg-assemble、resources-catalog、README） | 5 | 2026-09-24 | knowledge-manage 时代的安装链 | 未入包，归档候选 | 搬删，档 1 |
+| skills/ 其余（cg-install、kg-search、kg-assemble、resources-catalog、README） | 5 | 2026-09-24 | 老安装链（scripts/sync.sh、mcp-server.py 读它；没接到任何宿主配置） | 未入包 | 留，跟老安装链一起待分诊 |
 | validators/state-header | 4 | 2026-08-17 | 第一个消费方是维护者的工作台 | 自用包候选 | 标注 |
 | rules/enterprise | 4 | 2026-03-30 | enterprise | 跟 enterprise 走 | 搬删，档 1 |
-| rules/teams、rules/meta、rules/ 根下 5 个 .mdc | 13 | 2026-03-30 | v1-talk、knowledge-manage；Cursor 格式 | 未入包，归档候选 | 搬删，档 1 |
+| rules/teams、rules/meta、rules/ 根下 5 个 .mdc | 13 | 2026-03-30 | v1-talk、knowledge-manage；Cursor 格式 | 未入包 | **已归档**（2026-10-22，`archive/2026-10-22/`） |
 | plan-templates/ | 2 | 2026-07-21 | enterprise | 跟 enterprise 走 | 搬删，档 1 |
 | commands/ | 6 | 2026-07-21 | 没有货架包引用；Cursor 斜杠命令格式 | 未入包，归档候选 | 搬删，档 1 |
 | standalone/ | 17 | 2026-02-27 | 没有货架包引用 | 未入包，归档候选 | 搬删，档 1 |
-| code-templates/ | 16 | 2026-02-25 | knowledge-manage；create-toolkit 里不在安装清单的 create-project 命令 | 未入包，归档候选 | 搬删，档 1 |
+| code-templates/ | 16 | 2026-02-25 | create-toolkit 里不在安装清单的 create-project 命令；kg `docs/user-guide.md` | 未入包 | 留（kg 文档指着，10-22 不搬） |
 
 ## 三、知识（stable/knowledge/，50 个文件）
 
@@ -61,8 +61,8 @@
 | scripts/install-pack.py | 交付包的装法要用 | 留 |
 | scripts/check-bundles.py | 本次新增，核清单 | 留 |
 | scripts/legacy_scanner.py、mcp-server.py、backflow.sh、sync.sh、pr-monitor.sh | 未入包 | 没细查，待分诊 |
-| install.sh | 未入包。v1.2.0 的预设安装器 | 归档候选，档 1（设计稿第 6 节没列，主会话补） |
-| .cursor/rules/ | Cursor 已冻结 | 归档候选，档 1（同上） |
+| install.sh | 未入包。v1.2.0 的预设安装器 | **已归档**（2026-10-22，`archive/2026-10-22/`） |
+| .cursor/rules/ | Cursor 已冻结 | **已归档**（2026-10-22，`archive/2026-10-22/`） |
 | docs/downstream-spec.md | 交付包的回流说明引用它 | 留 |
 | docs/architecture.md、pr-monitoring.md | 未入包 | 没细查，待分诊 |
 | .knowledge/ | 节点元信息，不是资产 | 留 |
@@ -81,11 +81,13 @@
 
 > 10-22 推迟：三个头合成一个之后再做。kg `index/domains.yaml`、`index/relations.yaml` 直接指着 `stable/knowledge/knowledge-system/` 和 `stable/atoms/patterns/`，这两块本来就留。
 
-1. knowledge-manage、cursor-templates、v1-talk 三个货架包归档。
+1. ✅ knowledge-manage、cursor-templates、v1-talk 三个货架包归档（10-22）。
 2. enterprise 货架包，连同 rules/enterprise、skills/java-backend-test-ops、plan-templates/、learnings 里企业那批，物理搬到 enterprise-delivery 那边。
-3. atoms 里标「未入包，归档候选」的几块归档。前提：先做第 1 条，引用它们的货架包已经归档。
+3. 部分做了（10-22）：rules/teams、rules/meta、根下 5 个 .mdc 已归档。patterns、standalone、code-templates、commands 有 kg 指着，skills 其余属老安装链，都留在原处。
 4. stable/knowledge/ 方法正文迁 kg 方法格，或归档。前提：kg registry 的 `index_file` 先改。
-5. install.sh、.cursor/rules/ 归档。
+5. ✅ install.sh、.cursor/rules/ 归档（10-22）。
+
+第 2、4 条没动：enterprise 照 kg registry 等接单线独立对外；stable/knowledge/ 有 kg domains.yaml 和 registry `index_file` 指着。明细见 [archive/README.md](archive/README.md)。
 
 ## 六、这次没查到的
 

@@ -20,6 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `domain-menu` v0.2.0：要方案的入口，从 `delivery-data-app` 拆出单立，成为菜单服务的客户端——`scripts/menu.py`（stdlib-only）五个动作：`checklist` 拿自查清单与类型表、`submit` 交回自查结果（自动带已装包版本）、`install` 按回执从服务下包并校验 sha256 后用包内安装器装、`status` 查登记编号、`feedback` 报规范不合身 / 检查器误报 / 想要新组件；连不上时存 `~/.config/cg-menu/pending/`，`resend` 补交。推演在对方家，服务只查表：有包回包和设定，没有就登记、回编号和领域无关骨架。
 
+### Removed
+
+- 2026-10-22：`stable/packs/` 的 v1-talk、knowledge-manage、cursor-templates，`stable/atoms/rules/` 的 teams、meta 和根下 5 个 .mdc，`install.sh`，`.cursor/rules/` 移到 `archive/2026-10-22/`（只搬不删，原路径结构照留，见 `archive/README.md`）。有 kg 指着的 patterns、standalone、code-templates、commands、stable/knowledge 留在原处。
+
 ### Changed
 
 - 2026-10-22：`second-loop-compounding` 0.1.2 → 0.1.3：在用判据补第八态 `unspecced`（无规范 → 不可调用）和观察器机器判的跑法、读法；内容是 09-24 写完留在本机没提交的。

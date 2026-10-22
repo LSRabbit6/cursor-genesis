@@ -110,9 +110,8 @@ The smallest reusable units of AI cognition. Context-agnostic.
 ### 2. Packs (`stable/packs/`)
 User-facing scenario combinations. Users don't pick atoms; they install packs.
 - **`enterprise/`**: **Enterprise ODD Pack** — Meta-Rules + Ontology-Driven Development methodology, validated on a 50+ module production system. [→ View Pack](stable/packs/enterprise/README.md)
-- `v1-talk/`: A conversational orchestration pack with 6 team patterns.
+- Archived 2026-10-22: `v1-talk/`, `knowledge-manage/`, `cursor-templates/` and the Cursor rules only they used → [`archive/2026-10-22/`](archive/README.md).
 - `deep-research/`: A Plan → Execute → Synthesize research workflow.
-- `knowledge-manage/`: Knowledge system management pack.
 - `create-toolkit/`: Project scaffolding toolkit.
 - **`delivery-data-app/`**: **Delivery · Data App Pack** (v0.2) — product norms + information-architecture norms + a stdlib validator mounted at the Stop hook + a six-section design-doc template, for people who can run a harness but have never designed a product. [→ View Pack](stable/packs/delivery-data-app/README.md)
 - **`domain-menu/`**: **Domain Menu client** (v0.2) — ask the menu service for a self-check list, answer it inside your own repo, send back the type; get the matching pack and settings, or a ticket plus a domain-neutral skeleton when we have nothing yet. Stdlib-only. [→ View Pack](stable/packs/domain-menu/README.md)

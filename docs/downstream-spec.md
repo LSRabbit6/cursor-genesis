@@ -1,5 +1,7 @@
 # 下游项目集成规范 (Downstream Integration Specification)
 
+> 2026-10-22：下文里 v1-talk、`rules/teams/` 的示例指向的内容已移到 `archive/2026-10-22/`（见 `archive/README.md`），示例留作历史参考；现行装法见各货架包的 README。
+
 > **版本**: 1.0.0
 > **更新日期**: 2026-02-26
 > **适用对象**: 使用 cursor-genesis 的下游项目（如 anfu_test）

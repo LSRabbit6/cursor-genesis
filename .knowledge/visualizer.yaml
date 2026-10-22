@@ -1,6 +1,6 @@
 # cursor-genesis 叶子节点可视化配置
 # 使用 dimensions 格式，包含三种理解维度
-# 完整配置见 stable/packs/knowledge-manage/leaf-node/visualizer/public/config.yaml
+# 完整配置见 archive/2026-10-22/stable/packs/knowledge-manage/leaf-node/visualizer/public/config.yaml（2026-10-22 归档）
 # 本文件为叶子节点根目录的配置源，部署时复制到 visualizer/public/config.yaml
 
 engine:

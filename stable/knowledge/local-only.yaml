@@ -1,6 +1,7 @@
 # cursor-genesis 仅本地内容清单
 # 生成日期：2026-02-26
 # 说明：这些内容不上报到 knowledge-graph，仅在本节点使用
+# 2026-10-22：.mdc 规则（rules/enterprise 除外）和 v1-talk 套装已移到 archive/2026-10-22/，下面 source 还是旧位置。
 
 # 不上报的判断标准：
 # - Cursor 特定语法/配置
