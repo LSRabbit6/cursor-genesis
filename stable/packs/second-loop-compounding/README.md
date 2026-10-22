@@ -23,7 +23,7 @@
 | 线文件模板（LINE） | `templates/LINE.md` | 每人一份，九节固定：他说过的 / 我理解的 / 在哪一段 / 学到·分享·共同经历 / 两条链读过的事（带「归属」行）/ 三格探针 / 命盘参考层 / 下一次上场 / 负空间 | procedure；结构可被机器按标题认 |
 | 内容交接包 | `templates/content-handoff.md` | Claude 出内容、Codex 出表达：九个必有节 + 一行「回执：`路径`」 | procedure；装了开单闸的项目里 enforced（缺节拒单） |
 | 回执 | `templates/codex-receipt.md` | Codex 交回五节：产出路径 / 推翻与理由 / 没做什么 / 验收逐条自查 / 未入库文件 | procedure；派单壳可查缺节 |
-| 在用与否判据 | `docs/in-use-criteria.md` | 七态：在用 / 结构性在用 / 在跑但没人看 / 登记过没在用 / 休眠 / 概念·空房 / 按设计不动 | guidance（休眠一态已机器化） |
+| 在用与否判据 | `docs/in-use-criteria.md` | 七态：在用 / 结构性在用 / 在跑但没人看 / 登记过没在用 / 休眠 / 概念·空房 / 按设计不动；外加第八态 `unspecced`（无规范 → 不可调用）；§6 怎么跑 / 怎么读 / 别的项目要同样的读数 | guidance（休眠已机器化；八态由 toys 在用扫描观察器机器判，见 §5 §6） |
 | 探针调用说明 | `docs/probes-howto.md` | toys 里的探针与休眠脚本：叫什么、读哪、写哪、谁调、失败怎么叫人、怎么干跑 | reference |
 
 ## 为什么
@@ -79,6 +79,7 @@ toys 仓根 = `<工作台仓（私有，本机）>`，下表路径相对它（�
 | `templates/content-handoff.md` | `dispatch-kernel/templates/content-handoff.md`；契约 `dispatch-kernel/CONTRACT-claude-codex.md`；机读的一半 `dispatch-kernel/routing.yaml` 的 `presentation`；开单闸 `dispatch-kernel/handoff.py`（`--check-handoff` 只查不开单） | 在；**toys 那份被 `.gitignore` 第 56 行兜住、不在版本史**——本包这份在 cg 提交后是第一份进版本控制的副本 |
 | `templates/codex-receipt.md` | `dispatch-kernel/templates/codex-receipt.md` | 同上 |
 | `docs/in-use-criteria.md` | `self-analysis/2026-09-23-设计在用与否-三层盘点-观测件.md` §0；休眠一态的机器化 = `asset-registry/dormancy.py` | 在，已入库 |
+| `docs/in-use-criteria.md` §5 §6（八态机器判） | 在用扫描观察器 `dispatch-kernel/observers/in_use_scan.py` + 自测 `dispatch-kernel/test_in_use_scan.py`；状态 `dispatch-kernel/state/in-use.json`；报告 `dispatch-kernel/reports/in-use-<日期>.md`；执行日志 `self-analysis/2026-09-24-观察者实践/LOG-1-在用扫描观察器.md` | 已入库（2026-09-24）；state 与 reports 被 `.gitignore` 第 56 行兜住；每周一经夜间杂务 `in_use_weekly` 跑一次，告警集合变了才投收件箱（接线与两个输出口见执行日志 `LOG-2-接线与输出口.md`） |
 | `docs/probes-howto.md` | `session-archaeology/trajectory.py`（记忆召回对账、路由对账、`--metrics`）· `dispatch-kernel/daily_chores.py`（`trajectory_daily()` / `dormancy_check()`）· `session-archaeology/kg_usage.py` · `my-desk/harvest/residue.py`（「kg 取用」「昨日轨迹」两行）· `my-desk/harvest/criteria_log.py` · `asset-registry/dormancy.py` | 在，已入库，**`residue.py` 除外**（被 `.gitignore` 第 56 行兜住）；轨迹汇总首次定时真跑 = 09-25 00:28 |
 | 「怎么加载」的 toys 侧 | 记忆路由壳 `project_compounding-second-loop`（toys 会话槽 memory） | 在；壳里还没有指向本包的一句 |
 | 建包与执行过程 | `self-analysis/2026-09-24-复利执行/LOG-1..5`（减三刀 / 复利探针 / 人际线与样本 / 交接契约 / 本包） | 在 |
