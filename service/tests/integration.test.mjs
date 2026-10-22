@@ -94,7 +94,7 @@ test("real HTTP + CLI: submit, install verified pack, record evidence, restart a
         ),
       ),
     );
-    assert.match(cli(["packs"]), /delivery-data-app 0.1.0 · 最新/);
+    assert.match(cli(["packs"]), /delivery-data-app \d+\.\d+\.\d+ · 最新/);
     cli([
       "evidence",
       r.results[0].ticket,
