@@ -10,7 +10,7 @@
 |---|---|---|---|---|---|
 | delivery-data-app | 0.2.1 | — | 2026-09-24 | 交付包（组件层） | 标注 |
 | domain-menu | 0.2.1 | — | 2026-09-24 | 交付包（组件层）。菜单服务的客户端，0.2.0 从 delivery-data-app 拆出 | 标注 |
-| second-loop-compounding | 0.1.2 | 9 | 2026-10-22 | 交付包候选，还没有真收件人 | 标注 |
+| second-loop-compounding | 0.1.3 | 9 | 2026-10-22 | 交付包候选，还没有真收件人 | 标注 |
 | harness-engineering | — | 8 | 2026-09-24 | 货架。其中 cross-host-thin-adapters 当宿主适配层的参考，工作台包的两份样板逐条对过它 | 标注 |
 | create-toolkit | 1.6.0 | 71 | 2026-08-16 | 自用包候选 | 标注 |
 | deep-research | 1.0.0 | 12 | 2026-08-17 | 自用包候选 | 标注 |
