@@ -1,10 +1,10 @@
 {
   "delivery-data-app": {
-    "version": "0.1.0",
-    "sha256": "f77a9e53199698657db17c0f14888f567bcd0604fa30927a5456f19174e9bd4b"
+    "version": "0.2.0",
+    "sha256": "0d781e51a9eba514437bc7908e25b9839fde96cda6f97bc7cfdabe08e124ce50"
   },
   "second-loop-compounding": {
-    "version": "0.1.0",
-    "sha256": "e575799e4beb6fdb4988447bb44777796ba6b23bdc55b6e3bfbbe91634c606d3"
+    "version": "0.1.1",
+    "sha256": "90fe59de019f10bce3d5d6fdebf1589ae9cc4ad767f492988f15b8a7f86ebbb8"
   }
 }

@@ -1,6 +1,7 @@
 import importlib.util
 import json
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import tempfile
@@ -33,7 +34,9 @@ class ReleaseTests(unittest.TestCase):
                 with self.assertRaises(ValueError): release.check()
                 with self.assertRaises(ValueError): release.check(base, write=True)
                 manifest = root / 'stable/packs/delivery-data-app/install-manifest.yaml'
-                manifest.write_text(manifest.read_text(encoding='utf-8').replace('version: 0.1.0', 'version: 0.1.1'), encoding='utf-8')
+                text = manifest.read_text(encoding='utf-8')
+                old = re.search(r'^version: (\d+)\.(\d+)\.(\d+)$', text, re.M)
+                manifest.write_text(text.replace(old[0], f'version: {old[1]}.{old[2]}.{int(old[3]) + 1}'), encoding='utf-8')
                 release.check(base, write=True);release.check(base)
                 source.unlink()
                 with self.assertRaises(ValueError): release.check()
