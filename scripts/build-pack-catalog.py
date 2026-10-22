@@ -26,7 +26,8 @@ def build(output):
             module._mapping_destination(Path('/unused-target'), mapping)
             if not (folder / source).exists():
                 raise ValueError(f'Missing source: {name}/{source}')
-        files = [ROOT / 'scripts/install-pack.py'] + sorted(p for p in folder.rglob('*') if p.is_file() and '__pycache__' not in p.parts and p.suffix != '.pyc')
+        # 按路径各段排序（大小写敏感），Windows 上 Path 排序不分大小写，会让 zip 次序和 Linux/Mac 不同
+        files = [ROOT / 'scripts/install-pack.py'] + sorted((p for p in folder.rglob('*') if p.is_file() and '__pycache__' not in p.parts and p.suffix != '.pyc'), key=lambda p: p.relative_to(folder).parts)
         data = io.BytesIO()
         with zipfile.ZipFile(data, 'w', zipfile.ZIP_DEFLATED) as archive:
             for p in files:
@@ -34,6 +35,7 @@ def build(output):
                     raise ValueError(f'Symlink not allowed: {p.name}')
                 item = zipfile.ZipInfo(p.relative_to(ROOT).as_posix(), (2026, 1, 1, 0, 0, 0))
                 item.compress_type = zipfile.ZIP_DEFLATED
+                item.create_system = 3  # Windows 上默认写 0，zip 字节会跟 Linux/Mac 不一样
                 archive.writestr(item, p.read_bytes())
         blob = data.getvalue()
         path = output / 'downloads' / f'{name}.zip'
