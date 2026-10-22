@@ -32,7 +32,7 @@
 |---|---|---|---|
 | 工作台包 | 交给真人专家，由对方的 AI 自装 | 过（两位真收件人收到过前身） | [workbench/bundle.yaml](workbench/bundle.yaml) |
 | 交付包 | 会用 harness、没做过产品设计的外部使用者 | 待核（收件人没查到） | [delivery/bundle.yaml](delivery/bundle.yaml) |
-| 自用包 | 维护者自己的另一台机器 | 占位 | [self/bundle.yaml](self/bundle.yaml) |
+| 自用包 | 维护者自己的另一台机器 | 占位（过门＝另一台机器真装过一次） | [self/bundle.yaml](self/bundle.yaml) |
 
 ## 清单怎么写
 

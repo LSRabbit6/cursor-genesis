@@ -3,7 +3,7 @@
 bundle: self
 version: 0.0.0
 for: 维护者自己的另一台机器
-gate: placeholder                # 过门标准待维护者认；默认：另一台机器真装过一次就算
+gate: placeholder                # 过门标准（维护者 2026-10-22 认）：另一台机器真装过一次就算
 
 recipients: []
 packs: []
