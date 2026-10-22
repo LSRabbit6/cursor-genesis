@@ -1,12 +1,22 @@
 # cursor-genesis
 
-> **The Human–Agent Development Collaboration Mechanisms Leaf**
+> **How a system that is already explained elsewhere gets bound into each agent harness (Claude Code, Codex).**
 > 
 > *"Stop writing code. Start engineering how your AI writes code."*
 
+> **定位**（正本在 kg registry，本段照抄）：讲明白的体系怎么结合到各家 harness（Claude Code、Codex）上去——「这块才是 cg 的应该的定位」。cg 不是体系本身。
+>
+> **和 kg 的边界**：「cg和kg的区别这块也出来了。 kg里面一方面是cg中更上一层的总结。还有就是这个情绪方面的」——cg 装机器能执行的（组件、套装、结合法）；kg 装认知：cg 之上的那层总结（判断、方法），加跟人绑定的材料。
+>
+> **单位是结合包**：按使用方分，宿主是包里的一层。清单在 [`bundles/`](bundles/README.md)；现有内容各进哪个包，见 [`INVENTORY.md`](INVENTORY.md)。
+
+<!-- 2026-10-22 自述对齐，黑匣子三行在 .knowledge/meta.yaml 文件头。 -->
+
 ## What is this?
 
-`cursor-genesis` (CG) is the **Human–Agent Development Collaboration Mechanisms Leaf**: it studies and publishes human operation entry points, context assembly, Rule / Skill / Workflow selection, agent/model/tool invocation, deterministic guards, human gates, and capability composition, injection, distribution, and refinement.
+CG is not the system itself. The system is explained elsewhere; CG holds the part that binds it into each harness. Its unit is the **bundle**, cut by who receives it; the host (Claude Code, Codex) is one layer inside a bundle. See [`bundles/README.md`](bundles/README.md).
+
+Its domain axis, kept since 2026-07-25, is the **Human–Agent Development Collaboration Mechanisms Leaf**: it studies and publishes human operation entry points, context assembly, Rule / Skill / Workflow selection, agent/model/tool invocation, deterministic guards, human gates, and capability composition, injection, distribution, and refinement.
 
 CG is tool-independent. Cursor remains:
 

@@ -1,0 +1,28 @@
+# 自用包 · 结合包清单（字段说明见 ../README.md）
+# 只立位置。另一台机器真要装时再填。
+bundle: self
+version: 0.0.0
+for: 维护者自己的另一台机器
+gate: placeholder                # 过门标准待维护者认；默认：另一台机器真装过一次就算
+
+recipients: []
+packs: []
+candidates:
+  - ref: create-toolkit@1.6.0
+  - ref: deep-research@1.0.0
+  - ref: 维护者工作台运行时的发布快照
+    note: 推测，没核
+
+adapters: {}
+setup: "TODO: 另一台机器真要装时再写"
+
+condition_label:
+  basis: []
+  environment:
+    model_tier: any
+    host: [claude-code, codex]
+    project: cursor-genesis
+    date: 2026-10-22
+    reading: ""
+    source: ""
+  rejudge_when: ""

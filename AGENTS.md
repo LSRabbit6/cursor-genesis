@@ -4,6 +4,10 @@ This file provides project-wide guidance to AI coding agents working in this rep
 
 ## Project Overview
 
+**Positioning (copied from the kg registry, which is the single source):** 讲明白的体系怎么结合到各家 harness（Claude Code、Codex）上去——「这块才是 cg 的应该的定位」。cg 不是体系本身。 Boundary with kg: cg holds what a machine can execute (components, packs, binding methods); kg holds cognition — the summaries above cg (judgments, methods) and person-bound material. The unit is the **bundle**, cut by who receives it; the host is one layer inside a bundle (`bundles/README.md`). Where each existing area goes: `INVENTORY.md`. Why this changed: `.knowledge/meta.yaml` header (2026-10-22).
+
+The paragraphs below are the domain axis (2026-07-25), read as an expansion of the positioning above.
+
 cursor-genesis (CG) is the **Human–Agent Development Collaboration Mechanisms Leaf** in the knowledge-graph system. It studies and publishes reusable ways to expose human operation entry points, assemble context, choose Rule / Skill / Workflow forms, invoke agents/models/tools, add deterministic guards and human gates, and compose, inject, distribute, and refine collaboration capabilities.
 
 Cursor is CG's founding sample and a reference implementation. Its Rules, multi-model entry points, explicit commands, Agent modes, and project-context patterns are evidence to generalize from; Cursor is not CG's domain boundary, long-term compatibility target, or runtime dependency.
@@ -52,6 +56,13 @@ CG is a capability provider, not a manager of other Leaves and not a central run
     ├── backflow.yaml   # Backflow configuration
     ├── pending/        # Pending backflow reviews
     └── processing/     # In-progress backflow
+
+bundles/                  # Bundles by recipient: bundle.yaml manifest + adapters/ + setup (see bundles/README.md)
+├── workbench/           # Workbench for domain experts (self-install by the recipient's AI)
+├── delivery/            # For external harness users
+└── self/                # Placeholder: the maintainer's other machines
+
+INVENTORY.md              # Which bundle each existing area belongs to; move/delete candidates listed, not acted on
 
 stable/                   # Published assets (sparse checkout target)
 ├── atoms/               # Atomic layer - smallest reusable units

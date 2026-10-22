@@ -1,0 +1,30 @@
+# 交付包 · 结合包清单（字段说明见 ../README.md）
+bundle: delivery
+version: 0.1.0
+for: 会用 harness、没做过产品设计的外部使用者
+gate: pending                    # 收件人待核
+
+recipients: []                   # 待核：delivery-data-app 有没有真交到触发它的那位朋友手里，没查到
+
+packs:
+  - delivery-data-app@0.1.0
+candidates:
+  - ref: second-loop-compounding@0.1.0
+    note: 还没有真收件人
+
+adapters:                        # 宿主适配层在货架包里
+  claude-code: ../../stable/packs/delivery-data-app/adapters/claude-code/
+  codex: null                    # Codex 原生读 .agents/skills/，检查器命令在 /hooks 里信任一次（货架包 README「到场」节）
+setup: ../../stable/packs/delivery-data-app/README.md   # 装法是给开发者用 git 装的，还不是给对方 AI 的自装说明
+
+condition_label:
+  basis:
+    - knowledge-graph:roots/design-layer-is-the-durable-skill.yaml   # 货架包 README 的 WHY 写明参照它
+  environment:
+    model_tier: claude-fable-5-1  # 做包那次提交的署名模型
+    host: [claude-code, codex]
+    project: cursor-genesis
+    date: 2026-09-23
+    reading: 检查器和安装在 Windows 上的 Codex、Claude Code 跑过；Cursor 没验
+    source: cursor-genesis:stable/packs/delivery-data-app/README.md#负空间（v0.1.0 没做的）
+  rejudge_when: Cursor 解冻要装，或 Claude Code、Codex 的 Stop hook 输入输出格式变了

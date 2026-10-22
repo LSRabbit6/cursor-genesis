@@ -1,0 +1,44 @@
+# 工作台包 · 结合包清单（字段说明见 ../README.md）
+bundle: workbench
+version: 0.1.0
+for: 给专家用的工作台。维护者交给真人专家，由对方电脑上的 AI 照说明自装
+gate: passed                     # 两位真收件人收到过本包的前身
+
+recipients:                      # 真收到东西的人，只写角色。收到的是前身，不是本包本版
+  - role: 病理科医生（家人）
+    got: 论文工作台交付包，Codex-first（2026-07-25）
+  - role: 科研工作者（朋友）
+    got: 个人研究工作台（2026-10-19，打过三版，装的是哪一版没查到）
+same_skeleton:                   # 骨架相同、没收过这个包的
+  - role: 零售店主（朋友）
+    note: 防损稽核系统的规约和回流巡检与本包同骨架
+
+packs: []                        # 组件层：本版还没有货架包
+planned_packs:
+  - name: workbench-skeleton
+    note: 专家工作台规约，回流当其中一个模块。正文另场写，本版只立位置
+candidates:
+  - ref: stable/atoms/capabilities/
+    note: 20 个 capability 提示词随科研工作者的工作台 starter 版发出（cg 426a73d，字节一致带哈希）；装的是不是 starter 版没查到
+  - ref: stable/atoms/patterns/topic-research-team.md
+    note: 同上，随科研工作者的工作台发出
+  - ref: stable/atoms/patterns/strategic-research-team.md
+    note: 同上，随科研工作者的工作台发出
+  - ref: 历史对话分诊入库
+    note: 外部使用方只有科研工作者一位；对方的工作台里已有一版脱敏改编，cg 里还没有
+
+adapters:                        # 宿主适配层
+  claude-code: adapters/claude-code/
+  codex: adapters/codex/
+setup: SETUP-FOR-AI.md           # 自装层：给对方 AI 的部署说明和现场验收
+
+condition_label:                 # kg storage-contract 第九节
+  basis: []                      # 本版没用 kg 的判断或方法
+  environment:
+    model_tier: any
+    host: [claude-code, codex]
+    project: cursor-genesis
+    date: 2026-10-22
+    reading: "TODO: 未验"         # 模板和样板还没在任何一台收件人电脑上跑过
+    source: ""
+  rejudge_when: 宿主改了加载 AGENTS.md 或 skill 目录的方式时，对 adapters/ 两份样板重核

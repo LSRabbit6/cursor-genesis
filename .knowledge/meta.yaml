@@ -1,6 +1,11 @@
 # cursor-genesis 节点元信息
 # 遵循 leaf-node-framework 规范
 #
+# 自述对齐 why（2026-10-22，定位级）：
+# - 触发：kg registry 10-17 立正本句、10-20 立边界句；10-22 维护者拍「甲可以」，cg 的单位改成按使用方分的结合包。本文件 identity 仍是 07-25 的旧句。
+# - 参照：kg index/nodes-registry.yaml#cursor-genesis（定位正本，本文件只投影）；toys self-analysis/2026-10-22-cg-rearrange/design.md。
+# - 排除：废掉「人—Agent 开发协作机制」那一轴（registry 读作正本句的展开，留作 domain_axis）；在 cg 另写一版定位（registry 单正本）。
+#
 # 定位换轴 why（2026-07-25）：
 # - 触发事件：KG 已登记工具无关 AI 协作定位，但本地仍把 Cursor 写成领域边界，形成身份 drift。
 # - 参照系：本仓已有 Rule / Skill / Command / Agent、Atoms + Packs、上下文与回流机制；Cursor 是最早验证这些机制的创始样本。
@@ -9,10 +14,14 @@
 
 id: cursor-genesis
 name: cursor-genesis
-identity: 人—Agent 开发协作机制 Leaf
-version: 1.5.0
+identity: 讲明白的体系怎么结合到各家 harness（Claude Code、Codex）上去——「这块才是 cg 的应该的定位」。cg 不是体系本身。
+boundary: 「cg和kg的区别这块也出来了。 kg里面一方面是cg中更上一层的总结。还有就是这个情绪方面的」——cg 装机器能执行的（组件、套装、结合法）；kg 装认知：cg 之上的那层总结（判断、方法），加跟人绑定的材料。
+unit: 结合包——按使用方分，宿主是包里的一层；一个包四层：组件层、宿主适配层、自装层、清单（bundles/README.md）
+domain_axis: 人—Agent 开发协作机制 Leaf   # 2026-08-17 两轴里的域名轴，读作正本句的展开
+version: 1.6.0
 domain: ai-collaboration-method
 description: |
+  （下面是 07-25 的域名轴展开，定位以 identity 为准。）
   人—Agent 开发协作机制 Leaf：研究并发布人的操作入口、上下文装配、Rule / Skill / Workflow
   选择、Agent / 模型 / 工具调用、确定性护栏、Human Gate，以及能力组合、注入和分发机制。
   当前稳定现货以 Rule、Skill、Command、Agent、Pattern、Atoms + Packs 和知识资产为主，
@@ -115,7 +124,7 @@ capabilities_planned:
 # 只出可发布内容，不承担装配/workspace bootstrap，装配线=用户级 new-workspace + .agents 作者层 +
 # ai-runtime-compat）。两轴正交并存，定位冲突以 registry 为准。别名 ai-catalyst。
 positioning_source_of_truth: knowledge-graph/index/nodes-registry.yaml#cursor-genesis
-positioning_synced_at: 2026-08-17
+positioning_synced_at: 2026-10-22   # 正本句、边界句照抄 registry；「三类资产 → 结合包四层」与 ① 改写句 registry 尚未落，交接包在 toys self-analysis/2026-10-22-cg-rearrange/kg-handoff.md
 
 # 框架配置
 framework:
@@ -210,6 +219,13 @@ lifecycle:
 
 # 版本记录
 changelog:
+  - version: 1.6.0
+    date: 2026-10-22
+    changes:
+      - 自述对齐 kg registry 正本句、边界句（identity、boundary；原 identity 降为 domain_axis）
+      - 新增 bundles/：工作台、交付、自用三个结合包的清单 bundle.yaml；工作台包带自装层模板和两宿主薄适配样板
+      - 新增 INVENTORY.md：现有内容各进哪个包；搬删只列清单，未动
+      - 新增 scripts/check-bundles.py：读清单、核字段和引用，可选调 kg pin-check 比钉
   - version: 1.5.0
     date: 2026-03-03
     changes:
