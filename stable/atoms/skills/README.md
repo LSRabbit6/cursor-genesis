@@ -13,12 +13,9 @@ Skill 是对工具或命令的封装，提供：
 
 ## 可用 Skills
 
-### Knowledge Management
+### 已归档
 
-| Skill | 描述 | 使用示例 |
-|:---|:---|:---|
-| [kg-search](kg-search.skill.yaml) | 搜索 knowledge-graph 中的知识 | `/kg-search cursor --deep` |
-| [kg-assemble](kg-assemble.skill.yaml) | 组装主题内容 | `/kg-assemble ai-collaboration --pretty` |
+旧命令封装 `kg-search`、`kg-assemble`、`cg-install`（`.skill.yaml`）和 `resources-catalog.yaml` 2026-10-22 移到 `archive/2026-10-22/stable/atoms/skills/`（老安装链，没接到任何宿主）。
 
 ### Engineering Practices（v1.2 新增）
 
@@ -43,6 +40,8 @@ Skill 是对工具或命令的封装，提供：
 本仓尚未为 atom 级 Skill 提供通用安装器；有 Pack 映射时优先走 Pack，没有时由消费项目明确记录注入来源和版本。
 
 ### 旧命令封装型 `.skill.yaml` · Cursor 参考方式
+
+> 本目录已没有 `.skill.yaml`（2026-10-22 归档），下面留作历史参考。
 
 ```bash
 # 1. 在 knowledge-graph 项目根目录

@@ -1,14 +1,38 @@
-# cursor-genesis 知识索引
-# 供 knowledge-graph 上层检索
+# cursor-genesis 知识索引——叶子入口
+# kg 经本文件读 cg（kg meta/leaf-node-spec-v2.md §2.5：kg 引用叶子只到节点级，要指件写本文件条目的锚，
+# 例 cursor-genesis:stable/knowledge/index.yaml#state-header）。件搬走了改这里，kg 不跟着动。
+# 2026-10-22 重写：知识体系、架构决策、Cursor 规范、提示词四类历史文档已归档到 archive/2026-10-22/
+# （kg 都提炼过；knowledge-system 在 kg meta/archives/知识体系整理/ 有逐行对齐的副本）。现有内容各进哪个包见仓根 INVENTORY.md。
 
 domain: ai-collaboration-method
-description: 人—Agent 开发协作机制知识；Cursor 内容作为创始样本和参考实现保留
+description: 讲明白的体系怎么结合到各家 harness 上去；单位是结合包（按使用方分，宿主是包里一层）。本文件列结合包、货架包和还在用的件
 
 # 知识分类
 categories:
+  bundles:
+    description: 结合包清单（按使用方分；四层：组件层、宿主适配层、自装层、清单）
+    path: ../../bundles/
+    items:
+      - id: bundles
+        title: 结合包总说明（四层、进包的门、清单怎么写）
+        file: ../../bundles/README.md
+        solves: 解决「cg 装什么、按什么单位交出去」——一个包四层，按使用方分，宿主是包里一层
+      - id: bundle-workbench
+        title: 工作台包（交给真人专家，由对方 AI 自装）
+        file: ../../bundles/workbench/bundle.yaml
+        solves: 解决把专家工作台交给对方、让对方电脑上的 AI 照说明装好并现场验收
+      - id: bundle-delivery
+        title: 交付包（会用 harness、没做过产品设计的外部使用者）
+        file: ../../bundles/delivery/bundle.yaml
+        solves: 解决把规范、检查器、要方案入口一次交给外部 harness 使用者
+      - id: bundle-self
+        title: 自用包（维护者自己的另一台机器，占位）
+        file: ../../bundles/self/bundle.yaml
+        solves: 另一台机器真要装时的位置
+
   collaboration-mechanisms:
     description: 工具无关的人—Agent 操作与纠错机制
-    path: ../atoms/skills/
+    path: ../atoms/
     items:
       - id: harvest-session
         title: 会话成果收割
@@ -20,82 +44,53 @@ categories:
           - session-summary
           - decision-trace
           - process-material
+      - id: state-header
+        title: 真相源状态头契约与鲜活度裁判
+        file: ../atoms/validators/state-header/CONTRACT.md
+        solves: 解决工作台真相源文件「写着在做、其实早停了」的死存根问题；状态头契约 + stdlib 验证器，第一个消费方是维护者的工作台书桌
+        keywords:
+          - state-header
+          - validator
+          - 死存根
 
-  cursor-specs:
-    description: Cursor 创始样本与参考实现；用于提炼工具无关协作机制，不代表 CG 的领域边界或兼容承诺
-    path: cursor-specs/
+  workbench-candidates:
+    description: 工作台包的候选件（已随一位科研工作者的工作台发出过，见 bundles/workbench/bundle.yaml candidates）
+    path: ../atoms/
     items:
-      - id: prompt-writing-guide
-        title: 提示词编写指南
-        file: prompt-writing-guide.md
-        solves: 解决如何编写高质量、结构化的 AI 提示词，提供角色化、目标导向、模板化的方法论
-      - id: capability-catalog
-        title: 原子能力目录
-        file: capability-catalog.md
-        solves: 解决如何查找和选择合适的原子角色（Insight/Architecture/Engineering/Quality 四层能力）
-      - id: team-patterns
-        title: 协作模式手册
-        file: team-patterns.md
-        solves: 解决如何组合多个原子角色应对复杂业务场景（战略研判、全栈开发、课题研究等）
-      - id: library-structure
-        title: 库结构与治理规范
-        file: library-structure-and-governance.md
-        solves: 解决 Prompt 库的目录组织、工程分级标准和维护原则问题
-      - id: cursor-patterns
-        title: Cursor 特定模式
-        file: cursor-specific-patterns.md
-        solves: 解决 Cursor IDE 中的特定使用模式和最佳实践问题
-      - id: sop-engineering
-        title: 完美软件工程结构标准
-        file: sop-01-engineering-structure.md
-        solves: 解决 AI 辅助开发时代如何构建完整上下文（领域设计、后端工程、前端工程）的问题
-      - id: sop-workflow
-        title: Cursor 工作流程
-        file: sop-02-cursor-workflow.md
-        solves: 解决使用 Cursor 进行日常开发的标准操作流程问题
-      - id: sop-migration
-        title: 遗留系统迁移故事
-        file: sop-03-legacy-migration-story.md
-        solves: 解决如何将遗留系统迁移到 Cursor 协作模式的实践问题
-      - id: deep-research
-        title: Deep Research 系统化调研
-        file: deep-research-pack.md
-        solves: 解决如何将模糊的调研需求转化为结构化的研究报告，提供 Plan→Execute→Synthesize 三阶段自动化流程
-      - id: rules-lifecycle
-        title: Rules 生命周期管理指南
-        file: rules-lifecycle.md
-        solves: 解决 .cursor/rules/ 中规则文件何时创建、何时更新、何时废弃、如何命名、如何避免冲突的管理问题
+      - id: capabilities
+        title: 四层原子角色能力（20 个 capability 提示词）
+        file: ../atoms/capabilities/
+        solves: 课题拆解、研究框架、检索、实验设计、执行等角色提示词，按名选用
+      - id: topic-research-team
+        title: 课题研究团队流程
+        file: ../atoms/patterns/topic-research-team.md
+        solves: 科研五角色顺序协作的流程
+      - id: strategic-research-team
+        title: 战略研判团队流程
+        file: ../atoms/patterns/strategic-research-team.md
+        solves: 商业技术 Go/No-Go 研判的流程
+
+  shelf:
+    description: 货架上的其他包（自用包候选）
+    path: ../packs/
+    items:
       - id: create-toolkit
         title: Create Toolkit 资产创建工具箱
-        file: ../../packs/create-toolkit/README.md
+        file: ../packs/create-toolkit/README.md
         solves: 解决如何创建工具无关 Skill、Agent Contract、Command Contract 与 AGENTS.md Rule Contract，并用公共 rubric 做证据化审计
-      - id: component-type-decision
-        title: 组件类型选择指南
-        file: component-type-decision-guide.md
-        solves: 解决新增内容应该做成 Rule、Skill、Command 还是 Agent 的选择问题，提供上下文加载时机梯度和调用关系矩阵
-      - id: context-management
-        title: 上下文管理指南
-        file: context-management-guide.md
-        solves: 解决 AI 对话中上下文管理的问题，提供 JIT 检索、Compaction、多 Agent 隔离、长时任务 Harness 等实践策略
-      - id: agent-autonomy
-        title: Agent 自主性选择指南
-        file: agent-autonomy-guide.md
-        solves: 解决什么任务应该给 AI 多大自主权的问题，提供从 Tab 补全到 Cloud Agent 的连续谱和匹配原则
-
-  prompt-engineering:
-    description: 提示词方法论
-    path: prompt-engineering/
-    items: []  # 待迁移填充
-
-  architecture-decisions:
-    description: 架构决策记录
-    path: architecture-decisions/
-    items: []  # 待迁移填充
+      - id: deep-research
+        title: Deep Research 系统化调研
+        file: ../packs/deep-research/README.md
+        solves: 解决如何将模糊的调研需求转化为结构化的研究报告，提供 Plan→Execute→Synthesize 三阶段流程
 
   learnings:
-    description: 经验沉淀
+    description: 经验沉淀（2025-12、2026-02 那几篇已归档；企业交付那篇跟 enterprise 走，尚未提炼）
     path: learnings/
-    items: []  # 待迁移填充
+    items:
+      - id: offline-onsite-integration-debugging
+        title: 离线现场联调排障（企业交付）
+        file: learnings/2026-06-offline-onsite-integration-debugging.md
+        solves: 企业项目离线现场联调时的排障经验
 
   engineering-practices:
     description: 工程实践方法论（语言/框架级可复用约束与运维经验）
@@ -115,51 +110,6 @@ categories:
           - mockmvc
           - eagain
           - null-safety
-
-  knowledge-system:
-    description: 知识体系设计文档
-    path: knowledge-system/
-    items:
-      - id: overview
-        title: 目录与分析报告
-        file: 00-目录与分析报告.md
-        solves: 解决如何快速了解整个知识体系的结构、内容分布和核心价值
-      - id: cognitive-model
-        title: 结构化认知模型
-        file: 01-结构化认知模型.md
-        solves: 解决如何基于认知心理学原理（Miller 7±2、Ebbinghaus 遗忘曲线）构建知识管理模型
-      - id: organization
-        title: 知识组织方法论
-        file: 02-知识组织方法论.md
-        solves: 解决如何系统化地组织和分类知识内容，建立可检索的知识结构
-      - id: growth
-        title: 知识增长机制
-        file: 03-知识增长机制.md
-        solves: 解决知识如何持续积累、更新和演化，避免知识衰退和过时
-      - id: engineering
-        title: 工程落地模板
-        file: 04-工程落地模板.md
-        solves: 解决如何将知识体系理论转化为可执行的工程实践和模板
-      - id: distributed-arch
-        title: 分布式知识管理架构
-        file: 05-分布式知识管理架构.md
-        solves: 解决多项目、多团队场景下的知识分布式管理和协同问题
-      - id: leaf-framework
-        title: 叶子节点治理框架
-        file: 06-叶子节点治理框架.md
-        solves: 解决知识图谱中叶子节点的规范定义、注册、回流和治理机制
-      - id: architecture-thinking
-        title: 架构思维与应用路径
-        file: 07-架构思维与应用路径.md
-        solves: 解决如何培养和应用架构思维来设计知识管理系统
-      - id: theory-mapping
-        title: 理论模型与实现形态的映射
-        file: 08-理论模型与实现形态的映射.md
-        solves: 解决理论概念如何映射到具体的文件结构、工具和工作流
-      - id: architecture-source
-        title: 架构思维的来源
-        file: 09-架构思维的来源.md
-        solves: 解决架构设计的理论基础和思维方法的溯源问题
 
   # 2026-08-12 kg 跨仓迁移波接收：harness-engineering pack（skill 形态，双宿主原生发现；
   # 判断内核全部留 kg 判断层，此处登记的是可执行操作面——供 kg 直读收割契约发现）
@@ -282,9 +232,9 @@ categories:
         file: templates/content-handoff.md
         solves: 解决 Claude 出内容、Codex 出表达时口头派单、内容口径被改、推翻不说、只读回执就验收的问题；交接包九个必有节 + 回执五节（templates/codex-receipt.md）
       - id: design-in-use-criteria
-        title: 设计在用与否七态判据
+        title: 设计在用与否判据（七态 + 第八态 unspecced）
         file: docs/in-use-criteria.md
-        solves: 解决分不清一个设计、机制或探针是真在用还是只登记过、在跑没人看、休眠的问题；四类证据 + 七态 + 四对区分，休眠一态已机器化
+        solves: 解决分不清一个设计、机制或探针是真在用还是只登记过、在跑没人看、休眠的问题；四类证据 + 七态 + 四对区分，外加第八态 unspecced；七态已由观察器机器判
       - id: compounding-probes-howto
         title: 复利探针与休眠脚本调用说明
         file: docs/probes-howto.md

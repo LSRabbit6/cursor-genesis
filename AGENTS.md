@@ -66,13 +66,12 @@ INVENTORY.md              # Which bundle each existing area belongs to; move/del
 
 stable/                   # Published assets (sparse checkout target)
 ├── atoms/               # Atomic layer - smallest reusable units
-│   ├── rules/          # Rule assets; current .mdc files are Cursor reference-format implementations
+│   ├── rules/          # enterprise/ only (Cursor reference format); base rules archived 2026-10-22
 │   ├── capabilities/   # Four-layer cognition (insight/architecture/engineering/quality)
-│   ├── patterns/       # Team orchestration patterns
-│   ├── standalone/     # Independent role definitions
-│   ├── skills/         # Skill definitions (.skill.yaml)
+│   ├── patterns/       # Team orchestration patterns (topic research, strategic research)
+│   ├── skills/         # SKILL.md assets (harvest-session, java-backend-test-ops)
 │   ├── validators/     # Machine-verifiable contracts + runnable validators (stdlib-only)
-│   └── code-templates/ # DDD/Java/Vue scaffolding
+│   └── plan-templates/ # Engineered multi-phase plan template (enterprise)
 ├── packs/               # Package layer - scenario-based combinations
 │   ├── deep-research/  # Deep research (Plan→Execute→Synthesize)
 │   └── ... (v1-talk, knowledge-manage, cursor-templates → archive/2026-10-22/)
@@ -165,4 +164,4 @@ Upper layer links to `stable/knowledge/` (not the entire repo):
 cursor-genesis -> ../../../cursor-genesis/stable/knowledge
 ```
 
-Only `stable/knowledge/` contains cognitive content for upper-layer indexing.
+kg reads this leaf only through `stable/knowledge/index.yaml` (the leaf entry; kg `meta/leaf-node-spec-v2.md` §2.5, 2026-10-22). When kg needs one item it cites the entry anchor, e.g. `cursor-genesis:stable/knowledge/index.yaml#state-header`, never an inner path. Move an item → update the entry here; kg does not change. The historical docs that used to live under `stable/knowledge/` are in `archive/2026-10-22/` (kg already ingested them; `knowledge-system/` has a line-aligned copy in kg `meta/archives/知识体系整理/`).

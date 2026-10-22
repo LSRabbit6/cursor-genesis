@@ -27,17 +27,17 @@
 |---|---|---|---|---|---|
 | capabilities/（四层） | 21 | 2026-02-25 | 科研工作者的工作台（真收件人）；v1-talk、knowledge-manage | 工作台包候选 | 标注 |
 | patterns/topic-research-team.md、strategic-research-team.md | 2 | 2026-02-25 | 同上 | 工作台包候选 | 标注 |
-| patterns/ 其余 4 个 | 4 | 2026-02-25 | v1-talk、knowledge-manage（已归档）；kg `index/relations.yaml` 指着整个 patterns/ | 未入包 | 留（kg 指着，10-22 不搬） |
+| patterns/ 其余 4 个 | 4 | 2026-02-25 | v1-talk、knowledge-manage（已归档） | 未入包 | **已归档**（2026-10-22 第二轮，`archive/2026-10-22/`） |
 | skills/harvest-session | 2 | 2026-08-16 | create-toolkit 的说明里指向它；维护者自己的收尾技能是它的个人适配 | 自用包候选 | 标注 |
 | skills/java-backend-test-ops | 1 | 2026-06-22 | enterprise | 跟 enterprise 走 | 搬删，档 1 |
-| skills/ 其余（cg-install、kg-search、kg-assemble、resources-catalog、README） | 5 | 2026-09-24 | 老安装链（scripts/sync.sh、mcp-server.py 读它；没接到任何宿主配置） | 未入包 | 留，跟老安装链一起待分诊 |
+| skills/ 其余（cg-install、kg-search、kg-assemble、resources-catalog） | 4 | 2026-09-24 | 老安装链，没接到任何宿主 | 未入包 | **已归档**（2026-10-22 第二轮，`archive/2026-10-22/`）；README 留着 |
 | validators/state-header | 4 | 2026-08-17 | 第一个消费方是维护者的工作台 | 自用包候选 | 标注 |
 | rules/enterprise | 4 | 2026-03-30 | enterprise | 跟 enterprise 走 | 搬删，档 1 |
 | rules/teams、rules/meta、rules/ 根下 5 个 .mdc | 13 | 2026-03-30 | v1-talk、knowledge-manage；Cursor 格式 | 未入包 | **已归档**（2026-10-22，`archive/2026-10-22/`） |
 | plan-templates/ | 2 | 2026-07-21 | enterprise | 跟 enterprise 走 | 搬删，档 1 |
-| commands/ | 6 | 2026-07-21 | 没有货架包引用；Cursor 斜杠命令格式 | 未入包，归档候选 | 搬删，档 1 |
-| standalone/ | 17 | 2026-02-27 | 没有货架包引用 | 未入包，归档候选 | 搬删，档 1 |
-| code-templates/ | 16 | 2026-02-25 | create-toolkit 里不在安装清单的 create-project 命令；kg `docs/user-guide.md` | 未入包 | 留（kg 文档指着，10-22 不搬） |
+| commands/ | 6 | 2026-07-21 | Cursor 斜杠命令格式 | 未入包 | **已归档**（2026-10-22 第二轮，`archive/2026-10-22/`） |
+| standalone/ | 17 | 2026-02-27 | scripts/legacy_scanner 名义上用 legacy/ 两份提示词（脚本路径早就算错，没读到过） | 未入包 | **已归档**（2026-10-22 第二轮，`archive/2026-10-22/`） |
+| code-templates/ | 16 | 2026-02-25 | create-toolkit 里不在安装清单的 create-project 命令 | 未入包 | **已归档**（2026-10-22 第二轮，`archive/2026-10-22/`） |
 
 ## 三、知识（stable/knowledge/，50 个文件）
 
@@ -46,12 +46,12 @@
 
 | 区块 | 文件 | 最后提交 | kg 提炼过吗 | 动作 |
 |---|---|---|---|---|
-| knowledge-system/ | 19 | 2026-02-25 | 提炼过（2026-02-25 建库期；kg 有超集副本） | 归档候选，档 1 |
-| architecture-decisions/ | 10 | 2026-02-25 | 提炼过（2026-07-03 载体层全量） | 归档候选，档 1 |
-| cursor-specs/ | 13 | 2026-03-31 | 提炼过（同上） | 归档候选，档 1 |
-| learnings/ | 5 | 2026-06-29 | 2025-12 那批提炼过；2026-06 企业交付那批没提炼 | 企业那批跟 enterprise 走；其余归档候选，档 1 |
-| prompt-engineering/ | 1 | 2026-02-25 | 没查 | 待查 |
-| index.yaml、local-only.yaml | 2 | 2026-09-24 | — | kg 检索入口，随上面一起定 |
+| knowledge-system/ | 19 | 2026-02-25 | 提炼过；kg `meta/archives/知识体系整理/` 有逐行对齐的副本 | **已归档**（2026-10-22 第二轮，`archive/2026-10-22/`）；kg domains、toys origin-review 改指 kg 副本 |
+| architecture-decisions/ | 10 | 2026-02-25 | 提炼过（2026-07-03 载体层全量） | **已归档**（2026-10-22 第二轮，`archive/2026-10-22/`） |
+| cursor-specs/ | 13 | 2026-03-31 | 提炼过（同上） | **已归档**（2026-10-22 第二轮，`archive/2026-10-22/`） |
+| learnings/ | 5 | 2026-06-29 | 2025-12、2026-02 那三篇提炼过；2026-06 企业交付那篇没提炼 | 三篇**已归档**（2026-10-22 第二轮，`archive/2026-10-22/`）；企业那篇留，跟 enterprise 走 |
+| prompt-engineering/ | 1 | 2026-02-25 | 空目录（只有 .gitkeep） | **已归档**（2026-10-22 第二轮，`archive/2026-10-22/`） |
+| index.yaml、local-only.yaml | 2 | 2026-10-22 | — | index.yaml 重写成叶子入口（kg 只经它读 cg，leaf-node-spec-v2 §2.5）；local-only.yaml 已归档 |
 
 ## 四、其余
 
@@ -60,7 +60,7 @@
 | stable/archetypes/ | 休眠。正本已迁 kg docs/archetypes/，这里留指针 | 不动 |
 | scripts/install-pack.py | 交付包的装法要用 | 留 |
 | scripts/check-bundles.py | 本次新增，核清单 | 留 |
-| scripts/legacy_scanner.py、mcp-server.py、backflow.sh、sync.sh、pr-monitor.sh | 未入包 | 没细查，待分诊 |
+| scripts/legacy_scanner.py、backflow.sh、pr-monitor.sh | 未入包 | 没细查，待分诊（sync.sh、mcp-server.py 已随老安装链归档） |
 | install.sh | 未入包。v1.2.0 的预设安装器 | **已归档**（2026-10-22，`archive/2026-10-22/`） |
 | .cursor/rules/ | Cursor 已冻结 | **已归档**（2026-10-22，`archive/2026-10-22/`） |
 | docs/downstream-spec.md | 交付包的回流说明引用它 | 留 |
@@ -79,15 +79,15 @@
 
 ## 五、搬删清单（档 1，等拍）
 
-> 10-22 推迟：三个头合成一个之后再做。kg `index/domains.yaml`、`index/relations.yaml` 直接指着 `stable/knowledge/knowledge-system/` 和 `stable/atoms/patterns/`，这两块本来就留。
+> 10-22 做了两轮。第二轮在 kg 立「kg 只到叶子入口」（leaf-node-spec-v2 §2.5）、收掉 kg 指着 cg 内部的指针之后做。
 
 1. ✅ knowledge-manage、cursor-templates、v1-talk 三个货架包归档（10-22）。
 2. enterprise 货架包，连同 rules/enterprise、skills/java-backend-test-ops、plan-templates/、learnings 里企业那批，物理搬到 enterprise-delivery 那边。
-3. 部分做了（10-22）：rules/teams、rules/meta、根下 5 个 .mdc 已归档。patterns、standalone、code-templates、commands 有 kg 指着，skills 其余属老安装链，都留在原处。
-4. stable/knowledge/ 方法正文迁 kg 方法格，或归档。前提：kg registry 的 `index_file` 先改。
+3. ✅ 两轮做完（10-22）：第一轮 rules/teams、rules/meta、根下 5 个 .mdc；第二轮 patterns 其余 4 个、standalone、code-templates、commands、skills 老安装链。留下的：capabilities 与两个 pattern（工作台候选）、validators、plan-templates、rules/enterprise、harvest-session、java-backend-test-ops。
+4. ✅ 第二轮做完（10-22）：stable/knowledge 四类历史文档和三篇 learnings 归档，index.yaml 改成叶子入口；kg 先立「只到叶子入口」规则并收了指针（kg c219dd1）。
 5. ✅ install.sh、.cursor/rules/ 归档（10-22）。
 
-第 2、4 条没动：enterprise 照 kg registry 等接单线独立对外；stable/knowledge/ 有 kg domains.yaml 和 registry `index_file` 指着。明细见 [archive/README.md](archive/README.md)。
+第 2 条没动：enterprise 照 kg registry 等接单线独立对外。明细见 [archive/README.md](archive/README.md)。
 
 ## 六、这次没查到的
 

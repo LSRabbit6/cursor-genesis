@@ -18,7 +18,7 @@ identity: 讲明白的体系怎么结合到各家 harness（Claude Code、Codex�
 boundary: 「cg和kg的区别这块也出来了。 kg里面一方面是cg中更上一层的总结。还有就是这个情绪方面的」——cg 装机器能执行的（组件、套装、结合法）；kg 装认知：cg 之上的那层总结（判断、方法），加跟人绑定的材料。
 unit: 结合包——按使用方分，宿主是包里的一层；一个包四层：组件层、宿主适配层、自装层、清单（bundles/README.md）
 domain_axis: 人—Agent 开发协作机制 Leaf   # 2026-08-17 两轴里的域名轴，读作正本句的展开
-version: 1.7.0
+version: 1.8.0
 domain: ai-collaboration-method
 description: |
   （下面是 07-25 的域名轴展开，定位以 identity 为准。）
@@ -45,9 +45,9 @@ capabilities_provided:
     status: current
     evidence:
       - stable/atoms/
-      - stable/knowledge/cursor-specs/component-type-decision-guide.md
-      - stable/knowledge/cursor-specs/context-management-guide.md
-      - stable/knowledge/cursor-specs/agent-autonomy-guide.md
+      - archive/2026-10-22/stable/knowledge/cursor-specs/component-type-decision-guide.md   # 2026-10-22 归档
+      - archive/2026-10-22/stable/knowledge/cursor-specs/context-management-guide.md
+      - archive/2026-10-22/stable/knowledge/cursor-specs/agent-autonomy-guide.md
   - id: capability_composition_and_distribution
     description: 通过 Atoms + Packs 组合、注入和分发协作能力
     phase: [init, build]
@@ -219,6 +219,11 @@ lifecycle:
 
 # 版本记录
 changelog:
+  - version: 1.8.0
+    date: 2026-10-22
+    changes:
+      - 第二轮归档（kg leaf-node-spec-v2 §2.5「kg 只到叶子入口」生效后）：stable/knowledge 的知识体系、架构决策、Cursor 规范、提示词四类和三篇旧 learnings；atoms 的 standalone、code-templates、commands、patterns 其余 4 个；老安装链（cg-install / kg-search / kg-assemble、resources-catalog、sync.sh、mcp-server.py）移到 archive/2026-10-22/
+      - stable/knowledge/index.yaml 重写为叶子入口：结合包、协作机制（补 state-header）、工作台候选、货架包、还在用的 learnings 与发布包
   - version: 1.7.0
     date: 2026-10-22
     changes:

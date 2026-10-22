@@ -44,6 +44,6 @@ python legacy_scanner.py \
 
 ## 配套提示词
 
-此工具依赖以下提示词文件：
+此工具依赖以下提示词文件（2026-10-22 随 standalone/ 归档到 `archive/2026-10-22/stable/atoms/standalone/legacy/`。另：脚本里 `PROMPT_LIB` 从 02-25 搬进现位置起就算到了仓库外面，这两份提示词一直没读到，用前先改路径）：
 - `standalone/legacy/java-excavator.md` - Java 文件分析
 - `standalone/legacy/vue-inspector.md` - Vue 文件分析

@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+- 2026-10-22 第二轮：`stable/knowledge/` 的 knowledge-system、architecture-decisions、cursor-specs、prompt-engineering、local-only.yaml 和三篇旧 learnings；`stable/atoms/` 的 standalone、code-templates、commands、patterns 其余 4 个；老安装链 `kg-search`/`kg-assemble`/`cg-install`、`resources-catalog.yaml`、`scripts/sync.sh`、`scripts/mcp-server.py` 移到 `archive/2026-10-22/`。`stable/knowledge/index.yaml` 重写为叶子入口（kg 只经它读 cg）。
 - 2026-10-22：`stable/packs/` 的 v1-talk、knowledge-manage、cursor-templates，`stable/atoms/rules/` 的 teams、meta 和根下 5 个 .mdc，`install.sh`，`.cursor/rules/` 移到 `archive/2026-10-22/`（只搬不删，原路径结构照留，见 `archive/README.md`）。有 kg 指着的 patterns、standalone、code-templates、commands、stable/knowledge 留在原处。
 
 ### Changed

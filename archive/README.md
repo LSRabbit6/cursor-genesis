@@ -23,3 +23,20 @@
 - `stable/atoms/capabilities/02_architecture/prometheus-prompt-engineer.md` 提到 `rules/teams`。
 - 老安装链 `scripts/sync.sh`、`scripts/mcp-server.py`、`stable/atoms/skills/` 里的 cg-install 等和 `resources-catalog.yaml` 还按旧路径列着它们。这条链没有接到任何宿主的 MCP 或 hook 配置上（10-22 查 `~/.claude.json`、`~/.codex/config.toml`），待分诊。
 - kg 的 `docs/`、`meta/leaf-node-spec.md` 等按旧路径提到 v1-talk、knowledge-manage，归 kg 会话撞到再改。
+
+## 2026-10-22 第二轮：kg 不再指着以后能搬的那些
+
+前提：维护者 10-22 定了「kg 引用叶子只到节点级，经叶子入口读」（kg `meta/leaf-node-spec-v2.md` §2.5，kg c219dd1），kg 先把 domains、relations、topics 里钉在 cg 内部的指针收了。维护者「能」。
+
+| 原路径 | 为什么能搬 |
+|---|---|
+| `stable/knowledge/knowledge-system/` | kg 提炼过；kg `meta/archives/知识体系整理/` 有逐行对齐的副本（只差一行本机路径，kg 09-15 修过）。toys 原话索引改指 kg 副本 |
+| `stable/knowledge/architecture-decisions/`、`cursor-specs/`、`prompt-engineering/`、`local-only.yaml` | kg 07-03 载体层全量提炼过；prompt-engineering 是空目录 |
+| `stable/knowledge/learnings/` 里 2025-12 两篇、2026-02-25 一篇 | 提炼过；2026-06 企业交付那篇没提炼，留在原处 |
+| `stable/atoms/standalone/`、`code-templates/`、`commands/` | kg 不再指着；CI、测试不用 |
+| `stable/atoms/patterns/` 其余 4 个 | 只有已归档的 v1-talk、knowledge-manage 用；topic-research-team、strategic-research-team 是工作台包候选，留 |
+| `stable/atoms/skills/` 的 cg-install、kg-search、kg-assemble、`resources-catalog.yaml`，`scripts/sync.sh`、`scripts/mcp-server.py` | 老安装链，没接到任何宿主的 MCP 或 hook 配置 |
+
+**留下的叶子入口**：`stable/knowledge/index.yaml` 重写，只列结合包、协作机制（harvest-session、state-header）、工作台候选、货架包、还在用的 learnings 和发布包。kg 要指件就写这里条目的锚。
+
+**已知的老问题（不是这次弄出来的）**：`scripts/legacy_scanner.py` 的 `PROMPT_LIB` 从 02-25 起就算到了仓库外面，`standalone/legacy/` 的两份提示词一直没读到；要用先改路径，提示词在本目录 `stable/atoms/standalone/legacy/`。

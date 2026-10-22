@@ -102,9 +102,9 @@ This repository is split into two layers:
 ### 1. Atoms (`stable/atoms/`)
 The smallest reusable units of AI cognition. Context-agnostic.
 - `rules/enterprise/`: **Enterprise Meta-Rules** — the core governance system (4 rules)
-- `rules/`: Additional base rules (production safety, project conventions)
 - `capabilities/`: Four-layer cognition bounds (insight, architecture, engineering, quality)
-- `patterns/`: Team orchestration templates (6 team patterns)
+- `patterns/`: Team orchestration templates (topic research, strategic research; the other 4 were archived)
+- Archived 2026-10-22: the base Cursor rules, `standalone/`, `code-templates/`, `commands/`, the old `.skill.yaml` install chain and the historical docs under `stable/knowledge/` → [`archive/2026-10-22/`](archive/README.md). kg reads this leaf through `stable/knowledge/index.yaml`.
 - `validators/`: Machine-verifiable contracts with runnable, stdlib-only validators (first entry: `state-header`, a truth-source staleness referee backflowed from a production personal workbench)
 
 ### 2. Packs (`stable/packs/`)
