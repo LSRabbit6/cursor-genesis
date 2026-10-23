@@ -47,5 +47,5 @@ python export.py --toc      # 只出章节+条号清单（审计/评审先拿这
 
 - 淬炼源：kg 宪法（meta/constitution.md）+ 特别法 + 机制清单（遮名泛化，判断内容不外泄）
 - 设计正本：kg `meta/derivation/dispatch-layer-design-2026-08-12.md`（决策点 A-E + §7 验收记录）
-- kg 侧壳：`workbench/harness-export/README.md`（2026-08-12 迁移波后指向此处）
+- kg 侧壳：toys 仓 `research/kg-artifacts-2026-10-23/harness-export/README.md`（2026-10-23 随 kg 原料迁出搬到 toys；kg 内地址 `toys:research/kg-artifacts-2026-10-23/harness-export/README.md`）
 - 消费者：dispatch-kernel（toys）等自研壳；终检 = 真实 harness 项目首次消费（读数回填 kg derivation §7）

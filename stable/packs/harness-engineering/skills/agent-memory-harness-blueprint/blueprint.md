@@ -1,7 +1,7 @@
 # Agent 记忆 Harness 约束蓝图
 
 > **家（2026-08-12 迁移波起）**：本文件正本住 cursor-genesis `stable/packs/harness-engineering/`
-> （cg 职责③ 可复用 skill 资产）；kg 侧壳 = `workbench/harness-export/README.md`。
+> （cg 职责③ 可复用 skill 资产）；kg 侧壳 = toys 仓 `research/kg-artifacts-2026-10-23/harness-export/README.md`（2026-10-23 随 kg 原料迁出搬到 toys；kg 内地址 `toys:research/kg-artifacts-2026-10-23/harness-export/README.md`）。
 > 溯源行指向的源文件仍在 kg 仓（`D:\Project\knowledge-graph`），验鲜需该仓在盘。
 > **这是什么**：一份从五个月真实运行的个人认知记忆系统中提炼的**约束集**——把系统专名遮掉后
 > 仍然成立的那部分。它回答"给一个主体建 agent 记忆 harness，什么约束不满足就会烂"。
