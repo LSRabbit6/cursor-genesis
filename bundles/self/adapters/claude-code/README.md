@@ -53,8 +53,12 @@ python check_sandbox_session.py --cwd . \
 
 # 二阶段：从第一次读二阶段提示词起；白名单照开场时的 --add-dir 给
 python check_sandbox_session.py --cwd . --add-dir ../stage2 --add-dir ../external-codex \
-  --from-read ../stage2/stage2-prompt.md --write ../stage2/stage2-report.md
+  --from-read ../stage2/stage2-prompt.md --write ../stage2/stage2-report.md \
+  --order ../stage2/stage2-prompt.md --order ../external-codex/README.md ... \
+  --codes ../progress/read-codes.json --tail 10    # JSON 没登记码的件，取末行最后 10 个字当回执
 ```
+
+给了 `--order` 又开了回执检查（`--codes` 或 `--tail`），清单里哪件既没登记码、`--tail` 也取不到，直接判 FAIL，不悄悄跳过。
 
 全 PASS 才收。最后一行 MANUAL 是人工项：它报的现状拿场外读数核。
 
@@ -62,4 +66,5 @@ python check_sandbox_session.py --cwd . --add-dir ../stage2 --add-dir ../externa
 
 - 10-17（toys 审计场）：读 `audit-plan.md`、`external-codex/README.md` 被宿主拒，包内正常，工具只剩五个；接续加受限加挂目录可用。
 - 10-28（2.1.299，haiku 无头小测）：读工作目录外的文件，宿主回「is outside … --restricted confines the file tools to the working directory」；包内读写正常。核对脚本把这次试读判成 FAIL——宿主拒了也算，收货要知道它试过。
-- 回归：核对脚本对 10-17 审计场（会话 c8b5f763）一阶段的判定，跟 toys 原脚本 `check_audit_session.py` 逐条一致。
+- 回归：核对脚本对 10-17 审计场（会话 c8b5f763）一阶段的判定，跟 toys 原脚本 `check_audit_session.py` 逐条一致；二阶段带 `--tail 10`，7 行回执全对，跟 `check_stage2_session.py` 一致。两边都报出同一处多写（这场会话后来被续用写了 next-block）。
+- 10-28 Codex 复核指出两处缺口（漏登记码的件被悄悄跳过；没有末行取码），已补；反例「读两件只登记一件」现在判 FAIL。

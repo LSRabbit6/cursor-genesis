@@ -9,6 +9,7 @@
     --write F          允许写的文件，可多次；不给就只列出写了什么，不判
     --order F          要求按这个顺序整件读（不带 offset/limit）的文件，可多次
     --codes J          回执校验码 JSON {文件名或相对路径: 码}；码要出现在回复或写出的文件里
+    --tail N           --order 里 JSON 没登记码的件，取它末行最后 N 个字当码；都没有就判 FAIL
     --from-read F      从第一次读 F 起算（接续开场的后一阶段）
     --until-read F     到第一次读 F 为止（不把后一阶段算进来），可多次
 
@@ -58,6 +59,14 @@ def resolve(p, cwd):
     return (q if q.is_absolute() else cwd / q).resolve()
 
 
+def tail_code(p, n):
+    """末行最后 n 个字当回执（toys check_stage2_session.py 的做法）。"""
+    if not p.exists():
+        return None
+    lines = [l for l in p.read_text(encoding="utf-8").splitlines() if l.strip()]
+    return lines[-1].strip()[-n:] if lines else None
+
+
 def collect(chain, cwd, from_read, until_read):
     """按会话顺序取工具调用和回复文字，截在 from_read / until_read 之间。"""
     calls, texts, started = [], [], from_read is None
@@ -90,6 +99,7 @@ def main(argv=None):
     ap.add_argument("--write", action="append", default=[])
     ap.add_argument("--order", action="append", default=[])
     ap.add_argument("--codes")
+    ap.add_argument("--tail", type=int, default=0)
     ap.add_argument("--from-read")
     ap.add_argument("--until-read", action="append", default=[])
     a = ap.parse_args(argv)
@@ -168,11 +178,21 @@ def main(argv=None):
     else:
         print(f"INFO 写过 {written or '无'}（没给 --write，不判）")
 
-    if a.codes:
-        codes = json.loads(Path(a.codes).read_text(encoding="utf-8"))
+    if a.codes or a.tail:
+        table = json.loads(Path(a.codes).read_text(encoding="utf-8")) if a.codes else {}
         if order:
-            tails = [p.as_posix() for p in order]
-            codes = {k: v for k, v in codes.items() if any(t == k or t.endswith("/" + k) for t in tails)}
+            codes, missing_key = {}, []
+            for p in order:
+                hit = [k for k in table if p.as_posix() == k or p.as_posix().endswith("/" + k)]
+                if hit:
+                    codes[p.name] = table[hit[0]]
+                elif a.tail and tail_code(p, a.tail):
+                    codes[p.name] = tail_code(p, a.tail)
+                else:
+                    missing_key.append(p.name)
+            say(not missing_key, f"读取清单每件都有期望码（没有 {missing_key}）")
+        else:
+            codes = table
         blob = "\n".join(texts)
         for p in {resolve(f, cwd) for f in a.write} or set(writes):
             if p.exists():
