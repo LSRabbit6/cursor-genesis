@@ -1,7 +1,8 @@
 import { mkdir, rm, cp, readFile, writeFile } from "node:fs/promises";
 import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 const root = new URL("../", import.meta.url);
-process.chdir(root.pathname);
+process.chdir(fileURLToPath(root));
 await rm("dist", { recursive: true, force: true });
 await mkdir("dist/server", { recursive: true });
 await mkdir("dist/client", { recursive: true });

@@ -1,0 +1,4 @@
+# 发布包按工作区字节打 zip、算发布锁哈希（scripts/build-pack-catalog.py、check-release.py）。
+# Windows 上 core.autocrlf=true 会把它们检出成 CRLF，哈希就跟 Linux 上算的锁对不上。这几处一律 LF 检出。
+stable/packs/** text=auto eol=lf
+scripts/install-pack.py text eol=lf
