@@ -16,7 +16,9 @@ candidates:
 components:                      # 组件说明：还不是货架包（packs），先以说明发；进货架后挪进 packs
   - name: sandboxed-session      # 受限场：主控备包 → 强模型在受限场里只读包、只写白名单 → 主控场外核收
     ref: components/sandboxed-session.md
-    basis: knowledge-graph:methods/sandboxed-strong-model-session.md@2026-10-28
+    basis:
+      - knowledge-graph:methods/sandboxed-strong-model-session.md@2026-10-28
+      - knowledge-graph:index/topics/ai-collaboration.yaml#sandboxed-agent-status-report-needs-outside-check   # 收货第 2 条和核对脚本末行 MANUAL 照它
 
 adapters:                        # 宿主适配层
   claude-code: adapters/claude-code/   # 开场脚本 + 收货核对脚本
@@ -26,6 +28,7 @@ setup: "TODO: 另一台机器真要装时再写；本机直接从 adapters/claud
 condition_label:
   basis:
     - knowledge-graph:methods/sandboxed-strong-model-session.md@2026-10-28
+    - knowledge-graph:index/topics/ai-collaboration.yaml#sandboxed-agent-status-report-needs-outside-check
   environment:
     model_tier: 笼内 claude-fable-5-1（xhigh），主控 claude-opus-5-5
     host: [claude-code]
