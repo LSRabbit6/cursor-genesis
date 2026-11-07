@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- 2026-11-07：`delivery-data-app` 0.2.1 → 0.2.2：检查器 S2 改按单张表、单个列表计数，不再把整份文件的 `<tr>` / `<li>` 加在一起；`<script>`、`<style>`、注释里的 search / filter 字样不再算检索控件、里面的 `<tr>` 也不算行；补两条测试；契约升 0.2。起因是菜单服务反馈 T-439165（同一原稿三个页签的静态说明表合计 45 个 `<tr>` 被报长列表无检索）。
 - 2026-10-22：`second-loop-compounding` 0.1.2 → 0.1.3：在用判据补第八态 `unspecced`（无规范 → 不可调用）和观察器机器判的跑法、读法；内容是 09-24 写完留在本机没提交的。
 - 2026-10-22：`delivery-data-app` 0.2.0 → 0.2.1、`second-loop-compounding` 0.1.1 → 0.1.2，内容不变：f1f16cf 的发布锁在 Windows 上算错（排序不分大小写、zip 的 create_system 写成 0，4c8effa 修了打包脚本），发布锁规矩要求同一版本号哈希不变，所以各升一个补丁号；错的那版 CI 没过、没部署。
 - 2026-10-22：`second-loop-compounding` 0.1.0 → 0.1.1，只因随包的 `scripts/install-pack.py` 变了（发布锁规矩：内容变就升版本）。仓地址统一为 `LSRabbit6/cursor-genesis`（仓的正身在 LSRabbit6 组织；SYMlp 地址是转移后的跳转）；README 加作者「灵枢兔 LSRabbit · 作者 石宜萌」。

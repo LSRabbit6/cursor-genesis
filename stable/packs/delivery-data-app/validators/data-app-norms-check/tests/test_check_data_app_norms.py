@@ -64,6 +64,28 @@ class CheckTextTests(unittest.TestCase):
         page = GOOD.replace("<body>", '<body><a href="https://example.com">链接</a>')
         self.assertNotIn("R3", codes(c.check_text(page)))
 
+    def test_rows_are_counted_per_table_not_per_file(self):
+        # T-439165：三个页签各一张短说明表，合起来 45 行，不是一张长列表
+        head = '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="w"></head><body>'
+        small = "<table>" + "".join(f"<tr><td>{i}</td></tr>" for i in range(11)) + "</table>"
+        tabs = head + "".join(f'<section data-tab="{n}">{small}</section>' for n in range(3)) + "<p>暂无数据</p></body></html>"
+        self.assertNotIn("S2", codes(c.check_text(tabs)))
+        # 有一张自己就到阈值，照样报；嵌套表的行归里层那张
+        long_one = tabs.replace(small, "<table>" + "".join(f"<tr><td>{i}</td></tr>" for i in range(12)) + "</table>", 1)
+        self.assertIn("S2", codes(c.check_text(long_one), "FAIL"))
+        nested = head + "<table><tr><td>" + small + "</td></tr><tr><td>x</td></tr></table><p>暂无数据</p></body></html>"
+        self.assertNotIn("S2", codes(c.check_text(nested)))
+
+    def test_words_inside_script_style_or_comment_are_not_search_controls(self):
+        # 内联库代码里的 search / filter、样式的 filter 属性、注释都不进 DOM，不能顶替检索控件
+        bare = GOOD.replace('<input type="search" placeholder="搜索商品">', "")
+        for hidden in ('<script>var lib = {search: 1, filter: 2};</script>',
+                       "<style>.card{filter:blur(2px)}</style>",
+                       "<!-- 搜索框以后加 -->"):
+            page = bare.replace("<body>", "<body>" + hidden)
+            self.assertIn("S2", codes(c.check_text(page), "FAIL"), hidden)
+        self.assertNotIn("S2", codes(c.check_text(GOOD.replace("<body>", "<body><script>var x = 1;</script>"))))
+
 
 class CheckFileTests(unittest.TestCase):
     def test_non_utf8_file_fails_r1(self):

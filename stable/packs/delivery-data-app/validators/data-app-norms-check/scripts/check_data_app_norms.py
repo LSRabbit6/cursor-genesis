@@ -26,8 +26,6 @@ RE_EXTERNAL_TAG = re.compile(
     r"<(script|link|img|iframe|source|video|audio)\b[^>]*\b(src|href)\s*=\s*[\"']\s*(https?:)?//", re.I
 )
 RE_EXTERNAL_CSS = re.compile(r"(@import\s+url\(|url\()\s*[\"']?\s*https?://", re.I)
-RE_TR = re.compile(r"<tr\b", re.I)
-RE_LI = re.compile(r"<li\b", re.I)
 RE_LIST_CONTAINER = re.compile(r"<(table|ul|ol)\b", re.I)
 RE_SCRIPT = re.compile(r"<script\b", re.I)
 # 算「检索控件」的：type 为 search / text 或没写 type 的 input、select、data-filter 属性、检索字样。
@@ -38,6 +36,39 @@ RE_SEARCH_CONTROL = re.compile(
     re.I,
 )
 RE_EMPTY_STATE = re.compile(r"暂无|没有|无数据|为空|empty|no data|data-empty", re.I)
+# S2 只看页面的静态标记：<script>、<style> 的内容和注释不进 DOM。内联库代码里的 search / filter 字样、
+# 样式里的 filter 属性都不算检索控件，脚本模板里的 <tr> 也不算行（0.2.2，菜单服务反馈 T-439165）。
+RE_NON_DOM = re.compile(r"<script\b[^>]*>.*?</script\s*>|<style\b[^>]*>.*?</style\s*>|<!--.*?-->", re.I | re.S)
+RE_LIST_TAG = re.compile(r"<(/?)(table|ul|ol|tr|li)\b", re.I)
+
+
+def longest_list(markup: str) -> int:
+    """每张表、每个 ul / ol 各数各的：<tr> 归最里层没关的 table，<li> 归最里层没关的 ul / ol。返回最长那个的行数。
+
+    同一页上几张小表（例如几个页签各一张说明表）不再加在一起算成一张长列表。
+    不在任何容器里的 <tr> / <li> 各自单算一组。
+    """
+    counts: list[int] = []
+    open_tables: list[int] = []
+    open_lists: list[int] = []
+    loose = {"tr": 0, "li": 0}
+    for m in RE_LIST_TAG.finditer(markup):
+        closing, tag = m.group(1), m.group(2).lower()
+        if tag in ("table", "ul", "ol"):
+            stack = open_tables if tag == "table" else open_lists
+            if closing:
+                if stack:
+                    stack.pop()
+            else:
+                counts.append(0)
+                stack.append(len(counts) - 1)
+        elif not closing:
+            stack = open_tables if tag == "tr" else open_lists
+            if stack:
+                counts[stack[-1]] += 1
+            else:
+                loose[tag] += 1
+    return max(counts + list(loose.values()))
 
 
 def check_text(text: str, *, list_threshold: int = 12, terms: list[str] | None = None,
@@ -55,11 +86,12 @@ def check_text(text: str, *, list_threshold: int = 12, terms: list[str] | None =
         out.append({"code": "R3", "level": "FAIL", "msg": f"引用外部资源：<{'>, <'.join(tags)}> 指向 http(s)://"})
     if RE_EXTERNAL_CSS.search(text):
         out.append({"code": "R3", "level": "FAIL", "msg": "样式里 url(http…) 或 @import 外部地址"})
-    rows = max(len(RE_TR.findall(text)), len(RE_LI.findall(text)))
-    has_search = bool(RE_SEARCH_CONTROL.search(text))
+    markup = RE_NON_DOM.sub(" ", text)
+    rows = longest_list(markup)
+    has_search = bool(RE_SEARCH_CONTROL.search(markup))
     has_list = bool(RE_LIST_CONTAINER.search(text))
     if rows >= list_threshold and not has_search:
-        out.append({"code": "S2", "level": "FAIL", "msg": f"长列表（{rows} 行）没有任何检索或筛选控件"})
+        out.append({"code": "S2", "level": "FAIL", "msg": f"长列表（最长一张表或列表 {rows} 行）没有任何检索或筛选控件"})
     elif has_list and rows < 3 and RE_SCRIPT.search(text) and not has_search:
         out.append({"code": "S2", "level": "WARN",
                     "msg": "列表由脚本渲染，机器看不到行数也没见检索控件——列表多不多、要不要检索，人判"})
