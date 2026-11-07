@@ -21,6 +21,14 @@ categories:
         title: 工作台包（交给真人专家，由对方 AI 自装）
         file: ../../bundles/workbench/bundle.yaml
         solves: 解决把专家工作台交给对方、让对方电脑上的 AI 照说明装好并现场验收
+      - id: consult-forging
+        title: 聊天记录锻造（kg 方法 chat-record-forging 在工作台包里的组件说明，0.2.0 起）
+        file: ../../bundles/workbench/components/consult-forging.md
+        solves: 解决拿一个人的聊天记录、会谈转写锻造出给他用的东西——会谈、一问一答、分堆、分类、本人过目、出口六步，分类先给本人看、认了才提炼；使用方和维护者两个座位各跑哪几步
+        keywords:
+          - 聊天记录锻造法
+          - consult-forging
+          - 分堆分类
       - id: bundle-delivery
         title: 交付包（会用 harness、没做过产品设计的外部使用者）
         file: ../../bundles/delivery/bundle.yaml
