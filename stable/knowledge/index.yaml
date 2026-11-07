@@ -207,6 +207,41 @@ categories:
         file: skills/domain-menu/SKILL.md
         solves: 「选领域 / 要方案」时照五步走：checklist → 自查 → submit → install 或拿编号 → status
 
+  # 2026-11-07 菜单服务「零售经营 · 多门店」一类的第一份包：只出模式，不带任何门店的口径与阈值
+  retail-multistore:
+    description: 零售经营 · 多门店——四个可逐段并进六段设计稿的模式：图文办理、角色待办、事后名称整理、口径收件箱（guidance；口径全部留〔待裁〕）
+    path: ../packs/retail-multistore/
+    items:
+      - id: retail-multistore
+        title: 零售经营 · 多门店套装入口（装法 / 到场 / 用法 / 负空间）
+        file: README.md
+        solves: 解决「多门店零售的办理类系统，harness 能做出来，但收件、岗位待办、分类整理、老板口径这几处总走偏」——给模式不给口径
+        keywords:
+          - 零售
+          - 多门店
+          - retail
+          - multistore
+      - id: retail-multistore-patterns
+        title: 四个模式总览（怎么挑、怎么并进六段、程序 / AI / 人分工）
+        file: patterns/README.md
+        solves: 这次该挑哪个模式；〔待裁〕怎么写进设计稿口径段
+      - id: retail-image-text-intake
+        title: 模式 · 图文办理
+        file: patterns/image-text-intake.md
+        solves: 聊天里收文字和图片：先存后回、先 OCR 再看图、连续消息归集、只问缺项、纠错重送
+      - id: retail-role-todo
+        title: 模式 · 角色待办
+        file: patterns/role-todo.md
+        solves: 每个岗位私聊一份本人权限内的待办：一行一笔、按钮语义按岗位、定时汇总不漏不重
+      - id: retail-post-hoc-naming
+        title: 模式 · 事后名称整理
+        file: patterns/post-hoc-naming.md
+        solves: 日常先记原名，事后授权的人预览确认成标准细类和别名，下一笔能复用
+      - id: retail-caliber-inbox
+        title: 模式 · 口径收件箱
+        file: patterns/caliber-inbox.md
+        solves: 老板随口说的规则分四类记下、每个数带出处、改数前先算影响
+
   # 2026-09-24 复利第二环打包接收：toys 工作台当夜落地的「第二个环」运行件的模板原件（框架 + 模板 + 调用说明）；
   # 判断内核留 kg、人的数据只住各人目录的线文件——此处登记的是可加载的操作面
   second-loop-compounding:

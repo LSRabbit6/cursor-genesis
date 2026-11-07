@@ -12,6 +12,8 @@ packs:
 candidates:
   - ref: second-loop-compounding@0.1.3
     note: 还没有真收件人
+  - ref: retail-multistore@0.1.0
+    note: 菜单服务「零售经营 · 多门店」一类的包；唯一的请求方就是模式来源那一家，不算第二使用方
 
 adapters:                        # 宿主适配层在货架包里
   claude-code: ../../stable/packs/delivery-data-app/adapters/claude-code/

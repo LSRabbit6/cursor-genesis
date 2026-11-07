@@ -1,0 +1,19 @@
+# retail-multistore Pack 安装清单
+# install-pack.py 读取此文件：全部部署到公共作者层 .agents/，只有文档，没有脚本和 hook
+
+pack: retail-multistore
+version: 0.1.0
+description: 零售经营 · 多门店——四个可并进六段设计稿的模式：图文办理、角色待办、事后名称整理、口径收件箱；不带任何门店的口径与阈值
+record_root: .agents
+
+mappings:
+  # 四个模式 + 总览（guidance）
+  - source: patterns
+    target_root: .agents
+    target: patterns/retail-multistore
+    type: directory
+
+  # 到场片段：贴进项目 AGENTS.md
+  - source: rules/AGENTS-snippet.md
+    target_root: .agents
+    target: rules/retail-multistore.AGENTS-snippet.md

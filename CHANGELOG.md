@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- 2026-11-07：`retail-multistore` v0.1.0：菜单服务「零售经营 · 多门店」一类的第一份包，只有模式——图文办理、角色待办、事后名称整理、口径收件箱四个模式，各写成能逐段并进 delivery-data-app 六段设计稿的段落，加一份到场片段。不带任何门店的口径、阈值、提醒时刻和代码，口径全部留〔待裁〕。进交付包候选（还没有第二使用方）。
+
 - 2026-10-22：cg 单位改成结合包（按使用方分，宿主是包里一层）。`bundles/` 下工作台、交付、自用三份 `bundle.yaml`；工作台包带给对方 AI 的自装模板 `SETUP-FOR-AI.md` 和 Claude Code / Codex 两份薄适配样板；`INVENTORY.md` 标出现有内容各进哪个包；`scripts/check-bundles.py` 核清单、可调 kg pin-check 比钉。
 
 - 2026-10-01：维护闭环实现：令牌按操作授权、到期和最近访问、旧库兼容迁移；反馈经维护者整理为可公开摘要后导出与导入、关联 PR；统一验证入口与 GitHub Actions、发布包摘要锁、SQLite 在线备份及不覆盖恢复、Compose 部署配置。真实宿主专用适配和公网部署仍需环境验证。
