@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- 2026-11-07：`domain-menu` 0.2.1 → 0.2.2：只改文字。README 和 SKILL.md 负空间里的类型表读数跟上菜单：零售有了 `retail-multistore` 包（四个模式），经营日报、收银稽核器仍只有模式名；病理仍只有模式名。代码不变，`menu.py` 的 `CLIENT_VERSION` 跟着升。
 - 2026-11-07：`delivery-data-app` 0.2.1 → 0.2.2：检查器 S2 改按单张表、单个列表计数，不再把整份文件的 `<tr>` / `<li>` 加在一起；`<script>`、`<style>`、注释里的 search / filter 字样不再算检索控件、里面的 `<tr>` 也不算行；补两条测试；契约升 0.2。起因是菜单服务反馈 T-439165（同一原稿三个页签的静态说明表合计 45 个 `<tr>` 被报长列表无检索）。
 - 2026-10-22：`second-loop-compounding` 0.1.2 → 0.1.3：在用判据补第八态 `unspecced`（无规范 → 不可调用）和观察器机器判的跑法、读法；内容是 09-24 写完留在本机没提交的。
 - 2026-10-22：`delivery-data-app` 0.2.0 → 0.2.1、`second-loop-compounding` 0.1.1 → 0.1.2，内容不变：f1f16cf 的发布锁在 Windows 上算错（排序不分大小写、zip 的 create_system 写成 0，4c8effa 修了打包脚本），发布锁规矩要求同一版本号哈希不变，所以各升一个补丁号；错的那版 CI 没过、没部署。

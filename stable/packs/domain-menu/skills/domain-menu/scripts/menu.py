@@ -30,7 +30,7 @@ import urllib.request
 import zipfile
 from pathlib import Path
 
-CLIENT_VERSION = "0.2.1"
+CLIENT_VERSION = "0.2.2"
 DEFAULT_URL = "https://menu.lsrabbit.space"
 CONFIG_DIR = Path.home() / ".config" / "cg-menu"
 PENDING_DIR = CONFIG_DIR / "pending"

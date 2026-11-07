@@ -8,7 +8,7 @@ recipients: []                   # 待核：delivery-data-app 有没有真交到
 
 packs:
   - delivery-data-app@0.2.2
-  - domain-menu@0.2.1           # 要方案的入口，菜单服务的客户端（0.2.0 从 delivery-data-app 拆出）
+  - domain-menu@0.2.2           # 要方案的入口，菜单服务的客户端（0.2.0 从 delivery-data-app 拆出）
 candidates:
   - ref: second-loop-compounding@0.1.3
     note: 还没有真收件人
